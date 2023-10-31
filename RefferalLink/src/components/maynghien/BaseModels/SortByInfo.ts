@@ -1,4 +1,4 @@
-export class SortByInfo{
+export default class SortByInfo{
     FieldName: string|undefined;
     Ascending: boolean = true;
 }

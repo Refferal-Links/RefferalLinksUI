@@ -98,7 +98,7 @@
   .el-form-item {
     width:500px;
   }
-  .el-form{
-    padding:30px;
-  }
+  main.el-main {
+    background-color: white;
+}
 </style>

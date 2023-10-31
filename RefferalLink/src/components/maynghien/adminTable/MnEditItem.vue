@@ -1,9 +1,9 @@
 <template>
-    <el-dialog :model-value="openDialog" title="Tips" class="form-dialog" width="30%" @close="emit('onCloseClicked')">
+    <el-dialog :model-value="openDialog" :title="(isEdit?'Edit ':'Create ')+ title" class="form-dialog" width="30%" @close="emit('onCloseClicked')">
 
         <div class="editform" v-if="model != undefined">
             <div v-for="column in columns" :key="column.key">
-                <div v-if="column.enableEdit == true">
+                <div v-if="(isEdit && column.enableEdit == true) || (!isEdit && column.enableCreate == true)">
                     <!-- Use double curly braces to bind variable values in templates -->
                     <label>{{ column.label }}</label>
 
@@ -11,7 +11,9 @@
                         v-if="column.inputType == undefined || column.inputType == 'text'" />
 
 
-                    <MnDropdown v-if="column.inputType == 'dropdown'" :column="column" v-model="model[column.key]">
+                    <MnDropdown v-if="column.inputType == 'dropdown'" :column="column" @changed="handleUpdateValue"
+                   v-model="model[column.key]"
+                     >
                     </MnDropdown>
                     {{ model[column.key]}}
                 </div>
@@ -36,7 +38,7 @@ import { ref, toRefs, computed, watch, inject } from 'vue';
 // @ts-ignore
 import { ElMessage, ElInput } from 'element-plus';
 // @ts-ignore
-import { handleCreate, handleUpdate } from './Service/BasicAdminService.ts'
+import { handleAPICreate, handleAPIUpdate } from './Service/BasicAdminService.ts'
 import type { TableColumn } from './Models/TableColumn';
 import MnDropdown from './Input/MnDropdown.vue';
 // @ts-ignore
@@ -52,6 +54,7 @@ const props = defineProps<{
     apiName: string;
     isEdit: boolean;
     openDialog: boolean;
+    title:string;
 }>();
 // Use computed to create a filtered model
 const model = ref<SearchDTOItem>(props.editItem);
@@ -77,7 +80,7 @@ const Save = async () => {
     const valid = Validate();
     if (valid) {
         if (props.isEdit == true && props.editItem != undefined) {
-            var editresult = await handleUpdate(props.editItem, props.apiName);
+            var editresult = await handleAPIUpdate(props.editItem, props.apiName);
             if (editresult.isSuccess) {
                 ElMessage({
                     message: 'data Updated.',
@@ -90,7 +93,7 @@ const Save = async () => {
             }
         }
         else if (props.editItem != undefined) {
-            var createresult = await handleCreate(props.editItem, props.apiName);
+            var createresult = await handleAPICreate(props.editItem, props.apiName);
             if (createresult.isSuccess) {
                 ElMessage({
                     message: 'data Created.',
@@ -109,7 +112,7 @@ const Save = async () => {
     }
 }
 const handleUpdateValue = (key: string, value: string): void => {
-    console.log("update");
+   
     model.value[key] = value;
     console.log(model.value);
 }
