@@ -15,8 +15,9 @@
                             </span>
                             <template #dropdown>
                                 <el-dropdown-menu>
-                                    <el-dropdown-item>Ngân Hàng</el-dropdown-item>
-                                    <el-dropdown-item>Chiến Dịch</el-dropdown-item>
+                                    <el-dropdown-item @click="onMenuItemClick('')">Ngân Hàng</el-dropdown-item>
+                                    <el-dropdown-item @click="onMenuItemClick('Campaign')" >Chiến Dịch</el-dropdown-item>
+                                    <el-dropdown-item @click="onMenuItemClick('Province')" >Tỉnh Thành</el-dropdown-item>
                                     <el-dropdown-item>Liên Kết</el-dropdown-item>
                                     <el-dropdown-item divided>Quản Lý Người Dùng</el-dropdown-item>
                                 </el-dropdown-menu>
@@ -99,5 +100,15 @@ const activeIndex = ref('1')
 const activeIndex2 = ref('1')
 const handleSelect = (key: string, keyPath: string[]) => {
     console.log(key, keyPath)
+    if (key === '2') {
+        window.location.href = "";
+    }
+    else if(key==='3')
+    window.location.href = "";
 }
+const onMenuItemClick = (item: string) => {
+    window.location.href = `http://localhost:5173/${item}`;
+}
+
+
 </script>

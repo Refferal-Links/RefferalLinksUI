@@ -118,7 +118,12 @@ const handleBtnSearchClicked = (filters: Filter[]) => {
 }
 const handleSaved = async () => {
   openDialogCreate.value = false;
-  searchRequest.PageIndex = 1;
+  if(isEditting.value){
+    searchRequest.PageIndex = searchRequest.PageIndex;
+  }
+  else{
+    searchRequest.PageIndex = 1;
+  }
   EdittingItem.value = new SearchDTOItem(props.tableColumns);
   Search();
 }
@@ -150,6 +155,7 @@ const handleDelete = async (id: string) => {
       message: 'row deleted.',
       type: 'success',
     });
+    
     await Search();
   }
   else {

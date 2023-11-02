@@ -30,11 +30,15 @@ const router = createRouter({
       children: [
         {
           path: '',
-          component:Province ,
+          component: BankView,
         },
         {
-          path: 'user',
-          component:  HomeView,
+          path: 'Campaign',
+          component:  Campaign,
+        },
+        {
+          path: 'Province',
+          component:  Province,
         },
         // Other routes using default layout...
       ],
