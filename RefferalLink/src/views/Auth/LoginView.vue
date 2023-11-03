@@ -16,7 +16,7 @@
     </el-form>
 
     <el-dialog v-model="dialogVisible" title="Error">
-      <p>Invalid password. Please try again.</p>
+      <p>Invalid login information</p>
       <el-button type="primary" @click="dialogVisible = false">OK</el-button>
     </el-dialog>
   </div>
@@ -95,5 +95,8 @@ const onInvalidLogin = () => {
   }
   body{
     margin: 0px;
+  }
+  .el-dialog__header{
+    background-color: #f89898;
   }
   </style>
