@@ -9,6 +9,7 @@ import Campaign from '../views/Auth/Campaign.vue'
 import Province from '../views/Auth/Province.vue'
 import TeamView from '../views/Auth/TeamView.vue'
 import LoginView from '../views/Auth/LoginView.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -32,8 +33,9 @@ const router = createRouter({
       children: [
         {
           path: '',
-          component: LoginView,
+          component: () => import('../views/Auth/LoginView.vue')
         },
+        
         {
           path: 'Bank',
           component:  BankView,
@@ -58,10 +60,10 @@ const router = createRouter({
           path: 'Login',
           component: LoginView,
         },
+        
         // Other routes using default layout...
       ],
     },
   ]
-})
-
+});
 export default router

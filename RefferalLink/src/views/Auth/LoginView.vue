@@ -1,23 +1,26 @@
 <template>
-    <div class="Content">
-      <el-form ref="ruleFormRef" :model="state" status-icon label-width="px" class="demo-ruleForm">
-  
-        <el-form-item label="" prop="username">
-          <el-input v-model="state.userName" placeholder="User name" />
-        </el-form-item>
-  
-        <el-form-item label="" prop="pass">
-          <el-input v-model="state.password" type="password" placeholder="PassWord" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="" prop="email">
-          <el-input v-model="state.email" placeholder="Email" />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="login()" >Sign In</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
-  </template>
+  <div class="Content">
+    <el-form ref="ruleFormRef" :model="state" status-icon label-width="px" class="demo-ruleForm">
+
+      <el-form-item label="" prop="username">
+        <el-input v-model="state.userName" placeholder="User name" />
+      </el-form-item>
+
+      <el-form-item label="" prop="pass">
+        <el-input v-model="state.password" type="password" placeholder="PassWord" autocomplete="off" />
+      </el-form-item>
+
+      <el-form-item>
+        <el-button type="primary" @click="login()">Sign In</el-button>
+      </el-form-item>
+    </el-form>
+
+    <el-dialog v-model="dialogVisible" title="Error">
+      <p>Invalid password. Please try again.</p>
+      <el-button type="primary" @click="dialogVisible = false">OK</el-button>
+    </el-dialog>
+  </div>
+</template>
   <script setup lang="ts">
 import { Calendar, Search, User, Key } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue';
@@ -35,14 +38,36 @@ const state = reactive<LoginViewModel>({
   email: '',
   role:''
 });
+import { ElMessageBox } from 'element-plus'
+
+const dialogVisible = ref(false)
+const handleClose = (done: () => void) => {
+  ElMessageBox.confirm('Are you sure to close this dialog?')
+    .then(() => {
+      done()
+    })
+    .catch(() => {
+      // catch error
+    })
+}
+
 const login = async () => {
-  console.log(state);
   const loginResult = await handleLogin(state);
-  console.log("logresult:" + loginResult);
-  if (loginResult.isSuccess)
+  if (!loginResult.isSuccess) {
+    dialogVisible.value = true;
+  } else {
     window.location.href = '/Bank';
-  //else
-   // _toast.success(loginResult.message);
+  }
+}
+
+const onInvalidLogin = () => {
+  ElMessageBox.confirm('Invalid password. Please try again.')
+    .then(() => {
+      dialogVisible.value = false;
+    })
+    .catch(() => {
+      // catch error
+    })
 }
 </script>
   <style>

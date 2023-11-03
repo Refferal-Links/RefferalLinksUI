@@ -15,7 +15,7 @@
                             </span>
                             <template #dropdown>
                                 <el-dropdown-menu>
-                                    <el-dropdown-item @click="onMenuItemClick('')">Ngân Hàng</el-dropdown-item>
+                                    <el-dropdown-item @click="onMenuItemClick('Bank')">Ngân Hàng</el-dropdown-item>
                                     <el-dropdown-item @click="onMenuItemClick('Campaign')" >Chiến Dịch</el-dropdown-item>
                                     <el-dropdown-item @click="onMenuItemClick('Province')" >Tỉnh Thành</el-dropdown-item>
                                     <el-dropdown-item @click="onMenuItemClick('Team')" >Team</el-dropdown-item>
@@ -34,7 +34,7 @@
                             </el-icon>
                             <template #dropdown>
                                 <el-dropdown-menu>
-                                    <el-dropdown-item>Đăng Xuất</el-dropdown-item>
+                                    <el-dropdown-item @click="logout()">Đăng Xuất</el-dropdown-item>
                                 </el-dropdown-menu>
                             </template>
                         </el-dropdown>
@@ -110,6 +110,16 @@ const handleSelect = (key: string, keyPath: string[]) => {
 const onMenuItemClick = (item: string) => {
     window.location.href = `http://localhost:5173/${item}`;
 }
+function logout() {
+  var cookies = document.cookie.split(";");
 
+  for (var i = 0; i < cookies.length; i++) {
+    var cookie = cookies[i];
+    var eqPos = cookie.indexOf("=");
+    var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
+  }
+  window.location.href = "/login";
+}
 
 </script>
