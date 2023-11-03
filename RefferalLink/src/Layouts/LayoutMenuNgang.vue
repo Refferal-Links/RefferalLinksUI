@@ -18,6 +18,7 @@
                                     <el-dropdown-item @click="onMenuItemClick('')">Ngân Hàng</el-dropdown-item>
                                     <el-dropdown-item @click="onMenuItemClick('Campaign')" >Chiến Dịch</el-dropdown-item>
                                     <el-dropdown-item @click="onMenuItemClick('Province')" >Tỉnh Thành</el-dropdown-item>
+                                    <el-dropdown-item @click="onMenuItemClick('Team')" >Team</el-dropdown-item>
                                     <el-dropdown-item>Liên Kết</el-dropdown-item>
                                     <el-dropdown-item divided>Quản Lý Người Dùng</el-dropdown-item>
                                 </el-dropdown-menu>
@@ -25,7 +26,7 @@
                         </el-dropdown>
                     </el-menu-item>
                     <el-menu-item index="2">Khách Hàng</el-menu-item>
-                    <el-menu-item index="3">Đăng Kí</el-menu-item>
+                    <el-menu-item index="3" @click="onMenuItemClick('Register')">Đăng Kí</el-menu-item>
                     <el-menu-item index="4">
                         <el-dropdown>
                             <el-icon style="margin-right: 8px; margin-top: 1px">
