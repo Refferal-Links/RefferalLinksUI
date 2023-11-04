@@ -9,23 +9,11 @@ import Campaign from '../views/Auth/Campaign.vue'
 import Province from '../views/Auth/Province.vue'
 import TeamView from '../views/Auth/TeamView.vue'
 import LoginView from '../views/Auth/LoginView.vue'
+import Cookies from 'js-cookie';
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
-    // {
-    //   path: '/',
-    //   // name: 'home',
-    //   component: Layout1,
-    // },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue')
-    // }
     {
       path: '/',
       component: LayoutMenuNgang,
@@ -33,7 +21,7 @@ const router = createRouter({
       children: [
         {
           path: '',
-          component: () => import('../views/Auth/LoginView.vue')
+          component:LoginView,
         },
         
         {
@@ -56,14 +44,33 @@ const router = createRouter({
           path: 'Team',
           component: TeamView,
         },
-        {
-          path: 'Login',
-          component: LoginView,
-        },
-        
         // Other routes using default layout...
       ],
     },
+    {
+      path: '/auth',
+      component: LayoutBlank,
+      children: [
+        {
+          path: '/login',
+          component: LoginView,
+        },
+        {
+          path: '/register',
+          component: RegisterView,
+        },
+        // Other routes using alternative layout...
+      ],
+    },
   ]
+});
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = !!Cookies.get('accessToken');
+  
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/login'); // Redirect to the login page
+  } else {
+    next(); // Continue to the requested route
+  }
 });
 export default router

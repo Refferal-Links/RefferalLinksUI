@@ -1,7 +1,6 @@
 <template>
     <div class="common-layout">
         <el-container>
-            <el-aside width="400px"></el-aside>
             <el-main>
                 <div>
                     <router-view />
@@ -17,8 +16,5 @@
     Height: 500px;
 }
 
-.el-aside {
-    background-color: var(--el-text-color-primary);
-}
 </style>
   

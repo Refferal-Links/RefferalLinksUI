@@ -7,7 +7,7 @@ import { axiosInstance } from "./axiosConfig.ts"
 
 import Cookies from 'js-cookie';
 import { reactive } from 'vue';
-const loginUrl = "account/login";
+const loginUrl = "Account/login";
 
 export const handleLogin = async (model: LoginViewModel): Promise<AppResponse<string>> => {
 

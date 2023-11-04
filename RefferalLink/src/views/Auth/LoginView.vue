@@ -41,15 +41,15 @@ const state = reactive<LoginViewModel>({
 import { ElMessageBox } from 'element-plus'
 
 const dialogVisible = ref(false)
-const handleClose = (done: () => void) => {
-  ElMessageBox.confirm('Are you sure to close this dialog?')
-    .then(() => {
-      done()
-    })
-    .catch(() => {
-      // catch error
-    })
-}
+// const handleClose = (done: () => void) => {
+//   ElMessageBox.confirm('Are you sure to close this dialog?')
+//     .then(() => {
+//       done()
+//     })
+//     .catch(() => {
+//       // catch error
+//     })
+// }
 
 const login = async () => {
   const loginResult = await handleLogin(state);
