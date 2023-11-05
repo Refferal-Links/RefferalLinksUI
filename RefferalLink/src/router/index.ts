@@ -3,13 +3,13 @@ import HomeView from '../views/HomeView.vue'
 import LayoutBlank from '../Layouts/LayoutBlank.vue'
 import RegisterView from '../views/Auth/RegisterView.vue'
 import LayoutMenuNgang from '../Layouts/LayoutMenuNgang.vue'
-import UserView from '../views/Auth/UserView.vue'
 import BankView from '../views/Auth/BankView.vue'
 import Campaign from '../views/Auth/Campaign.vue'
 import Province from '../views/Auth/Province.vue'
 import TeamView from '../views/Auth/TeamView.vue'
 import LoginView from '../views/Auth/LoginView.vue'
 import UserManagementView from '../views/Auth/UserManagementView.vue'
+import HomePageView from '../views/Auth/HomePageView.vue'
 import Cookies from 'js-cookie';
 
 const router = createRouter({
@@ -22,7 +22,7 @@ const router = createRouter({
       children: [
         {
           path: '',
-          component:LoginView,
+          component:HomePageView,
         },
         
         {

@@ -53,17 +53,32 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "role",
-        label: "Vai Trò",
-        width: 1000,
-        sortable: true,
-        enableEdit:  true,
-
-        enableCreate:  true,
-        required:false,
+        label: "Role",
+        enableEdit: true,
+        enableCreate: true,
         hidden: false,
+        width: 300,
+        required: true,
+        sortable: true,
         showSearch: false,
-        inputType:  "text",
-        dropdownData:null,
+        inputType: "dropdown",
+        dropdownData: {
+            displayMember: "roleName",
+            keyMember: "role",
+            data: [
+                {
+                    role: "Admin",
+                    roleName: "Admin"
+                },
+                {
+
+                    role: "TenantAdmin",
+                    roleName: "Personal"
+                }
+            ]
+
+        },
+
     },
 ]
 const CustomActions: CustomAction[]=([]);

@@ -1,4 +1,3 @@
-
 // @ts-ignore
 import { AppResponse } from '../../../../models/AppResponse.js'
 
@@ -162,6 +161,33 @@ export const handleAPICustom = async (model: SearchDTOItem, action: CustomAction
 
         console.log(postResult.data);
         const responseObject = postResult.data
+        resust = responseObject;
+        if (resust.isSuccess) {
+            return resust;
+        }
+        else {
+            console.log(resust.message);
+            return resust;
+        }
+    } catch (error) {
+        console.error(error);
+
+    }
+    return resust;
+
+}
+export const handleAPIGetDropdownList = async (apiurl: string): Promise<AppResponse<any[] | undefined>> => {
+
+    let resust: AppResponse<SearchDTOItem[] | undefined> = ({
+        isSuccess: false,
+        message: '',
+        data: undefined
+    });
+
+    try {
+        const listResult = await axiosInstance.get(apiurl);
+        
+        const responseObject = listResult.data
         resust = responseObject;
         if (resust.isSuccess) {
             return resust;
