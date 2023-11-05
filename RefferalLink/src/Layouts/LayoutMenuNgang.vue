@@ -20,7 +20,7 @@
                                     <el-dropdown-item @click="onMenuItemClick('Province')" >Tỉnh Thành</el-dropdown-item>
                                     <el-dropdown-item @click="onMenuItemClick('Team')" >Team</el-dropdown-item>
                                     <el-dropdown-item>Liên Kết</el-dropdown-item>
-                                    <el-dropdown-item divided>Quản Lý Người Dùng</el-dropdown-item>
+                                    <el-dropdown-item divided @click="onMenuItemClick('User')">Quản Lý Người Dùng</el-dropdown-item>
                                 </el-dropdown-menu>
                             </template>
                         </el-dropdown>

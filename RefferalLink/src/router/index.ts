@@ -9,6 +9,7 @@ import Campaign from '../views/Auth/Campaign.vue'
 import Province from '../views/Auth/Province.vue'
 import TeamView from '../views/Auth/TeamView.vue'
 import LoginView from '../views/Auth/LoginView.vue'
+import UserManagementView from '../views/Auth/UserManagementView.vue'
 import Cookies from 'js-cookie';
 
 const router = createRouter({
@@ -43,6 +44,10 @@ const router = createRouter({
         {
           path: 'Team',
           component: TeamView,
+        },
+        {
+          path: 'User',
+          component: UserManagementView,
         },
         // Other routes using default layout...
       ],
