@@ -10,6 +10,7 @@ import TeamView from '../views/Auth/TeamView.vue'
 import LoginView from '../views/Auth/LoginView.vue'
 import UserManagementView from '../views/Auth/UserManagementView.vue'
 import HomePageView from '../views/Auth/HomePageView.vue'
+import LinkTemplateView from '../views/Auth/LinkTemplateView.vue'
 import Cookies from 'js-cookie';
 
 const router = createRouter({
@@ -44,6 +45,10 @@ const router = createRouter({
         {
           path: 'Team',
           component: TeamView,
+        },
+        {
+          path: 'Link',
+          component: LinkTemplateView ,
         },
         {
           path: 'User',
