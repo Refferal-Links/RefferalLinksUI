@@ -24,15 +24,14 @@ const tableColumns: TableColumn[] = [
         inputType:  "text",
         dropdownData:null,
     },
-    
     {
         key: "isActive",
         label: "Trạng Thái",
-        width: 1000,
-        sortable: true,
-        enableEdit:  true,
+        width: 500,
+        sortable: false,
+        enableEdit:  false,
 
-        enableCreate:  true,
+        enableCreate:  false,
         required:false,
         hidden: false,
         showSearch: false,

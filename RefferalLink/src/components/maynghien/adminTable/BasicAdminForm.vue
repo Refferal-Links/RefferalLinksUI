@@ -119,7 +119,12 @@ const handleBtnSearchClicked = (filters: Filter[]) => {
 }
 const handleSaved = async () => {
   openDialogCreate.value = false;
-  searchRequest.PageIndex = 1;
+  if(isEditting.value){
+    searchRequest.PageIndex = searchRequest.PageIndex;
+  }
+  else{
+    searchRequest.PageIndex = 1;
+  }
   EdittingItem.value = new SearchDTOItem(props.tableColumns);
   Search();
 }
@@ -188,7 +193,7 @@ const handleCustomAction = async (item: CustomActionResponse) => {
       return;
     }
     else {
-      searchRequest.PageIndex = 1;
+      searchRequest.PageIndex = searchRequest.PageIndex;
       await Search();
     }
   }
