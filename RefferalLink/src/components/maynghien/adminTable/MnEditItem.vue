@@ -8,14 +8,14 @@
                     <label>{{ column.label }}</label>
 
                     <el-input v-model="model[column.key]" :placeholder="column.label"
-                        v-if="column.inputType == undefined || column.inputType == 'text'" />
+                        v-if="column.inputType == undefined || column.inputType == 'text' || column.inputType=='number'"  
+                        :type="column.inputType" />
 
 
                     <MnDropdown v-if="column.inputType == 'dropdown'" :column="column" @changed="handleUpdateValue"
                    v-model="model[column.key]"
                      >
                     </MnDropdown>
-                    {{ model[column.key]}}
                 </div>
 
             </div>
@@ -28,7 +28,6 @@
                     Confirm
                 </el-button>
             </span>
-            {{ model }}
         </template>
     </el-dialog>
 </template>
@@ -43,7 +42,6 @@ import type { TableColumn } from './Models/TableColumn';
 import MnDropdown from './Input/MnDropdown.vue';
 // @ts-ignore
 import { SearchDTOItem } from './Models/SearchDTOItem.ts';
-import { isBoolean } from 'element-plus/lib/utils/types.js';
 const emit = defineEmits<{
     (e: 'onSaved'): void;
     (e: 'onCloseClicked'): void;
@@ -128,5 +126,8 @@ watch(() => props.editItem, () => {
     margin-top: 0;
     margin-right: 0;
     height: 100%;
+}
+.editform .el-select {
+    width: 100%;
 }
 </style>

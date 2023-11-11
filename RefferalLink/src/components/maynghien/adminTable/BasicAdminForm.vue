@@ -6,7 +6,7 @@
   </MnActionPane>
   <MnTable :columns="tableColumns" :datas="datas" :onSaved="handleSaved" :enableEdit="allowEdit"
     :enableDelete="allowDelete" :onCloseClicked="handleOnEditCloseClicked" @onEdit="handleEdit" @onDelete="handleDelete"
-    :CustomActions="CustomRowActions" @on-custom-action="handleCustomAction" />
+    :CustomActions="CustomRowActions" @on-custom-action="handleCustomAction" @onSortChange="handleSortChange" />
   <el-pagination small background layout="prev, pager, next" :total="totalItem" :page-size="10"
     @current-change="handlePageChange" :current-page="searchRequest.PageIndex" class="mt-4" />
   Found {{ totalItem }} results. Page {{ searchRequest.PageIndex }} of total {{ totalPages }} pages
@@ -44,6 +44,7 @@ import type { AppResponse } from '@/models/AppResponse';
 // @ts-ignore
 import { ElMessage } from 'element-plus';
 import type { CustomAction, CustomActionResponse } from './Models/CustomAction';
+import { SortByInfo } from '../BaseModels/SortByInfo';
 //#region Method
 
 const Search = async () => {
@@ -94,7 +95,7 @@ let searchRequest: SearchRequest = {
   PageIndex: 1,
   PageSize: 10,
   filters: undefined,
-  SortByInfo: undefined
+  SortBy: undefined
 }
 const CustomButtons = ref<CustomAction[]>([{}]);
 const CustomRowActions = ref<CustomAction[]>([{}]);
@@ -118,12 +119,7 @@ const handleBtnSearchClicked = (filters: Filter[]) => {
 }
 const handleSaved = async () => {
   openDialogCreate.value = false;
-  if(isEditting.value){
-    searchRequest.PageIndex = searchRequest.PageIndex;
-  }
-  else{
-    searchRequest.PageIndex = 1;
-  }
+  searchRequest.PageIndex = 1;
   EdittingItem.value = new SearchDTOItem(props.tableColumns);
   Search();
 }
@@ -155,7 +151,6 @@ const handleDelete = async (id: string) => {
       message: 'row deleted.',
       type: 'success',
     });
-    
     await Search();
   }
   else {
@@ -165,7 +160,16 @@ const handleDelete = async (id: string) => {
     });
   }
 }
+const handleSortChange = async (event: any) => {
+  const sortByInfo: SortByInfo = {
+    FieldName:event.column.property,
+    Ascending:event.column.order!="descending"
 
+  }
+  searchRequest.SortBy = sortByInfo;
+  searchRequest.PageIndex=1;
+  await Search();
+};
 const SelectedId = ref("");
 //provide('OpenDialogCreateItem', openDialogCreate);
 const handleEdit = async (item: SearchDTOItem) => {
@@ -176,14 +180,14 @@ const handleEdit = async (item: SearchDTOItem) => {
 const handleCustomAction = async (item: CustomActionResponse) => {
   if (item.Action.ApiAction != undefined) {
     var url: string = props.apiName + "/" + item.Action.ActionName;
-    var apiResult = await handleAPICustom(item.Data, item.Action,url);
+    var apiResult = await handleAPICustom(item.Data, item.Action, url);
     console.log(apiResult);
-    
+
     if (!apiResult.isSuccess) {
       console.log(apiResult);
       return;
     }
-    else{
+    else {
       searchRequest.PageIndex = 1;
       await Search();
     }

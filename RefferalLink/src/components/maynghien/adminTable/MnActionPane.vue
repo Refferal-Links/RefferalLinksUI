@@ -1,15 +1,15 @@
 <template>
-    <el-row>
+    <el-row class="action-pane">
         <el-col :span="24">
-            <el-row class="ep-bg-purple-dark el-col-24 action-pane">
+            <el-row class="ep-bg-purple-dark el-col-24">
                 <el-col :span="24">
                     <el-row>
                         <div v-for="filter in filters">
 
                             <el-input v-model="filter.Value" :placeholder="filter.DisplayName"
-                                v-if="filter.Type == undefined || filter.Type == 'text'">
+                                v-if="filter.Type == undefined || filter.Type == 'text'" class="action-input">
                             </el-input>
-                            <el-select v-model="filter.Value" :placeholder="filter.DisplayName"
+                            <el-select v-model="filter.Value" :placeholder="filter.DisplayName" class="action-input"
                                 v-if="filter.Type == 'dropdown'">
                                 <el-option v-for="item in filter.dropdownData.data"
                                     :key="item[filter.dropdownData.keyMember]"
@@ -17,7 +17,7 @@
                                     :value="item[filter.dropdownData.keyMember]" />
                             </el-select>
                         </div>
-                        <el-button v-if="filters != undefined && filters.length > 0" :icon="Search" 
+                        <el-button v-if="filters != undefined && filters.length > 0" :icon="Search"
                             @click="handlebtnSearchClicked"> search</el-button>
 
                     </el-row>
@@ -28,9 +28,9 @@
 
             </el-row>
             <el-row>
-                <el-col :span="12" class="buttons">
+                <el-col :span="12" class="buttons p-1">
 
-                    <el-button :icon="Plus"  @click="handlebtnAddClicked" v-if="allowAdd"> Create</el-button>
+                    <el-button :icon="Plus" @click="handlebtnAddClicked" v-if="allowAdd"> Create</el-button>
                 </el-col>
 
             </el-row>
@@ -55,8 +55,9 @@ import { TableColumn } from './Models/TableColumn.ts'
 // @ts-ignore
 import { Filter } from '../BaseModels/Filter';
 
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import type { CustomAction } from './Models/CustomAction';
+import { handleAPIGetDropdownList } from './Service/BasicAdminService';
 const props = defineProps<{
     tableColumns: TableColumn[];
     allowAdd: boolean;
@@ -69,6 +70,7 @@ const emit = defineEmits<{
 }>();
 const filters = ref<Filter[]>([]);
 
+const dropdownData = ref<any[]>([]);
 props.tableColumns.forEach(colum => {
     if (colum.showSearch) {
         const newFilter: Filter = {
@@ -92,6 +94,39 @@ const handlebtnSearchClicked = () => {
 
     emit("onBtnSearchClicked", filtersRequest);
 }
+
+watch(() => props.tableColumns, async () => {
+    props.tableColumns.forEach(async tableCol => {
+        if (tableCol.inputType == "dropdown" && tableCol.dropdownData.apiUrl != undefined) {
+            var data = await handleAPIGetDropdownList(tableCol.dropdownData.apiUrl);
+            console.log(data);
+
+            if (data != undefined && data.data) {
+                tableCol.dropdownData.data = data.data;
+            }
+
+        }
+        
+
+    });
+    console.log(props.tableColumns);
+    filters.value=[];
+    props.tableColumns.forEach(colum => {
+        if (colum.showSearch) {
+            const newFilter: Filter = {
+                FieldName: colum.key,
+                DisplayName: colum.label,
+                Value: "",
+                Operation: "",
+                Type: colum.inputType,
+                dropdownData: colum.dropdownData,
+            };
+            filters.value?.push(newFilter);
+        }
+    });
+
+}, { immediate: true })
+
 </script>
 <style >
 .action-pane {
@@ -100,11 +135,11 @@ const handlebtnSearchClicked = () => {
 }
 
 .action-pane .buttons {
-    float: right;
-    text-align: right;
+    padding: 5px 0px;
 }
 
-button {
-    margin-left: 5px;
+.action-pane .action-input {
+    padding-right:5px;
 }
+
 </style>

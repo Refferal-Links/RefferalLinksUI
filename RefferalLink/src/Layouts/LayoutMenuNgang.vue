@@ -38,7 +38,7 @@
                                 </el-dropdown-menu>
                             </template>
                         </el-dropdown>
-                        <span>Admin</span>
+                        <span> {{userName}}</span>
                     </el-menu-item>
                 </el-menu>
             </el-header>
@@ -121,5 +121,14 @@ function logout() {
   }
   window.location.href = "/login";
 }
-
+const getCookie = (name: string): string | null => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+  return null;
+};
+const userName=getCookie('UserName');
+const handleClose = (key: string, keyPath: string[]) => {
+  console.log(key, keyPath)
+}
 </script>

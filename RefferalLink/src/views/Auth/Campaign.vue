@@ -5,9 +5,10 @@
     </Suspense>
 </template>
 <script lang="ts" setup>
-import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColumn'
-import BasicAdminFormVue from '@/components/maynghien/adminTable/BasicAdminForm.vue'
-import {CustomAction} from '@/components/maynghien/adminTable/Models/CustomAction'
+import BasicAdminFormVue from '@/components/maynghien/adminTable/BasicAdminForm.vue';
+import { ApiActionType, CustomAction, CustomActionDataType } from '@/components/maynghien/adminTable/Models/CustomAction';
+// @ts-ignore
+import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColumn.ts';
 const tableColumns: TableColumn[] = [
     {
         key: "name",
@@ -23,6 +24,31 @@ const tableColumns: TableColumn[] = [
         inputType:  "text",
         dropdownData:null,
     },
+    
+    {
+        key: "isActive",
+        label: "Trạng Thái",
+        width: 1000,
+        sortable: true,
+        enableEdit:  true,
+
+        enableCreate:  true,
+        required:false,
+        hidden: false,
+        showSearch: false,
+        inputType:  "text",
+        dropdownData:null,
+    },
 ]
-const CustomActions: CustomAction[]=([]);
+const CustomActions: CustomAction[] = ([
+    {
+        ActionName: "StatusChange",
+        ActionLabel: "StatusChange",
+        ApiAction: "StatusChange",
+        ApiActiontype:ApiActionType.PUT,
+        IsRowAction: true,
+        DataType: CustomActionDataType.RowId,
+    }
+]);
+
 </script>
