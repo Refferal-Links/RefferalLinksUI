@@ -1,26 +1,4 @@
 <template>
-  <el-form
-  ref="formRef"
-  :model="numberValidateForm"
-  label-width="100px"
-  class="demo-ruleForm"
->
-  <el-form-item label="name" prop="name">
-    <el-input v-model="numberValidateForm.name" type="text" autocomplete="off" />
-  </el-form-item>
-  <el-form-item label="phone number" prop="phoneNumber">
-    <el-input v-model="numberValidateForm.phoneNumber" type="tel" autocomplete="off" />
-  </el-form-item>
-  <el-form-item label="sale" prop="sale">
-    <el-input v-model.number="numberValidateForm.sale" type="text" autocomplete="off" />
-  </el-form-item>
-  <el-form-item>
-    <el-button type="primary"  @click="handleSubmit">Submit</el-button>
-  </el-form-item>
-  <label v-if="submitted">
-    http://abc.com/{{numberValidateForm.sale}}?phonenumber={{numberValidateForm.phoneNumber}}&name={{numberValidateForm.name}}
-    </label>
-</el-form>
     <Suspense>
         <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'LinkTemplate'" :allowAdd="true" :allowEdit="true"
             :allowDelete="true" title="LinkTemplate" :CustomActions="CustomActions" ></BasicAdminFormVue>
@@ -76,15 +54,52 @@ const tableColumns: TableColumn[] = [
     },
 
     {
-        key: "bankId",
+        key: "bankName",
         label: "Tên Ngân Hàng",
+        width: 1000,
+        sortable: true,
+        enableEdit:  false,
+
+        enableCreate:  false,
+        required:true,
+        hidden: false,
+        showSearch: false,
+        inputType: "dropdown",
+        dropdownData: {
+            displayMember: "name",
+            keyMember: "id",
+            apiUrl: "Bank"
+        },
+
+    },
+    {
+        key: "campaignName",
+        label: "Tên Chiến Dịch ",
+        width: 1000,
+        sortable: true,
+        enableEdit:  false,
+
+        enableCreate:  false,
+        required:true,
+        hidden: false,
+        showSearch: false,
+        inputType: "dropdown",
+        dropdownData: {
+            displayMember: "name",
+            keyMember: "id",
+            apiUrl: "Campaign"
+        },
+    },
+    {
+        key: "bankId",
+        label: "id Ngân Hàng",
         width: 1000,
         sortable: true,
         enableEdit:  true,
 
         enableCreate:  true,
         required:true,
-        hidden: false,
+        hidden: true,
         showSearch: true,
         inputType: "dropdown",
         dropdownData: {
@@ -96,14 +111,14 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "campaignId",
-        label: "Tên Chiến Dịch ",
+        label: "IdChiến Dịch ",
         width: 1000,
         sortable: true,
         enableEdit:  true,
 
         enableCreate:  true,
         required:true,
-        hidden: false,
+        hidden: true,
         showSearch: true,
         inputType: "dropdown",
         dropdownData: {
@@ -115,26 +130,4 @@ const tableColumns: TableColumn[] = [
 ]
 const CustomActions: CustomAction[]=([]);
 import { reactive, ref } from 'vue'
-import type { FormInstance } from 'element-plus'
-
-const formRef = ref<FormInstance>()
-
-const numberValidateForm = reactive({
-  name:'',
-  phoneNumber:'',
-  sale:''
-});
-
-const submitted = ref(false)
-
-async function handleSubmit() {
-  const form = formRef.value
-  if (!form.validate()) {
-    return
-  }
-
-  // Submit the form data to your server
-
-  submitted.value = true
-}
 </script>

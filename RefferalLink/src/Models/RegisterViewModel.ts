@@ -4,5 +4,8 @@ export class RegisterViewModel{
     passport: string | undefined;
     phoneNumber: string | undefined;
     cccd: string | undefined;
-    email: string | undefined
+    email: string | undefined;
+    refferalCode: string | undefined;
+    nameProvice: string | undefined
+
 }
