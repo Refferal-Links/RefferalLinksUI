@@ -24,20 +24,20 @@ const tableColumns: TableColumn[] = [
         inputType:  "text",
         dropdownData:null,
     },
-    // {
-    //     key: "isActive",
-    //     label: "Trạng Thái",
-    //     width: 500,
-    //     sortable: false,
-    //     enableEdit:  false,
+    {
+        key: "isActive",
+        label: "Trạng Thái",
+        width: 500,
+        sortable: false,
+        enableEdit:  false,
 
-    //     enableCreate:  false,
-    //     required:false,
-    //     hidden: false,
-    //     showSearch: false,
-    //     inputType:  "text",
-    //     dropdownData:null,
-    // },
+        enableCreate:  false,
+        required:false,
+        hidden: false,
+        showSearch: false,
+        inputType:  "text",
+        dropdownData:null,
+    },
 ]
 const CustomActions: CustomAction[] = ([
     {

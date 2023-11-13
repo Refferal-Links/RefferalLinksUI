@@ -6,6 +6,6 @@ export class RegisterViewModel{
     cccd: string | undefined;
     email: string | undefined;
     refferalCode: string | undefined;
-    nameProvice: string | undefined
+    nameProvince: string | undefined
 
 }

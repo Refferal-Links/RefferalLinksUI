@@ -5,15 +5,17 @@
     </Suspense>
 </template>
 <script lang="ts" setup>
-import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColumn'
-import BasicAdminFormVue from '@/components/maynghien/adminTable/BasicAdminForm.vue'
-import {CustomAction} from '@/components/maynghien/adminTable/Models/CustomAction'
+import BasicAdminFormVue from '@/components/maynghien/adminTable/BasicAdminForm.vue';
+import { ApiActionType, CustomAction, CustomActionDataType } from '@/components/maynghien/adminTable/Models/CustomAction';
+// @ts-ignore
+import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColumn.ts';
 import { axiosInstance } from '@/Services/axiosConfig';
 
 class Bank {
     Id: string| undefined
     Name: string|undefined
 }
+import { reactive, ref } from 'vue'
 //import { ref } from 'vue';
 const listBank = ref<Bank[]>([]);
 const FetchData = async() => {
@@ -36,7 +38,7 @@ FetchData()
 //         console.log(listCampaign)
 //     })
 // }
-FetchData()
+// FetchData()
 const tableColumns: TableColumn[] = [
     {
         key: "url",
@@ -127,7 +129,30 @@ const tableColumns: TableColumn[] = [
             apiUrl: "Campaign"
         },
     },
+        {
+        key: "isActive",
+        label: "Trạng Thái",
+        width: 500,
+        sortable: false,
+        enableEdit:  false,
+
+        enableCreate:  false,
+        required:false,
+        hidden: false,
+        showSearch: false,
+        inputType:  "text",
+        dropdownData:null,
+    },
 ]
-const CustomActions: CustomAction[]=([]);
-import { reactive, ref } from 'vue'
+const CustomActions: CustomAction[] = ([
+    {
+        ActionName: "StatusChange",
+        ActionLabel: "StatusChange",
+        ApiAction: "StatusChange",
+        ApiActiontype:ApiActionType.PUT,
+        IsRowAction: true,
+        DataType: CustomActionDataType.RowId,
+    }
+]);
+
 </script>
