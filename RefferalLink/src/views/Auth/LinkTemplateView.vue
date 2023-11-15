@@ -49,12 +49,6 @@ const tableColumns: TableColumn[] = [
             displayMember: "name",
             keyMember: "id",
             apiUrl: "Bank",
-            data: [
-                {
-                    id: null,
-                    name: "Y",
-                },
-            ],
         },
 
     },
@@ -74,12 +68,6 @@ const tableColumns: TableColumn[] = [
             displayMember: "name",
             keyMember: "id",
             apiUrl: "Campaign",
-            data: [
-                {
-                    id: null,
-                    name: "Y",
-                },
-            ],
         },
     },
     {
@@ -98,12 +86,6 @@ const tableColumns: TableColumn[] = [
             displayMember: "name",
             keyMember: "id",
             apiUrl: "Bank",
-            data: [
-                {
-                    id: null,
-                    name: "Y",
-                },
-            ],
         },
 
     },
@@ -122,12 +104,6 @@ const tableColumns: TableColumn[] = [
         displayMember: "name",
         keyMember: "id",
         apiUrl: "Campaign",
-              data: [
-                {
-                    id: null,
-                    name: "",
-                },
-            ],
         },
     },
         {
