@@ -1,17 +1,18 @@
 <template>
-    <p>Hello </p>
+    <p>http://localhost:5173/Register/Code={{decodedToken.RefferalCode}} </p>
 </template>
 <script setup lang="ts">
-import { decode } from 'jsonwebtoken';
+import { decode,verify } from 'jsonwebtoken';
 import Cookies from 'js-cookie';
+import { ref } from 'vue';
 
 
+const decodedToken = ref();
 
-
-function a (){
+function getCode(){
     var token = Cookies.get('accessToken')?.toString();
-    const decodedToken = decode(token ?? '');
-    console.log(decodedToken);
+    decodedToken.value = decode(token ?? '');
+    console.log(decodedToken.value);
 }
-a();
+getCode();
 </script>

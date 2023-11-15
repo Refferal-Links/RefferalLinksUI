@@ -39,7 +39,7 @@ const router = createRouter({
           component:  Province,
         },
         {
-          path: 'Register',
+          path: 'Register/Code=:Code',
           component:  RegisterView,
         },
         {
