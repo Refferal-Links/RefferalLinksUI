@@ -16,7 +16,7 @@ const tableColumns: TableColumn[] = [
         label: "Tên Người dùng",
         width: 1000,
         sortable: true,
-        enableEdit: true,
+        enableEdit: false,
 
         enableCreate: true,
         required: false,
@@ -44,7 +44,7 @@ const tableColumns: TableColumn[] = [
         label: "Email",
         width: 1000,
         sortable: true,
-        enableEdit: true,
+        enableEdit: false,
 
         enableCreate: true,
         required: false,
@@ -58,7 +58,7 @@ const tableColumns: TableColumn[] = [
         label: "RefferalCode",
         width: 500,
         sortable: false,
-        enableEdit:  true,
+        enableEdit:  false,
 
         enableCreate:  true,
         required:false,
@@ -72,7 +72,7 @@ const tableColumns: TableColumn[] = [
         label: "TpBank",
         width: 500,
         sortable: false,
-        enableEdit:  true,
+        enableEdit:  false,
 
         enableCreate:  true,
         required:false,
@@ -98,7 +98,7 @@ const tableColumns: TableColumn[] = [
     {
         key: "role",
         label: "Role",
-        enableEdit: true,
+        enableEdit: false,
         enableCreate: true,
         hidden: false,
         width: 300,
@@ -134,7 +134,7 @@ const tableColumns: TableColumn[] = [
         label: "Team",
         width: 1000,
         sortable: true,
-        enableEdit:  true,
+        enableEdit:  false,
 
         enableCreate:  true,
         required:true,
@@ -158,7 +158,7 @@ const tableColumns: TableColumn[] = [
         enableCreate:  false,
         required:true,
         hidden: false,
-        showSearch: true,
+        showSearch: false,
         inputType: "dropdown",
         dropdownData: {
             displayMember: "name",
