@@ -1,11 +1,14 @@
 
 export class RegisterViewModel{
     name:string | undefined;
-    passport: string | undefined;
+    passport: boolean;
     phoneNumber: string | undefined;
     cccd: string | undefined;
     email: string | undefined;
     refferalCode: string | undefined;
-    nameProvince: string | undefined
+    provinceId: string | undefined
 
+    constructor(){
+        this.passport = true
+    }
 }
