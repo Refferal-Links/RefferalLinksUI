@@ -32,7 +32,7 @@
                         <el-input v-model="state.nameProvince" placeholder="Tên Tỉnh" />
                     </el-form-item> -->
           <el-form-item>
-            <el-select v-model="state.nameProvince" placeholder="Tên Tỉnh">
+            <el-select v-model="state.provinceId" placeholder="Tên Tỉnh">
               <el-option
                 v-for="item in provinceData"
                 :key="item.id"
@@ -81,6 +81,7 @@ const route = useRoute();
 async function register() {
   console.log(state);
   const code = route.params.Code;
+  state.refferalCode = code.toString();
   const loginResult = await handleRegister(state);
   console.log("logresult:" + loginResult);
   if (loginResult.isSuccess) {
