@@ -53,7 +53,34 @@ const tableColumns: TableColumn[] = [
         inputType: "text",
         dropdownData: null,
     },
+    {
+        key: "refferalCode",
+        label: "RefferalCode",
+        width: 500,
+        sortable: false,
+        enableEdit:  true,
 
+        enableCreate:  true,
+        required:false,
+        hidden: false,
+        showSearch: false,
+        inputType:  "text",
+        dropdownData:null,
+    },
+    {
+        key: "tpBank",
+        label: "TpBank",
+        width: 500,
+        sortable: false,
+        enableEdit:  true,
+
+        enableCreate:  true,
+        required:false,
+        hidden: false,
+        showSearch: false,
+        inputType:  "text",
+        dropdownData:null,
+    },
     {
         key: "LockoutEnabled",
         label: "LockoutEnabled",
@@ -89,16 +116,35 @@ const tableColumns: TableColumn[] = [
                 },
                 {
 
-                    role: " Teamleader",
+                    role: "Teamleader",
                     roleName: "Teamleader"
                 },
                 {
 
-                    role: " Sale",
+                    role: "Sale",
                     roleName: "Sale"
                 }
             ]
 
+        },
+
+    },
+    {
+        key: "teamId",
+        label: "Team",
+        width: 1000,
+        sortable: true,
+        enableEdit:  true,
+
+        enableCreate:  true,
+        required:true,
+        hidden: false,
+        showSearch: true,
+        inputType: "dropdown",
+        dropdownData: {
+            displayMember: "name",
+            keyMember: "id",
+            apiUrl: "Team",
         },
 
     },

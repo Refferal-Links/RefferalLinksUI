@@ -23,20 +23,20 @@ const tableColumns: TableColumn[] = [
         inputType:  "text",
         dropdownData:null,
     },
-    {
-        key: "refferalCode",
-        label: "Mã Giới Thiệu",
-        width: 1000,
-        sortable: true,
-        enableEdit:  true,
+    // {
+    //     key: "refferalCode",
+    //     label: "Mã Giới Thiệu",
+    //     width: 1000,
+    //     sortable: true,
+    //     enableEdit:  true,
 
-        enableCreate:  true,
-        required:false,
-        hidden: false,
-        showSearch: false,
-        inputType:  "text",
-        dropdownData:null,
-    },
+    //     enableCreate:  true,
+    //     required:false,
+    //     hidden: false,
+    //     showSearch: false,
+    //     inputType:  "text",
+    //     dropdownData:null,
+    // },
 ]
 const CustomActions: CustomAction[]=([]);
 </script>
