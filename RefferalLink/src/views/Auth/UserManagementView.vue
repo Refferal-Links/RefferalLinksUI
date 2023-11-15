@@ -1,56 +1,86 @@
 <template>
     <Suspense>
         <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'UserManagemet'" :allowAdd="true" :allowEdit="true"
-            :allowDelete="true" title="UserManagemet" :CustomActions="CustomActions" ></BasicAdminFormVue>
+            :allowDelete="true" title="UserManagemet" :CustomActions="CustomActions"></BasicAdminFormVue>
     </Suspense>
 </template>
 <script lang="ts" setup>
-import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColumn'
-import BasicAdminFormVue from '@/components/maynghien/adminTable/BasicAdminForm.vue'
-import {CustomAction} from '@/components/maynghien/adminTable/Models/CustomAction'
+import BasicAdminFormVue from '@/components/maynghien/adminTable/BasicAdminForm.vue';
+import { ApiActionType, CustomAction, CustomActionDataType } from '@/components/maynghien/adminTable/Models/CustomAction';
+// @ts-ignore
+import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColumn.ts';
+import { axiosInstance } from '@/Services/axiosConfig';
 const tableColumns: TableColumn[] = [
     {
         key: "userName",
         label: "Tên Người dùng",
         width: 1000,
         sortable: true,
-        enableEdit:  true,
+        enableEdit: true,
 
-        enableCreate:  true,
-        required:false,
+        enableCreate: true,
+        required: false,
         hidden: false,
         showSearch: true,
-        inputType:  "text",
-        dropdownData:null,
+        inputType: "text",
+        dropdownData: null,
     },
     {
         key: "password",
         label: "Mật Khẩu",
         width: 1000,
         sortable: true,
-        enableEdit:  true,
+        enableEdit: false,
 
-        enableCreate:  true,
-        required:false,
+        enableCreate: true,
+        required: false,
         hidden: false,
         showSearch: false,
-        inputType:  "text",
-        dropdownData:null,
+        inputType: "text",
+        dropdownData: null,
     },
     {
         key: "email",
         label: "Email",
         width: 1000,
         sortable: true,
-        enableEdit:  true,
+        enableEdit: true,
 
-        enableCreate:  true,
-        required:false,
+        enableCreate: true,
+        required: false,
         hidden: false,
         showSearch: false,
-        inputType:  "text",
-        dropdownData:null,
+        inputType: "text",
+        dropdownData: null,
     },
+    {
+        key: "LockoutEnabled",
+        label: "LockoutEnabled",
+        width: 1000,
+        sortable: true,
+        enableEdit: true,
+
+        enableCreate: true,
+        required: false,
+        hidden: false,
+        showSearch: false,
+        inputType: "text",
+        dropdownData: null,
+    },
+    // {
+    //     key: "LockoutEnabled",
+    //     label: "LockoutEnabled",
+    //     width: 500,
+    //     sortable: false,
+    //     enableEdit:  false,
+
+    //     enableCreate:  false,
+    //     required:false,
+    //     hidden: false,
+    //     showSearch: false,
+    //     inputType:  "text",
+    //     dropdownData:null,
+    // },
     {
         key: "role",
         label: "Role",
@@ -72,14 +102,29 @@ const tableColumns: TableColumn[] = [
                 },
                 {
 
-                    role: "TenantAdmin",
-                    roleName: "Personal"
+                    role: " Teamleader",
+                    roleName: "Teamleader"
+                },
+                {
+
+                    role: " Sale",
+                    roleName: "Sale"
                 }
             ]
 
         },
 
     },
+ 
 ]
-const CustomActions: CustomAction[]=([]);
+const CustomActions: CustomAction[] = ([
+    {
+        ActionName: "StatusChange",
+        ActionLabel: "StatusChange",
+        ApiAction: "StatusChange",
+        ApiActiontype:ApiActionType.PUT,
+        IsRowAction: true,
+        DataType: CustomActionDataType.RowId,
+    }
+]);
 </script>

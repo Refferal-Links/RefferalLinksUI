@@ -16,29 +16,7 @@ class Bank {
     Name: string|undefined
 }
 import { reactive, ref } from 'vue'
-//import { ref } from 'vue';
-const listBank = ref<Bank[]>([]);
-const FetchData = async() => {
-    await axiosInstance.get('Bank').then((response) => {
-        listBank.value = response.data.data;
-        console.log(response.data)
-    })
-}
-FetchData()
 
-// class Campaign {
-//     Id: string| undefined
-//     Name: string|undefined
-// }
-// import { ref } from 'vue';
-// const listCampaign = ref<Campaign[]>([]);
-// const FetchData = async() => {
-//     await axiosInstance.get('Campaign').then((response) => {
-//         listCampaign.value = response.data.data;
-//         console.log(listCampaign)
-//     })
-// }
-// FetchData()
 const tableColumns: TableColumn[] = [
     {
         key: "url",
@@ -70,7 +48,13 @@ const tableColumns: TableColumn[] = [
         dropdownData: {
             displayMember: "name",
             keyMember: "id",
-            apiUrl: "Bank"
+            apiUrl: "Bank",
+            data: [
+                {
+                    id: null,
+                    name: "Y",
+                },
+            ],
         },
 
     },
@@ -89,12 +73,18 @@ const tableColumns: TableColumn[] = [
         dropdownData: {
             displayMember: "name",
             keyMember: "id",
-            apiUrl: "Campaign"
+            apiUrl: "Campaign",
+            data: [
+                {
+                    id: null,
+                    name: "Y",
+                },
+            ],
         },
     },
     {
         key: "bankId",
-        label: "id Ngân Hàng",
+        label: "Tên Ngân Hàng",
         width: 1000,
         sortable: true,
         enableEdit:  true,
@@ -107,26 +97,37 @@ const tableColumns: TableColumn[] = [
         dropdownData: {
             displayMember: "name",
             keyMember: "id",
-            apiUrl: "Bank"
+            apiUrl: "Bank",
+            data: [
+                {
+                    id: null,
+                    name: "Y",
+                },
+            ],
         },
 
     },
     {
         key: "campaignId",
-        label: "IdChiến Dịch ",
+        label: " Tên Chiến Dịch ",
         width: 1000,
         sortable: true,
         enableEdit:  true,
-
         enableCreate:  true,
         required:true,
         hidden: true,
         showSearch: true,
         inputType: "dropdown",
         dropdownData: {
-            displayMember: "name",
-            keyMember: "id",
-            apiUrl: "Campaign"
+        displayMember: "name",
+        keyMember: "id",
+        apiUrl: "Campaign",
+              data: [
+                {
+                    id: null,
+                    name: "",
+                },
+            ],
         },
     },
         {
@@ -135,7 +136,6 @@ const tableColumns: TableColumn[] = [
         width: 500,
         sortable: false,
         enableEdit:  false,
-
         enableCreate:  false,
         required:false,
         hidden: false,
