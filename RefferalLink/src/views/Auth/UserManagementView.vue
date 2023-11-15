@@ -34,7 +34,7 @@ const tableColumns: TableColumn[] = [
 
         enableCreate: true,
         required: false,
-        hidden: false,
+        hidden: true,
         showSearch: false,
         inputType: "text",
         dropdownData: null,
@@ -53,10 +53,56 @@ const tableColumns: TableColumn[] = [
         inputType: "text",
         dropdownData: null,
     },
-
     {
-        key: "LockoutEnabled",
-        label: "LockoutEnabled",
+        key: "tPbank",
+        label: "TpBank",
+        width: 1000,
+        sortable: true,
+        enableEdit: true,
+
+        enableCreate: true,
+        required: false,
+        hidden: false,
+        showSearch: false,
+        inputType: "text",
+        dropdownData: null,
+    },
+    {
+        key: "teamId",
+        label: "Team",
+        width: 1000,
+        sortable: true,
+        enableEdit:  true,
+
+        enableCreate:  true,
+        required:true,
+        hidden: false,
+        showSearch: true,
+        inputType: "dropdown",
+        dropdownData: {
+            displayMember: "name",
+            keyMember: "id",
+            apiUrl: "Team",
+        },
+
+    },
+    {
+        key: "reffercode",
+        label: "Mã Giới Thiệu",
+        width: 1000,
+        sortable: true,
+        enableEdit: true,
+
+        enableCreate: true,
+        required: false,
+        hidden: false,
+        showSearch: false,
+        inputType: "text",
+        dropdownData: null,
+    },
+    {
+        key: "lockoutEnabled",
+        label: "lockoutEnabled",
         width: 500,
         sortable: false,
         enableEdit:  false,
@@ -84,17 +130,17 @@ const tableColumns: TableColumn[] = [
             keyMember: "role",
             data: [
                 {
-                    role: "Admin",
+                    role: "admin",
                     roleName: "Admin"
                 },
                 {
 
-                    role: " Teamleader",
+                    role: "teamleader",
                     roleName: "Teamleader"
                 },
                 {
 
-                    role: " Sale",
+                    role: "sale",
                     roleName: "Sale"
                 }
             ]
@@ -102,7 +148,6 @@ const tableColumns: TableColumn[] = [
         },
 
     },
- 
 ]
 const CustomActions: CustomAction[] = ([
     {
