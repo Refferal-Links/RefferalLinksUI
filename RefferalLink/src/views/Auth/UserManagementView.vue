@@ -82,7 +82,7 @@ const tableColumns: TableColumn[] = [
         dropdownData:null,
     },
     {
-        key: "LockoutEnabled",
+        key: "lockoutEnabled",
         label: "LockoutEnabled",
         width: 500,
         sortable: false,
@@ -137,6 +137,25 @@ const tableColumns: TableColumn[] = [
         enableEdit:  true,
 
         enableCreate:  true,
+        required:true,
+        hidden: true,
+        showSearch: true,
+        inputType: "dropdown",
+        dropdownData: {
+            displayMember: "name",
+            keyMember: "id",
+            apiUrl: "Team",
+        },
+
+    },
+    {
+        key: "teamName",
+        label: "Team",
+        width: 1000,
+        sortable: true,
+        enableEdit:  false,
+
+        enableCreate:  false,
         required:true,
         hidden: false,
         showSearch: true,
