@@ -34,7 +34,7 @@ const tableColumns: TableColumn[] = [
 
         enableCreate: true,
         required: false,
-        hidden: false,
+        hidden: true,
         showSearch: false,
         inputType: "text",
         dropdownData: null,
@@ -83,7 +83,7 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "lockoutEnabled",
-        label: "LockoutEnabled",
+        label: "Cấm/Gỡ" ,
         width: 500,
         sortable: false,
         enableEdit:  false,
