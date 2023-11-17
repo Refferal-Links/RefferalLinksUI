@@ -48,6 +48,10 @@
             <el-button type="primary" @click="register">Xác Nhận</el-button>
           </el-form-item>
         </el-form>
+        <el-dialog v-model="dialogVisible" title="Error">
+      <p>Hộ Chiếu Này Đã Tồn Tại</p>
+      <el-button type="primary" @click="dialogVisible = false">OK</el-button>
+    </el-dialog>
       </div>
     </el-col>
   </el-row>
@@ -60,11 +64,9 @@ import { RegisterViewModel } from "../../Models/RegisterViewModel.ts";
 
 // @ts-ignore
 import { handleRegister } from "../../Services/RegisterService.ts";
-import { useToast } from "vue-toastification";
 import { axiosInstance } from "../../Services/axiosConfig";
 import { useRoute } from "vue-router";
-
-const _toast = useToast();
+const dialogVisible = ref(false)
 const state = reactive<RegisterViewModel>({
   name: "",
   phoneNumber: "",
@@ -80,9 +82,11 @@ async function register() {
   state.refferalCode = code.toString();
   const loginResult = await handleRegister(state);
   console.log("logresult:" + loginResult);
-  if (loginResult.isSuccess) {
-    // window.location.href = "/";
-  } else _toast.success(loginResult.message);
+  if (!loginResult.isSuccess) {
+    dialogVisible.value = true;
+  } else {
+    window.location.href = '/CustomerLink';
+  }
 }
 
 interface Province {
@@ -106,3 +110,24 @@ async function fetchProvinceData() {
 }
 fetchProvinceData();
 </script>
+<style>
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.grid-content {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px;
+    margin-left: 30%;
+    margin-top: 5%;
+}
+
+.helloRegister {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+</style>

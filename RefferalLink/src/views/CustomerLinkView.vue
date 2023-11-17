@@ -1,48 +1,98 @@
-
 <template>
-    <el-row class="login-container">
-        <el-col :span="24" class="login-col">
-            <div class="grid-content ep-bg-purple">
-                <p class="helloRegister">Hello, Friend!</p>
-                <el-form ref="ruleFormRef" :model="state" status-icon label-width="px" class="demo-ruleForm">
-                    <el-form-item label="" prop="name">
-                        <el-input v-model="state.name" placeholder="Họ Tên" :prefix-icon="User" />
-                    </el-form-item>
-                </el-form>
-            </div>
-        </el-col>
-    </el-row>
+    <Suspense>
+        <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'CustomerLink'" :allowAdd="true" :allowEdit="true"
+            :allowDelete="true" title="CustomerLink" :CustomActions="CustomActions" ></BasicAdminFormVue>
+    </Suspense>
 </template>
-  
-<script setup lang="ts">
-import { Calendar, Search, User, Key } from '@element-plus/icons-vue'
-import { reactive, ref } from 'vue';
-// @ts-ignore
-import { RegisterViewModel } from '../../Models/RegisterViewModel.ts'
+<script lang="ts" setup>
+import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColumn'
+import BasicAdminFormVue from '@/components/maynghien/adminTable/BasicAdminForm.vue'
+import {CustomAction} from '@/components/maynghien/adminTable/Models/CustomAction'
+const tableColumns: TableColumn[] = [
+// {
+//         key: "customerId",
+//         label: "customerId",
+//         width: 1000,
+//         sortable: true,
+//         enableEdit:  true,
 
-// @ts-ignore
-import { handleRegister } from "../../Services/RegisterService.ts"
-import { useToast } from "vue-toastification";
+//         enableCreate:  true,
+//         required:false,
+//         hidden: false,
+//         showSearch: true,
+//         inputType:  "text",
+//         dropdownData:null,
+//     },
+    {
+        key: "url",
+        label: "Url",
+        width: 1000,
+        sortable: true,
+        enableEdit:  true,
 
+        enableCreate:  true,
+        required:false,
+        hidden: false,
+        showSearch: false,
+        inputType:  "text",
+        dropdownData:null,
+    },
+    // {
+    //     key: "linkTemplateId",
+    //     label: "linkTemplateId",
+    //     width: 1000,
+    //     sortable: true,
+    //     enableEdit:  true,
 
-const _toast = useToast();
-const state = reactive<RegisterViewModel>({
-    name: "",
-    passport: "",
-    phoneNumber: " ",
-    cccd: "",
-    email: " ",
-    refferalCode: "",
-    nameProvice: "",
-});
-const register = async () => {
-    console.log(state);
-    const loginResult = await handleRegister(state);
-    console.log("logresult:" + loginResult);
-    if (loginResult.isSuccess) {
-        window.location.href = '/';
-    }
-    else
-        _toast.success(loginResult.message);
-}
+    //     enableCreate:  true,
+    //     required:false,
+    //     hidden: false,
+    //     showSearch: true,
+    //     inputType:  "text",
+    //     dropdownData:null,
+    // },
+    {
+        key: "bankName",
+        label: "Tên Ngân Hàng",
+        width: 1000,
+        sortable: true,
+        enableEdit:  true,
+
+        enableCreate:  true,
+        required:false,
+        hidden: false,
+        showSearch: true,
+        inputType:  "text",
+        dropdownData:null,
+    },
+    {
+        key: "camPainNamme",
+        label: "Tên Chiến Dịch",
+        width: 1000,
+        sortable: true,
+        enableEdit:  true,
+
+        enableCreate:  true,
+        required:false,
+        hidden: false,
+        showSearch: true,
+        inputType:  "text",
+        dropdownData:null,
+    },
+    // {
+    //     key: "linkTemplateName",
+    //     label: "linkTemplateName",
+    //     width: 1000,
+    //     sortable: true,
+    //     enableEdit:  true,
+
+    //     enableCreate:  true,
+    //     required:false,
+    //     hidden: false,
+    //     showSearch: true,
+    //     inputType:  "text",
+    //     dropdownData:null,
+    // },
+]
+const CustomActions: CustomAction[]=([]);
 </script>

@@ -11,6 +11,7 @@ import LoginView from "../views/Auth/LoginView.vue";
 import UserManagementView from "../views/Auth/UserManagementView.vue";
 import HomePageView from "../views/Auth/HomePageView.vue";
 import LinkTemplateView from "../views/Auth/LinkTemplateView.vue";
+import CustomerLinkView from "../views/CustomerLinkView.vue"
 import Cookies from "js-cookie";
 import * as jwt from "jsonwebtoken";
 
@@ -59,6 +60,11 @@ const router = createRouter({
         {
           path: "User",
           component: UserManagementView,
+          meta: { requiresAuth: true, roles: ["Admin", "Sale", "superadmin"] },
+        },
+        {
+          path: "CustomerLink",
+          component: CustomerLinkView,
           meta: { requiresAuth: true, roles: ["Admin", "Sale", "superadmin"] },
         },
         // Other routes using default layout...
