@@ -81,7 +81,7 @@ async function register() {
   const loginResult = await handleRegister(state);
   console.log("logresult:" + loginResult);
   if (loginResult.isSuccess) {
-    window.location.href = "/";
+    // window.location.href = "/";
   } else _toast.success(loginResult.message);
 }
 
