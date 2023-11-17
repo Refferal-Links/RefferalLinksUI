@@ -22,9 +22,6 @@
           <el-form-item label="" prop="email">
             <el-input v-model="state.email" placeholder="Email" />
           </el-form-item>
-          <el-form-item label="" prop="cccd">
-            <el-input v-model="state.cccd" placeholder="CCCD" />
-          </el-form-item>
           <!-- <el-form-item label="" prop="refferalCode">
                         <el-input v-model="state.refferalCode" placeholder="Mã Giới Thiệu" />
                     </el-form-item> -->
@@ -71,11 +68,10 @@ const _toast = useToast();
 const state = reactive<RegisterViewModel>({
   name: "",
   phoneNumber: "",
-  cccd: "",
   email: "",
   refferalCode: "",
   provinceId: "",
-  passport: true,
+  passport: "",
 });
 const route = useRoute();
 async function register() {
