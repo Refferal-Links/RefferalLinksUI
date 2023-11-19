@@ -97,6 +97,9 @@ header.el-header {
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { Menu as IconMenu, Message, Setting } from '@element-plus/icons-vue'
+import router from '@/router';
+import { decode,verify } from 'jsonwebtoken';
+import Cookies from 'js-cookie';
 const activeIndex = ref('1')
 const activeIndex2 = ref('1')
 const handleSelect = (key: string, keyPath: string[]) => {
@@ -107,8 +110,21 @@ const handleSelect = (key: string, keyPath: string[]) => {
     else if(key==='3')
     window.location.href = "";
 }
+const decodedToken = ref();
+
+function getCode(){
+    var token = Cookies.get('accessToken')?.toString();
+    decodedToken.value = decode(token ?? '');
+    console.log(decodedToken.value);
+}
+getCode();
 const onMenuItemClick = (item: string) => {
-    window.location.href = `http://localhost:5173/${item}`;
+    if(item =='Register'){
+        router.push(`${item}/Code=${decodedToken.value.RefferalCode}`);
+    }
+   else{
+    router.push(`${item}`);
+   }
 }
 function logout() {
   var cookies = document.cookie.split(";");

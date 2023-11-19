@@ -79,7 +79,7 @@ const router = createRouter({
           component: LoginView,
         },
         {
-          path: "/register",
+          path: "Register/Code=:Code",
           component: RegisterView,
         },
         // Other routes using alternative layout...
@@ -89,17 +89,20 @@ const router = createRouter({
 });
 router.beforeEach((to, from, next) => {
   const isAuthenticated: boolean = !!Cookies.get('accessToken');
-  const userRoles: string[] = getRolesFromToken(Cookies.get('accessToken')?.toString() || '') ??[]; 
+  const userRoles: string[] = getRolesFromToken(Cookies.get('accessToken')?.toString() || '');
 
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next('/login'); // Redirect to the login page
-  } else if (to.meta.roles && !hasPermission(userRoles, to.meta.roles as string[])) {
-    next('/'); // Redirect to the 403 page or handle unauthorized access in another way
-    
-  } else {
-    next(); // Continue to the requested route
+  if(!to.meta.requiresAuth) {
+    next('/');
   }
-  console.log(userRoles);
+  // Kiểm tra trang đăng nhập
+  else if (to.meta.requiresAuth && !isAuthenticated && to.path !== '/auth/Register/Code=:Code') {
+    next('/login'); // Chuyển hướng đến trang đăng nhập
+  } else if (to.meta.roles && !hasPermission(userRoles, to.meta.roles as string[])) {
+    // Xử lý truy cập không được phép
+    next('/403'); // Chuyển hướng đến trang 403 hoặc xử lý khác
+  } else {
+    next(); // Tiếp tục đến trang yêu cầu
+  }
 });
 
 function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {

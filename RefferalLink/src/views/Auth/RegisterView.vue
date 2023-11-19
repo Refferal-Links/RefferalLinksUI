@@ -66,6 +66,7 @@ import { RegisterViewModel } from "../../Models/RegisterViewModel.ts";
 import { handleRegister } from "../../Services/RegisterService.ts";
 import { axiosInstance } from "../../Services/axiosConfig";
 import { useRoute } from "vue-router";
+import router from "@/router";
 const dialogVisible = ref(false)
 const state = reactive<RegisterViewModel>({
   name: "",
@@ -85,7 +86,7 @@ async function register() {
   if (!loginResult.isSuccess) {
     dialogVisible.value = true;
   } else {
-    window.location.href = '/CustomerLink';
+    router.push('/CustomerLink');
   }
 }
 
