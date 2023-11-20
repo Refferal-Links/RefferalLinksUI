@@ -1,4 +1,5 @@
 // @ts-ignore
+import type { CustomerDto } from '@/Models/Dtos/CustomerDto';
 import { RegisterViewModel } from '../Models/RegisterViewModel'
 // @ts-ignore
 import { AppResponse } from '../models/AppResponse.ts'
@@ -9,9 +10,9 @@ import Cookies from 'js-cookie';
 import { reactive } from 'vue';
 const registerUrl = "Customer";
 
-export const handleRegister = async (model: RegisterViewModel): Promise<AppResponse<string>> => {
+export const handleRegister = async (model: RegisterViewModel): Promise<AppResponse<CustomerDto>> => {
 
-    let result= new AppResponse<string>();
+    let result= new AppResponse<CustomerDto>();
 
     try {
         const postResult = await axiosInstance.post(registerUrl, model);
@@ -21,8 +22,6 @@ export const handleRegister = async (model: RegisterViewModel): Promise<AppRespo
        return result;
     } catch (error) {
         console.error(error);
-        result.isSuccess=false;
-        result.message= JSON.stringify(error);
     }
     return result;
 

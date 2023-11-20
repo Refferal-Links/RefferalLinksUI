@@ -1,98 +1,51 @@
 <template>
-    <Suspense>
-        <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'CustomerLink'" :allowAdd="true" :allowEdit="true"
-            :allowDelete="true" title="CustomerLink" :CustomActions="CustomActions" ></BasicAdminFormVue>
-    </Suspense>
+  <div>
+    
+  </div>
+  <el-space style="width: 100%;" v-if="!isLoading" :fill="true" wrap>
+    <el-card v-for="bank in Customer.banks" :key="bank.id" class="box-card">
+      <template #header>
+        <div class="card-header">
+          <span>{{ bank.name }}</span>
+        </div>
+      </template>
+      <div v-for="customerLink in bank.customerLinks" :key="customerLink.id" class="text item">
+        <a :href="customerLink.url">{{ customerLink.camPaignNamme }}</a>
+      </div>
+    </el-card>
+  </el-space>
+  <div v-if="isLoading">Loading...</div>
 </template>
-<script lang="ts" setup>
-import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColumn'
-import BasicAdminFormVue from '@/components/maynghien/adminTable/BasicAdminForm.vue'
-import {CustomAction} from '@/components/maynghien/adminTable/Models/CustomAction'
-const tableColumns: TableColumn[] = [
-// {
-//         key: "customerId",
-//         label: "customerId",
-//         width: 1000,
-//         sortable: true,
-//         enableEdit:  true,
 
-//         enableCreate:  true,
-//         required:false,
-//         hidden: false,
-//         showSearch: true,
-//         inputType:  "text",
-//         dropdownData:null,
-//     },
-    {
-        key: "url",
-        label: "Url",
-        width: 1000,
-        sortable: true,
-        enableEdit:  true,
+<script setup lang="ts">
+import { CustomerDto } from '@/Models/Dtos/CustomerDto';
+import { ref, onMounted } from 'vue';
+import { GetCustomer } from '@/Services/Customer/GetById';
+import { useRoute } from 'vue-router';
 
-        enableCreate:  true,
-        required:false,
-        hidden: false,
-        showSearch: false,
-        inputType:  "text",
-        dropdownData:null,
-    },
-    // {
-    //     key: "linkTemplateId",
-    //     label: "linkTemplateId",
-    //     width: 1000,
-    //     sortable: true,
-    //     enableEdit:  true,
+const Customer = ref<CustomerDto>({
+  id: undefined,
+  name: undefined,
+  passport: undefined,
+  phoneNumber: undefined,
+  email: undefined,
+  refferalCode: undefined,
+  nameProvice: undefined,
+  provinceId: undefined,
+  banks: undefined,
+});
+const isLoading = ref(true);
+async function fetchCustomer(){
+  await GetCustomer(useRoute().params.Id.toString()).then(x => {
+    if(x.isSuccess && x.data != null){
+        Customer.value = x.data;
+        console.log(Customer.value);
+    }
+  });
+}
 
-    //     enableCreate:  true,
-    //     required:false,
-    //     hidden: false,
-    //     showSearch: true,
-    //     inputType:  "text",
-    //     dropdownData:null,
-    // },
-    {
-        key: "bankName",
-        label: "Tên Ngân Hàng",
-        width: 1000,
-        sortable: true,
-        enableEdit:  true,
-
-        enableCreate:  true,
-        required:false,
-        hidden: false,
-        showSearch: true,
-        inputType:  "text",
-        dropdownData:null,
-    },
-    {
-        key: "camPainNamme",
-        label: "Tên Chiến Dịch",
-        width: 1000,
-        sortable: true,
-        enableEdit:  true,
-
-        enableCreate:  true,
-        required:false,
-        hidden: false,
-        showSearch: true,
-        inputType:  "text",
-        dropdownData:null,
-    },
-    // {
-    //     key: "linkTemplateName",
-    //     label: "linkTemplateName",
-    //     width: 1000,
-    //     sortable: true,
-    //     enableEdit:  true,
-
-    //     enableCreate:  true,
-    //     required:false,
-    //     hidden: false,
-    //     showSearch: true,
-    //     inputType:  "text",
-    //     dropdownData:null,
-    // },
-]
-const CustomActions: CustomAction[]=([]);
+onMounted(async () => {
+  await fetchCustomer();
+  isLoading.value = false;
+});
 </script>

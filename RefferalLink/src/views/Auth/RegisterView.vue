@@ -81,12 +81,12 @@ async function register() {
   console.log(state);
   const code = route.params.Code;
   state.refferalCode = code.toString();
-  const loginResult = await handleRegister(state);
-  console.log("logresult:" + loginResult);
-  if (!loginResult.isSuccess) {
+  const result = await handleRegister(state);
+  console.log("logresult:" + result);
+  if (!result.isSuccess) {
     dialogVisible.value = true;
   } else {
-    router.push('/CustomerLink');
+    router.push('/CustomerLink/' + result.data?.id);
   }
 }
 

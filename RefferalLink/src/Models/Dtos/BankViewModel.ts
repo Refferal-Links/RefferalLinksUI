@@ -1,4 +1,8 @@
+import type { CustomerLinkDto } from "./CustomerLinkDto"
+
 export class Bank {
-    Id: string| undefined
-    Name: string|undefined
+    id: string| undefined
+    name: string|undefined
+
+    customerLinks: CustomerLinkDto[] | undefined
 }

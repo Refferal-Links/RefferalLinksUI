@@ -44,10 +44,6 @@ const router = createRouter({
           meta: { requiresAuth: true, roles: ["Admin", "superadmin"] },
         },
         {
-          path: "Register/Code=:Code",
-          component: RegisterView,
-        },
-        {
           path: "Team",
           component: TeamView,
           meta: { requiresAuth: true, roles: ["Admin", "superadmin"] },
@@ -78,24 +74,31 @@ const router = createRouter({
           path: "/login",
           component: LoginView,
         },
+        // Other routes using alternative layout...
+      ],
+    },
+    {
+      path:"/",
+      component: LayoutBlank,
+      meta: { requiresAuth: false },
+      children:[
+        {
+          path:"CustomerLink/:Id",
+          component: CustomerLinkView
+        },
         {
           path: "Register/Code=:Code",
           component: RegisterView,
         },
-        // Other routes using alternative layout...
-      ],
-    },
+      ]
+    }
   ],
 });
 router.beforeEach((to, from, next) => {
   const isAuthenticated: boolean = !!Cookies.get('accessToken');
-  const userRoles: string[] = getRolesFromToken(Cookies.get('accessToken')?.toString() || '');
+  const userRoles: string[] = getRolesFromToken(Cookies.get('accessToken')?.toString() || '') ??[];
 
-  if(!to.meta.requiresAuth) {
-    next('/');
-  }
-  // Kiểm tra trang đăng nhập
-  else if (to.meta.requiresAuth && !isAuthenticated && to.path !== '/auth/Register/Code=:Code') {
+  if (to.meta.requiresAuth && !isAuthenticated) {
     next('/login'); // Chuyển hướng đến trang đăng nhập
   } else if (to.meta.roles && !hasPermission(userRoles, to.meta.roles as string[])) {
     // Xử lý truy cập không được phép
