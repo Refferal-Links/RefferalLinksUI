@@ -17,6 +17,31 @@
   <div v-if="isLoading">Loading...</div>
 </template>
 
+
+ <!-- <template>
+  <el-table style="width: 100%;" v-if="!isLoading" :fill="true" wrap>
+    <el-table-column label="Ngân Hàng" width="200">
+      <template>
+      <div>
+          <div v-for="bank in Customer.banks" :key="bank.id">
+            <span>{{ bank.name }}</span>
+          </div>
+        </div>
+      </template>
+    </el-table-column>
+    <el-table-column label="Chiến Dịch">
+      <template>
+        <div>
+          <div v-for="customerLink in bank.customerLinks" :key="customerLink.id">
+            <a :href="customerLink.url">{{ customerLink.camPaignNamme }}</a>
+          </div>
+        </div>
+      </template>
+    </el-table-column>
+  </el-table>
+  <div v-if="isLoading">Loading...</div>
+</template> -->
+
 <script setup lang="ts">
 import { CustomerDto } from '@/Models/Dtos/CustomerDto';
 import { ref, onMounted } from 'vue';
@@ -35,11 +60,12 @@ const Customer = ref<CustomerDto>({
   banks: undefined,
 });
 const isLoading = ref(true);
-async function fetchCustomer(){
-  await GetCustomer(useRoute().params.Id.toString()).then(x => {
-    if(x.isSuccess && x.data != null){
-        Customer.value = x.data;
-        console.log(Customer.value);
+
+async function fetchCustomer() {
+  await GetCustomer(useRoute().params.Id.toString()).then((x) => {
+    if (x.isSuccess && x.data != null) {
+      Customer.value = x.data;
+      console.log(Customer.value);
     }
   });
 }
