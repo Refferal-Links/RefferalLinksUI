@@ -26,7 +26,7 @@
   const userRoles = decodedToken.Roles || [];
   
   const hasTeamleaderRole = hasPermission(userRoles, ["teamleader"]);
-  const hasSaleRole = hasPermission(userRoles, ["sale"]);
+  const hasSaleRole = hasPermission(userRoles, ["Sale"]);
   const hasAdminRole = hasPermission(userRoles, ["Admin", "superadmin"]);
   
   interface TokenPayload {
@@ -155,7 +155,7 @@ const tableColumns: TableColumn[] = [
 
         enableCreate: false,
         required: false,
-        hidden: hasTeamleaderRole?true:false,
+        hidden: hasAdminRole?false:true,
         showSearch: hasAdminRole?true:false,
         inputType: "text",
         dropdownData: null,
@@ -169,7 +169,7 @@ const tableColumns: TableColumn[] = [
 
         enableCreate: false,
         required: false,
-        hidden: hasTeamleaderRole?true:false,
+        hidden: hasAdminRole?false:true,
         showSearch: hasAdminRole?true:false,
         inputType: "text",
         dropdownData: null,
@@ -184,7 +184,7 @@ const tableColumns: TableColumn[] = [
         enableCreate: false,
         required: false,
         hidden: hasSaleRole?true:false,
-        showSearch: [hasAdminRole||hasTeamleaderRole]?true:false,
+        showSearch:hasSaleRole?false:true ,
         inputType: "text",
         dropdownData: null,
     },
