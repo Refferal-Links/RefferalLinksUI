@@ -68,7 +68,7 @@ const tableColumns: TableColumn[] = [
         dropdownData:null,
     },
     {
-        key: "tPbank",
+        key: "tpBank",
         label: "TpBank",
         width: 500,
         sortable: false,
@@ -121,7 +121,7 @@ const tableColumns: TableColumn[] = [
                 },
                 {
 
-                    role: "Sale",
+                    role: "sale",
                     roleName: "Sale"
                 }
             ]

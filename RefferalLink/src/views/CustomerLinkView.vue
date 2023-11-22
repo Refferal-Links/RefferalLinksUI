@@ -75,3 +75,11 @@ onMounted(async () => {
   isLoading.value = false;
 });
 </script>
+<style>
+.el-card__header {
+    padding: calc(var(--el-card-padding) - 2px) var(--el-card-padding);
+    border-bottom: 1px solid var(--el-card-border-color);
+    box-sizing: border-box;
+    width: 200px;
+}
+</style>
