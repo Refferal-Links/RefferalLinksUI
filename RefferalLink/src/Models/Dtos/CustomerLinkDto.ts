@@ -1,5 +1,5 @@
 export class CustomerLinkDto{
     url:string|undefined
-    camPaignNamme:string|undefined
+    camPaignName:string|undefined
     id:string|undefined
 }

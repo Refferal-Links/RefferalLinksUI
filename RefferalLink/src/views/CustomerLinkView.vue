@@ -10,7 +10,7 @@
         </div>
       </template>
       <div v-for="customerLink in bank.customerLinks" :key="customerLink.id" class="text item">
-        <a :href="customerLink.url">{{ customerLink.camPaignNamme }}</a>
+        <a :href="customerLink.url">{{ customerLink.camPaignName }}</a>
       </div>
     </el-card>
   </el-space>
