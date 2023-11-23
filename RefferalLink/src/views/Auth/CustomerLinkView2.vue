@@ -123,7 +123,7 @@ const tableColumns: TableColumn[] = [
         },
     },
     {
-        key: "CampaignName",
+        key: "camPaignName",
         label: "Tên Chiến Dịch",
         width: 1000,
         sortable: true,
@@ -132,7 +132,7 @@ const tableColumns: TableColumn[] = [
         enableCreate: false,
         required: false,
         hidden: false,
-        showSearch: true,
+        showSearch: false,
         inputType: "text",
         dropdownData: null,
     },
@@ -149,7 +149,7 @@ const tableColumns: TableColumn[] = [
         showSearch: true,
         inputType: "dropdown",
         dropdownData: {
-        displayMember: "id",
+        displayMember: "name",
         keyMember: "id",
         apiUrl: "Campaign",
         },
@@ -167,7 +167,7 @@ const tableColumns: TableColumn[] = [
         showSearch: hasAdminRole?true:false,
         inputType: "dropdown",
         dropdownData: {
-        displayMember: "id",
+        displayMember: "name",
         keyMember: "id",
         apiUrl: "Team",
         },
@@ -196,9 +196,13 @@ const tableColumns: TableColumn[] = [
         enableCreate: false,
         required: false,
         hidden: hasSaleRole?true:false,
-        showSearch:hasSaleRole?false:true ,
-        inputType: "text",
-        dropdownData: null,
+        showSearch:true ,
+        inputType: "dropdown",
+        dropdownData: {
+        displayMember: "userName",
+        keyMember: "id",
+        apiUrl: "UserManagemet/sale",
+        },
     },
  
 ]
