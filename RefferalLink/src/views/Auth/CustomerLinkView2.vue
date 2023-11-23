@@ -8,6 +8,7 @@
         :allowDelete="true"
         title="CustomerLink"
         :CustomActions="CustomActions"
+        @onCustomAction="ChangePage"
       />
     </Suspense>
   </template>
@@ -17,6 +18,7 @@
   import { ApiActionType, CustomAction, CustomActionDataType, CustomActionResponse } from "@/components/maynghien/adminTable/Models/CustomAction";
   // @ts-ignore
   import { TableColumn } from "@/components/maynghien/adminTable/Models/TableColumn.ts";
+import router from "@/router";
   import { axiosInstance } from "@/Services/axiosConfig";
   import Cookies from "js-cookie";
   import * as jwt from "jsonwebtoken";
@@ -219,7 +221,16 @@ function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {
 }
   
 const CustomActions: CustomAction[] = ([
-
-  ]);
-
+    {
+        ActionName: "Deatail",
+        ActionLabel: "Link",
+        ApiActiontype:ApiActionType.PUT,
+        IsRowAction: true,
+        DataType: CustomActionDataType.RowId,
+    }
+]);
+function ChangePage(item: CustomActionResponse){
+    if(item.Action.ActionName == "Deatail")
+    router.push('/CustomerLink/' + item.Data.customerId);
+}
 </script>
