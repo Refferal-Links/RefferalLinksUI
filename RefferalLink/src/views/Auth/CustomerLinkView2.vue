@@ -14,12 +14,13 @@
   
   <script lang="ts" setup>
   import BasicAdminFormVue from "@/components/maynghien/adminTable/BasicAdminForm.vue";
-  import { ApiActionType, CustomAction, CustomActionDataType } from "@/components/maynghien/adminTable/Models/CustomAction";
+  import { ApiActionType, CustomAction, CustomActionDataType, CustomActionResponse } from "@/components/maynghien/adminTable/Models/CustomAction";
   // @ts-ignore
   import { TableColumn } from "@/components/maynghien/adminTable/Models/TableColumn.ts";
   import { axiosInstance } from "@/Services/axiosConfig";
   import Cookies from "js-cookie";
   import * as jwt from "jsonwebtoken";
+import { ref, reactive } from "vue";
   
   const token = Cookies.get("accessToken")?.toString() ?? "";
   const decodedToken = jwt.decode(token ?? "") as TokenPayload;
@@ -32,7 +33,8 @@
   interface TokenPayload {
     Roles: string[];
   }
-
+const customerLinkId = ref("");
+const deatailShow = ref(false);
 const tableColumns: TableColumn[] = [
     {
         key: "name",
@@ -113,7 +115,7 @@ const tableColumns: TableColumn[] = [
 
         enableCreate: false,
         required: false,
-        hidden: false,
+        hidden: true,
         showSearch: true,
         inputType: "dropdown",
         dropdownData: {
@@ -145,7 +147,7 @@ const tableColumns: TableColumn[] = [
 
         enableCreate: false,
         required: false,
-        hidden: false,
+        hidden: true,
         showSearch: true,
         inputType: "dropdown",
         dropdownData: {
@@ -163,7 +165,7 @@ const tableColumns: TableColumn[] = [
 
         enableCreate: false,
         required: false,
-        hidden: hasAdminRole?false:true,
+        hidden: true,
         showSearch: hasAdminRole?true:false,
         inputType: "dropdown",
         dropdownData: {
@@ -174,7 +176,7 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "teamName",
-        label: "Tên Đội",
+        label: "Team",
         width: 1000,
         sortable: true,
         enableEdit: false,
@@ -188,15 +190,15 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "userName",
-        label: "User",
+        label: "Sale",
         width: 1000,
         sortable: true,
         enableEdit: false,
 
-        enableCreate: false,
+        enableCreate: true,
         required: false,
-        hidden: hasSaleRole?true:false,
-        showSearch:true ,
+        hidden: false,
+        showSearch: true,
         inputType: "dropdown",
         dropdownData: {
         displayMember: "userName",
@@ -217,6 +219,7 @@ function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {
 }
   
 const CustomActions: CustomAction[] = ([
-    // ... custom actions
+
   ]);
+
 </script>
