@@ -121,7 +121,7 @@ const tableColumns: TableColumn[] = [
                 },
                 {
 
-                    role: "sale",
+                    role: "Sale",
                     roleName: "Sale"
                 }
             ]

@@ -3,9 +3,9 @@
       <BasicAdminFormVue
         :tableColumns="tableColumns"
         :apiName="'CustomerLink'"
-        :allowAdd="true"
-        :allowEdit="true"
-        :allowDelete="true"
+        :allowAdd="false"
+        :allowEdit="false"
+        :allowDelete="false"
         title="CustomerLink"
         :CustomActions="CustomActions"
         @onCustomAction="ChangePage"
@@ -40,7 +40,7 @@ const deatailShow = ref(false);
 const tableColumns: TableColumn[] = [
     {
         key: "name",
-        label: "Tên Người dùng",
+        label: "Người dùng",
         width: 1000,
         sortable: true,
         enableEdit: false,
@@ -96,7 +96,7 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "bankName",
-        label: "Tên Ngân Hàng",
+        label: "Ngân Hàng",
         width: 1000,
         sortable: true,
         enableEdit: false,
@@ -110,7 +110,7 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "bankId",
-        label: "id Ngân Hàng",
+        label: "Ngân Hàng",
         width: 1000,
         sortable: true,
         enableEdit: false,
@@ -128,7 +128,7 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "camPaignName",
-        label: "Tên Chiến Dịch",
+        label: "Chiến Dịch",
         width: 1000,
         sortable: true,
         enableEdit: false,
@@ -142,7 +142,7 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "campaignId",
-        label: "id Chiến Dịch",
+        label: "Chiến Dịch",
         width: 1000,
         sortable: true,
         enableEdit: false,
@@ -160,7 +160,7 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "teamId",
-        label: "id Đội",
+        label: "Team",
         width: 1000,
         sortable: true,
         enableEdit: false,
@@ -197,7 +197,7 @@ const tableColumns: TableColumn[] = [
         sortable: true,
         enableEdit: false,
 
-        enableCreate: true,
+        enableCreate: false,
         required: false,
         hidden: false,
         showSearch: true,
