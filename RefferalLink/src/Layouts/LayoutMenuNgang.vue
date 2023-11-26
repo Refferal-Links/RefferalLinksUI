@@ -34,7 +34,7 @@
                             </el-icon>
                             <template #dropdown>
                                 <el-dropdown-menu>
-                                    <el-dropdown-item @click="logout()"><el-icon><SwitchButton /></el-icon>{{userName}}</el-dropdown-item>
+                                    <el-dropdown-item @click="logout()"><el-icon><SwitchButton /></el-icon>{{decodedToken.UserName}}</el-dropdown-item>
                                 </el-dropdown-menu>
                             </template>
                         </el-dropdown>
@@ -136,11 +136,5 @@ function logout() {
   }
   window.location.href = "/login";
 }
-const getCookie = (name: string): string | null => {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
-  return null;
-};
-const userName=getCookie('UserName');
+
 </script>
