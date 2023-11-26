@@ -7,7 +7,7 @@
             @row-click="handleRowClick">
             <el-table-column v-for="column in shownCol" :key="column.key" :prop="column.key" :label="column.label"
                 :sortable="column.sorable ? 'custom' : 'false'" :visible="column.hidden == false" />
-            <el-table-column label="Operations" v-if="enableDelete || enableEdit">
+            <el-table-column label="Operations" v-if="enableDelete || enableEdit || CustomActions">
                 <template #default="scope">
                     <el-button v-if="enableEdit" :icon="Edit" size="small"
                         @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
@@ -46,7 +46,6 @@ const props = defineProps<{
     enableEdit: boolean;
     enableDelete: boolean;
     CustomActions: CustomAction[];
-
 }>();
 const emit = defineEmits<{
     (e: 'onEdit', item: SearchDTOItem): void;

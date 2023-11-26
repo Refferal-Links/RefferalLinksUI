@@ -3,9 +3,9 @@
       <BasicAdminFormVue
         :tableColumns="tableColumns"
         :apiName="'CustomerLink'"
-        :allowAdd="true"
-        :allowEdit="true"
-        :allowDelete="true"
+        :allowAdd="false"
+        :allowEdit="false"
+        :allowDelete="false"
         title="CustomerLink"
         :CustomActions="CustomActions"
         @onCustomAction="ChangePage"
@@ -40,7 +40,7 @@ const deatailShow = ref(false);
 const tableColumns: TableColumn[] = [
     {
         key: "name",
-        label: "Tên Người dùng",
+        label: "Người dùng",
         width: 1000,
         sortable: true,
         enableEdit: false,
@@ -197,7 +197,7 @@ const tableColumns: TableColumn[] = [
         sortable: true,
         enableEdit: false,
 
-        enableCreate: true,
+        enableCreate: false,
         required: false,
         hidden: false,
         showSearch: true,
