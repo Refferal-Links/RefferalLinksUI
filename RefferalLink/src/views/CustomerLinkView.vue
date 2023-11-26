@@ -1,46 +1,22 @@
 <template>
   <div>
-    
+    <el-row :gutter="20">
+      <el-col v-for="bank in Customer.banks" :key="bank.id" :span="8">
+        <el-card class="box-card">
+          <template #header>
+            <div class="card-header">
+              <span>{{ bank.name }}</span>
+            </div>
+          </template>
+          <div v-for="customerLink in bank.customerLinks" :key="customerLink.id" class="text item">
+            <a :href="customerLink.url">{{ customerLink.camPaignName }}</a>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
+    <div v-if="isLoading">Loading...</div>
   </div>
-  <el-space style="width: 100%;" v-if="!isLoading" :fill="true" wrap>
-    <el-card v-for="bank in Customer.banks" :key="bank.id" class="box-card">
-      <template #header>
-        <div class="card-header">
-          <span>{{ bank.name }}</span>
-        </div>
-      </template>
-      <div v-for="customerLink in bank.customerLinks" :key="customerLink.id" class="text item">
-        <a :href="customerLink.url">{{ customerLink.camPaignName }}</a>
-      </div>
-    </el-card>
-  </el-space>
-  <div v-if="isLoading">Loading...</div>
 </template>
-
-
- <!-- <template>
-  <el-table style="width: 100%;" v-if="!isLoading" :fill="true" wrap>
-    <el-table-column label="Ngân Hàng" width="200">
-      <template>
-      <div>
-          <div v-for="bank in Customer.banks" :key="bank.id">
-            <span>{{ bank.name }}</span>
-          </div>
-        </div>
-      </template>
-    </el-table-column>
-    <el-table-column label="Chiến Dịch">
-      <template>
-        <div>
-          <div v-for="customerLink in bank.customerLinks" :key="customerLink.id">
-            <a :href="customerLink.url">{{ customerLink.camPaignNamme }}</a>
-          </div>
-        </div>
-      </template>
-    </el-table-column>
-  </el-table>
-  <div v-if="isLoading">Loading...</div>
-</template> -->
 
 <script setup lang="ts">
 import { CustomerDto } from '@/Models/Dtos/CustomerDto';
@@ -76,10 +52,8 @@ onMounted(async () => {
 });
 </script>
 <style>
-.el-card__header {
-    padding: calc(var(--el-card-padding) - 2px) var(--el-card-padding);
-    border-bottom: 1px solid var(--el-card-border-color);
-    box-sizing: border-box;
-    width: 200px;
+.box-card {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 </style>

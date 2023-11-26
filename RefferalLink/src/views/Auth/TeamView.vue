@@ -11,7 +11,7 @@ import {CustomAction} from '@/components/maynghien/adminTable/Models/CustomActio
 const tableColumns: TableColumn[] = [
     {
         key: "name",
-        label: "Tên Team",
+        label: "Team",
         width: 1000,
         sortable: true,
         enableEdit:  true,

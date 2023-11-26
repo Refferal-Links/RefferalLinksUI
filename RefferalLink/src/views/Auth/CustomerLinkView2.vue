@@ -96,7 +96,7 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "bankName",
-        label: "Tên Ngân Hàng",
+        label: "Ngân Hàng",
         width: 1000,
         sortable: true,
         enableEdit: false,
@@ -110,7 +110,7 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "bankId",
-        label: "id Ngân Hàng",
+        label: "Ngân Hàng",
         width: 1000,
         sortable: true,
         enableEdit: false,
@@ -128,7 +128,7 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "camPaignName",
-        label: "Tên Chiến Dịch",
+        label: "Chiến Dịch",
         width: 1000,
         sortable: true,
         enableEdit: false,
@@ -142,7 +142,7 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "campaignId",
-        label: "id Chiến Dịch",
+        label: "Chiến Dịch",
         width: 1000,
         sortable: true,
         enableEdit: false,
@@ -160,7 +160,7 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "teamId",
-        label: "id Đội",
+        label: "Đội",
         width: 1000,
         sortable: true,
         enableEdit: false,

@@ -12,7 +12,7 @@ import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColum
 const tableColumns: TableColumn[] = [
     {
         key: "name",
-        label: "Tên Chiến Dịch ",
+        label: "Chiến Dịch ",
         width: 1000,
         sortable: true,
         enableEdit:  true,

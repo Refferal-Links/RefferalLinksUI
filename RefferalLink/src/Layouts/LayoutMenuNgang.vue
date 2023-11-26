@@ -25,7 +25,7 @@
                             </template>
                         </el-dropdown>
                     </el-menu-item>
-                    <el-menu-item index="2">Khách Hàng</el-menu-item>
+                    <el-menu-item index="2" @click="onMenuItemClick('CustomerLink2')">Khách Hàng</el-menu-item>
                     <el-menu-item index="3" @click="onMenuItemClick('Register')">Đăng Kí</el-menu-item>
                     <el-menu-item index="4">
                         <el-dropdown>
@@ -34,11 +34,10 @@
                             </el-icon>
                             <template #dropdown>
                                 <el-dropdown-menu>
-                                    <el-dropdown-item @click="logout()">Đăng Xuất</el-dropdown-item>
+                                    <el-dropdown-item @click="logout()"><el-icon><SwitchButton /></el-icon>{{userName}}</el-dropdown-item>
                                 </el-dropdown-menu>
                             </template>
                         </el-dropdown>
-                        <span> {{userName}}</span>
                     </el-menu-item>
                 </el-menu>
             </el-header>
@@ -96,7 +95,7 @@ header.el-header {
 </style>  
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { Menu as IconMenu, Message, Setting } from '@element-plus/icons-vue'
+import { Menu as IconMenu, Message,SwitchButton, Setting } from '@element-plus/icons-vue'
 import router from '@/router';
 import { decode,verify } from 'jsonwebtoken';
 import Cookies from 'js-cookie';
@@ -144,7 +143,4 @@ const getCookie = (name: string): string | null => {
   return null;
 };
 const userName=getCookie('UserName');
-const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath)
-}
 </script>

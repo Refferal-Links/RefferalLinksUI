@@ -83,7 +83,7 @@ const tableColumns: TableColumn[] = [
     },
     {
         key: "lockoutEnabled",
-        label: "Cấm/Gỡ" ,
+        label: "Khóa/Mở" ,
         width: 500,
         sortable: false,
         enableEdit:  false,
@@ -172,7 +172,7 @@ const tableColumns: TableColumn[] = [
 const CustomActions: CustomAction[] = ([
     {
         ActionName: "StatusChange",
-        ActionLabel: "StatusChange",
+        ActionLabel: "Khóa/Mở",
         ApiAction: "StatusChange",
         ApiActiontype:ApiActionType.PUT,
         IsRowAction: true,
