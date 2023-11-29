@@ -44,6 +44,7 @@ import type { AppResponse } from '@/models/AppResponse';
 // @ts-ignore
 import { ElMessage } from 'element-plus';
 import type { CustomAction, CustomActionResponse } from './Models/CustomAction';
+// @ts-ignore
 import { SortByInfo } from '../BaseModels/SortByInfo';
 //#region Method
 

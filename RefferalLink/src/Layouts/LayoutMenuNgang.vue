@@ -25,8 +25,12 @@
                             </template>
                         </el-dropdown>
                     </el-menu-item>
-                    <el-menu-item index="2" @click="onMenuItemClick('CustomerLink2')">Khách Hàng</el-menu-item>
-                    <el-menu-item index="3" @click="onMenuItemClick('Register')">Đăng Kí</el-menu-item>
+                    <el-menu-item index="2">
+                        <router-link to="CustomerLink2">Khách hàng</router-link>
+                    </el-menu-item>
+                    <el-menu-item index="3">
+                        <router-link :to="`Register/Code=${decodedToken.RefferalCode}`">Đăng kí</router-link>
+                    </el-menu-item>
                     <el-menu-item index="4">
                         <el-dropdown>
                             <el-icon style="margin-right: 8px; margin-top: 1px">
@@ -91,6 +95,9 @@ header.el-header {
 
 .el-dropdown-link {
     color: var(--el-menu-text-color);
+}
+a{
+    text-decoration: none;
 }
 </style>  
 <script lang="ts" setup>

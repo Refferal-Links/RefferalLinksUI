@@ -1,6 +1,8 @@
 <template>
+  <el-button @click="DownloadExcel()">In</el-button>
     <Suspense>
-      <BasicAdminFormVue
+      <BasicAdminFormVue 
+        :onCloseClicked="handleOnEditCloseClicked"
         :tableColumns="tableColumns"
         :apiName="'CustomerLink'"
         :allowAdd="false"
@@ -11,6 +13,12 @@
         @onCustomAction="ChangePage"
       />
     </Suspense>
+    <StatusChange
+        :CustomerLinkId="idCustomerLink"
+        :openDialog="openDialog"
+        :v-show="openDialog"
+        @close="()=>{ openDialog = false; console.log('close'); }"
+      />
   </template>
   
   <script lang="ts" setup>
@@ -18,11 +26,14 @@
   import { ApiActionType, CustomAction, CustomActionDataType, CustomActionResponse } from "@/components/maynghien/adminTable/Models/CustomAction";
   // @ts-ignore
   import { TableColumn } from "@/components/maynghien/adminTable/Models/TableColumn.ts";
-import router from "@/router";
+  import router from "@/router";
   import { axiosInstance } from "@/Services/axiosConfig";
   import Cookies from "js-cookie";
   import * as jwt from "jsonwebtoken";
-import { ref, reactive } from "vue";
+  import { ref, reactive } from "vue";
+  import StatusChange from "@/components/CustomerLink/StatusChange.vue";
+import type { SearchRequest } from "@/components/maynghien/BaseModels/SearchRequest";
+import type Filter from "@/components/maynghien/BaseModels/Filter";
   
   const token = Cookies.get("accessToken")?.toString() ?? "";
   const decodedToken = jwt.decode(token ?? "") as TokenPayload;
@@ -38,6 +49,20 @@ import { ref, reactive } from "vue";
 const customerLinkId = ref("");
 const deatailShow = ref(false);
 const tableColumns: TableColumn[] = [
+{
+        key: "id",
+        label: "ID",
+        width: 1000,
+        sortable: true,
+        enableEdit: false,
+
+        enableCreate: false,
+        required: false,
+        hidden: true,
+        showSearch: false,
+        inputType: "text",
+        dropdownData: null,
+    },
     {
         key: "name",
         label: "Người dùng",
@@ -227,10 +252,61 @@ const CustomActions: CustomAction[] = ([
         ApiActiontype:ApiActionType.PUT,
         IsRowAction: true,
         DataType: CustomActionDataType.RowId,
+    },
+    {
+        ActionName: "statusChange",
+        ActionLabel: "statusChange",
+        ApiActiontype:ApiActionType.PUT,
+        IsRowAction: true,
+        DataType: CustomActionDataType.RowId,
     }
 ]);
+
+const idCustomerLink = ref("");
+const openDialog = ref<boolean>(false);
 function ChangePage(item: CustomActionResponse){
     if(item.Action.ActionName == "Deatail")
     router.push('/CustomerLink/' + item.Data.customerId);
+    if(item.Action.ActionName == "statusChange"){
+      idCustomerLink.value = item.Data.id
+      openDialog.value = true;
+      console.log("open");
+    }
+}
+const handleOnEditCloseClicked = async () => {
+  openDialog.value = false;
+  console.log("Close");
+}
+
+function DownloadExcel() {
+  var data;
+  let searchRequest = reactive<SearchRequest>({
+  filters: [
+    {
+      FieldName: "IsDelete",
+      Value: "",
+      Operation: undefined,
+    },
+  ] as Filter[],
+  SortBy: undefined,
+  PageIndex: 1,
+  PageSize: 10,
+});
+  axiosInstance
+    .post("CustomerLink/Download", searchRequest, {
+      responseType: "blob",
+    })
+    .then((response) => {
+      data = response.data;
+      // Chuyển dữ liệu thành một đối tượng Blob
+      const blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+
+      // Tải file về máy
+      const filename = "InboundReceipt"+new Date().toLocaleDateString("vi-GB")+".xlsx";
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = filename;
+      link.click();
+    });
 }
 </script>
