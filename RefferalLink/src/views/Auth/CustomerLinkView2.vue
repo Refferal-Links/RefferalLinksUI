@@ -302,7 +302,7 @@ function DownloadExcel() {
       const blob = new Blob([data], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
 
       // Tải file về máy
-      const filename = "InboundReceipt"+new Date().toLocaleDateString("vi-GB")+".xlsx";
+      const filename = "CustomerLink"+new Date().toLocaleDateString("vi-GB")+".xlsx";
       const link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);
       link.download = filename;
