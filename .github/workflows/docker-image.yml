@@ -11,9 +11,20 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    # Set the working directory for all steps in this job
+    defaults:
+      run:
+        working-directory: RefferalLink
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+      
+    - name: list files
+      run: pwd
+      
+    - name: list files
+      run: ls
 
     - name: Build the Docker image
       run: docker build . --file Dockerfile -t maynghien/referallink
