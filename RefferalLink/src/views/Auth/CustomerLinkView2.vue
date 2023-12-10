@@ -1,5 +1,5 @@
 <template>
-  <el-button @click="DownloadExcel()">In</el-button>
+  
     <Suspense>
       <BasicAdminFormVue 
         :onCloseClicked="handleOnEditCloseClicked"
@@ -259,6 +259,13 @@ const CustomActions: CustomAction[] = ([
         ApiActiontype:ApiActionType.PUT,
         IsRowAction: true,
         DataType: CustomActionDataType.RowId,
+    },
+    {
+        ActionName: "Export",
+        ActionLabel: "Export",
+        ApiActiontype:ApiActionType.PUT,
+        IsRowAction: false,
+        DataType: CustomActionDataType.Filters,
     }
 ]);
 
@@ -272,22 +279,20 @@ function ChangePage(item: CustomActionResponse){
       openDialog.value = true;
       console.log("open");
     }
+    if(item.Action.ActionName == "Export")
+    {
+    DownloadExcel(item.Data);
+    }
 }
 const handleOnEditCloseClicked = async () => {
   openDialog.value = false;
   console.log("Close");
 }
 
-function DownloadExcel() {
+function DownloadExcel(filters:Filter[]|undefined) {
   var data;
   let searchRequest = reactive<SearchRequest>({
-  filters: [
-    {
-      FieldName: "IsDelete",
-      Value: "",
-      Operation: undefined,
-    },
-  ] as Filter[],
+  filters: filters,
   SortBy: undefined,
   PageIndex: 1,
   PageSize: 10,
