@@ -20,11 +20,11 @@ jobs:
     - name: list files
       run: pwd
       
-    - name: go to RefferalLink
-      run: cd RefferalLink
+    - name: display
+      run: pwd
       
     - name: list files
-      run: pwd
+      run: ls
 
     - name: Build the Docker image
       run: docker build . --file Dockerfile -t maynghien/referallink
