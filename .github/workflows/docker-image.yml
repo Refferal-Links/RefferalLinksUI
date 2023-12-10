@@ -18,13 +18,13 @@ jobs:
       run: cd RefferalLink
       
     - name: list files
-      run: dir
+      run: pwd
       
     - name: go to RefferalLink
       run: cd RefferalLink
       
     - name: list files
-      run: dir
+      run: pwd
 
     - name: Build the Docker image
       run: docker build . --file Dockerfile -t maynghien/referallink
