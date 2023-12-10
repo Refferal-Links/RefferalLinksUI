@@ -35,6 +35,7 @@ jobs:
     - name: Push Docker image
       run: docker push maynghien/referallink
   deploy:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
