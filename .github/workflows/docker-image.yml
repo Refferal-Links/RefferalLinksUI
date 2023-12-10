@@ -14,6 +14,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+    - name: go to RefferalLink
+      run: cd RefferalLink
 
     - name: Build the Docker image
       run: docker build . --file Dockerfile -t maynghien/referallink
