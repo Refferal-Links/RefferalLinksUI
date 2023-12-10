@@ -1,3 +1,4 @@
+
 // @ts-ignore
 import { AppResponse } from '../../../../models/AppResponse.js'
 
@@ -9,9 +10,9 @@ import { SearchResponse } from '../../BaseModels/SearchResponse.js'
 // @ts-ignore
 import { axiosInstance } from "../../../../Services/axiosConfig.js"
 // @ts-ignore
-import Filter from '../../BaseModels/Filter.js'
+import {Filter} from '../../BaseModels/Filter.js'
 // @ts-ignore
-import SortByInfo from '../../BaseModels/SortByInfo.js';
+import {SortByInfo} from '../../BaseModels/SortByInfo.js';
 
 
 // @ts-ignore
@@ -203,3 +204,4 @@ export const handleAPIGetDropdownList = async (apiurl: string): Promise<AppRespo
     return resust;
 
 }
+

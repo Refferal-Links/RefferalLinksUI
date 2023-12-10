@@ -33,13 +33,13 @@
   import { ref, reactive } from "vue";
   import StatusChange from "@/components/CustomerLink/StatusChange.vue";
 import type { SearchRequest } from "@/components/maynghien/BaseModels/SearchRequest";
-import type Filter from "@/components/maynghien/BaseModels/Filter";
+import type {Filter} from "@/components/maynghien/BaseModels/Filter";
   
   const token = Cookies.get("accessToken")?.toString() ?? "";
   const decodedToken = jwt.decode(token ?? "") as TokenPayload;
   const userRoles = decodedToken.Roles || [];
   
-  const hasTeamleaderRole = hasPermission(userRoles, ["teamleader"]);
+  const hasTeamleaderRole = hasPermission(userRoles, ["Teamleader"]);
   const hasSaleRole = hasPermission(userRoles, ["Sale"]);
   const hasAdminRole = hasPermission(userRoles, ["Admin", "superadmin"]);
   
@@ -210,7 +210,7 @@ const tableColumns: TableColumn[] = [
 
         enableCreate: false,
         required: false,
-        hidden: hasAdminRole?false:true,
+        hidden: hasAdminRole?true:false,
         showSearch:false,
         inputType: "text",
         dropdownData: null,
@@ -225,7 +225,7 @@ const tableColumns: TableColumn[] = [
         enableCreate: false,
         required: false,
         hidden: false,
-        showSearch: true,
+        showSearch: hasSaleRole ? false : true,
         inputType: "dropdown",
         dropdownData: {
         displayMember: "userName",

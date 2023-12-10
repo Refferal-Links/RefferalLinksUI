@@ -1,5 +1,6 @@
 <template>
-    <el-dialog :model-value="openDialog" :title="(isEdit?'Edit ':'Create ')+ title" class="form-dialog" width="30%" @close="emit('onCloseClicked')">
+    <el-dialog :model-value="openDialog" :title="(isEdit ? 'Edit ' : 'Create ') + title" class="form-dialog" width="30%"
+        @close="emit('onCloseClicked')">
 
         <div class="editform" v-if="model != undefined">
             <div v-for="column in columns" :key="column.key">
@@ -8,13 +9,12 @@
                     <label>{{ column.label }}</label>
 
                     <el-input v-model="model[column.key]" :placeholder="column.label"
-                        v-if="column.inputType == undefined || column.inputType == 'text' || column.inputType=='number'"  
+                        v-if="column.inputType == undefined || column.inputType == 'text' || column.inputType == 'number'"
                         :type="column.inputType" />
 
 
                     <MnDropdown v-if="column.inputType == 'dropdown'" :column="column" @changed="handleUpdateValue"
-                   v-model="model[column.key]"
-                     >
+                        v-model="model[column.key]">
                     </MnDropdown>
                 </div>
 
@@ -51,9 +51,11 @@ const props = defineProps<{
     columns: TableColumn[];
     editItem: SearchDTOItem;
     apiName: string;
+    createUrl?: string;
+    editUrl?: string;
     isEdit: boolean;
     openDialog: boolean;
-    title:string;
+    title: string;
 }>();
 // Use computed to create a filtered model
 const model = ref<SearchDTOItem>(props.editItem);
@@ -79,7 +81,8 @@ const Save = async () => {
     const valid = Validate();
     if (valid) {
         if (props.isEdit == true && props.editItem != undefined) {
-            var editresult = await handleAPIUpdate(props.editItem, props.apiName);
+            const editUrl = props.apiName + (props.editUrl != undefined ? "/" + props.editUrl : "");
+            var editresult = await handleAPIUpdate(props.editItem, editUrl);
             if (editresult.isSuccess) {
                 ElMessage({
                     message: 'data Updated.',
@@ -92,7 +95,8 @@ const Save = async () => {
             }
         }
         else if (props.editItem != undefined) {
-            var createresult = await handleAPICreate(props.editItem, props.apiName);
+            const createUrl = props.apiName + (props.createUrl != undefined ? "/" + props.createUrl : "");
+            var createresult = await handleAPICreate(props.editItem, createUrl);
             if (createresult.isSuccess) {
                 ElMessage({
                     message: 'data Created.',
@@ -111,7 +115,7 @@ const Save = async () => {
     }
 }
 const handleUpdateValue = (key: string, value: string): void => {
-   
+
     model.value[key] = value;
     console.log(model.value);
 }
@@ -123,10 +127,11 @@ watch(() => props.editItem, () => {
 
 <style>
 .form-dialog {
-    margin-top: 0 !important;
-    margin-right: 0 !important;
+    margin-top: 0;
+    margin-right: 0;
     height: 100%;
 }
+
 .editform .el-select {
     width: 100%;
 }

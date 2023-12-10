@@ -9,8 +9,10 @@
                             <el-input v-model="filter.Value" :placeholder="filter.DisplayName"
                                 v-if="filter.Type == undefined || filter.Type == 'text'" class="action-input">
                             </el-input>
-                            <el-select v-model="filter.Value" :placeholder="filter.DisplayName" class="action-input" clearable
+                            <el-select v-model="filter.Value" :placeholder="filter.DisplayName" class="action-input"
                                 v-if="filter.Type == 'dropdown'">
+                                <el-option label="" value="" />
+
                                 <el-option v-for="item in filter.dropdownData.data"
                                     :key="item[filter.dropdownData.keyMember]"
                                     :label="item[filter.dropdownData.displayMember]"
@@ -29,7 +31,10 @@
             </el-row>
             <el-row>
                 <el-col :span="12" class="buttons p-1">
-
+                    <el-button v-for="customAction in CustomActions" :icon="customAction.Icon"
+                        @click="handlebtnCustomActionClicked(customAction)">
+                        {{ customAction.ActionLabel }}
+                    </el-button>
                     <el-button :icon="Plus" @click="handlebtnAddClicked" v-if="allowAdd"> Create</el-button>
                 </el-col>
 
@@ -56,7 +61,7 @@ import { TableColumn } from './Models/TableColumn.ts'
 import { Filter } from '../BaseModels/Filter';
 
 import { ref, watch } from 'vue';
-import type { CustomAction } from './Models/CustomAction';
+import { CustomActionResponse, CustomAction } from './Models/CustomAction';
 import { handleAPIGetDropdownList } from './Service/BasicAdminService';
 const props = defineProps<{
     tableColumns: TableColumn[];
@@ -67,6 +72,7 @@ const props = defineProps<{
 const emit = defineEmits<{
     (e: 'onBtnAddClicked'): void;
     (e: 'onBtnSearchClicked', filters: Filter[]): void;
+    (e: 'onCustomAction', item: CustomActionResponse): void;
 }>();
 const filters = ref<Filter[]>([]);
 
@@ -95,6 +101,10 @@ const handlebtnSearchClicked = () => {
     emit("onBtnSearchClicked", filtersRequest);
 }
 
+const handlebtnCustomActionClicked = async (action: CustomAction) => {
+    let response: CustomActionResponse = new CustomActionResponse(action, filters);
+    emit("onCustomAction", response);
+}
 watch(() => props.tableColumns, async () => {
     props.tableColumns.forEach(async tableCol => {
         if (tableCol.inputType == "dropdown" && tableCol.dropdownData.apiUrl != undefined) {
@@ -106,11 +116,12 @@ watch(() => props.tableColumns, async () => {
             }
 
         }
-        
+
 
     });
+
     console.log(props.tableColumns);
-    filters.value=[];
+    filters.value = [];
     props.tableColumns.forEach(colum => {
         if (colum.showSearch) {
             const newFilter: Filter = {
@@ -139,7 +150,6 @@ watch(() => props.tableColumns, async () => {
 }
 
 .action-pane .action-input {
-    padding-right:5px;
+    padding-right: 5px;
 }
-
 </style>

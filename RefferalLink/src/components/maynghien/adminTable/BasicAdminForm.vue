@@ -1,8 +1,8 @@
 
 <template>
-  <MnActionPane :allowAdd="true" :tableColumns="tableColumns" :isEdit="isEditting"
+  <MnActionPane :allowAdd="allowAdd" :tableColumns="tableColumns" :isEdit="isEditting"
     @onBtnSearchClicked="handleBtnSearchClicked" @onBtnAddClicked="handleOpenCreate" :CustomActions="CustomButtons"
-    :openDialog="openDialogCreate">
+    :openDialog="openDialogCreate" @onCustomAction="handleCustomAction">
   </MnActionPane>
   <MnTable :columns="tableColumns" :datas="datas" :onSaved="handleSaved" :enableEdit="allowEdit"
     :enableDelete="allowDelete" :onCloseClicked="handleOnEditCloseClicked" @onEdit="handleEdit" @onDelete="handleDelete"
@@ -13,38 +13,29 @@
 
 
   <MnEditItem ref="MnEdit" :columns="tableColumns" :apiName="apiName" :openDialog="openDialogCreate" :title="title"
-    :editItem="EdittingItem" :isEdit="isEditting" @onSaved="handleSaved" @onCloseClicked="handleOnEditCloseClicked" />
+    :createUrl="createUrl" :editUrl="editUrl" :editItem="EdittingItem" :isEdit="isEditting" @onSaved="handleSaved"
+    @onCloseClicked="handleOnEditCloseClicked" />
 </template>
   
 <script setup lang="ts">
 
-// @ts-ignore
 import MnTable from './MnTable.vue'
 
-// @ts-ignore
 import MnActionPane from './MnActionPane.vue'
-// @ts-ignore
 import MnEditItem from './MnEditItem.vue'
 
 import { ref, watch } from 'vue';
-// @ts-ignore
-import { TableColumn } from './Models/TableColumn.ts'
-// @ts-ignore
-import { SearchDTOItem } from './Models/SearchDTOItem.ts'
+import { TableColumn } from './Models/TableColumn'
+import { SearchDTOItem } from './Models/SearchDTOItem'
 
-// @ts-ignore
-import { handleAPICustom, handleAPIDelete, handleAPISearch } from './Service/BasicAdminService.ts'
+import { handleAPICustom, handleAPIDelete, handleAPISearch } from './Service/BasicAdminService'
 
-// @ts-ignore
 import { Filter } from '../BaseModels/Filter';
-// @ts-ignore
 import { SearchResponse } from '../BaseModels/SearchResponse';
 import { SearchRequest } from '../BaseModels/SearchRequest';
-import type { AppResponse } from '@/models/AppResponse';
-// @ts-ignore
+import type { AppResponse } from '@/models/AppResponse';  
 import { ElMessage } from 'element-plus';
 import type { CustomAction, CustomActionResponse } from './Models/CustomAction';
-// @ts-ignore
 import { SortByInfo } from '../BaseModels/SortByInfo';
 //#region Method
 
@@ -77,11 +68,15 @@ const Search = async () => {
 const props = defineProps<{
   tableColumns: TableColumn[];
   apiName: string;
+  createUrl?: string;
+  editUrl?: string;
   allowAdd: boolean;
   allowEdit: boolean;
   allowDelete: boolean;
   title: string;
   CustomActions: CustomAction[];
+  CustomFilters?: Filter[];
+  isEditedOutSide?: boolean;
 }>();
 const emit = defineEmits<{
 
@@ -95,7 +90,7 @@ const totalItem = ref(10);
 let searchRequest: SearchRequest = {
   PageIndex: 1,
   PageSize: 10,
-  filters: undefined,
+  filters: props.CustomFilters,
   SortBy: undefined
 }
 const CustomButtons = ref<CustomAction[]>([{}]);
@@ -112,7 +107,7 @@ const isEditting = ref(false);
 
 //#region event funcs
 const handleBtnSearchClicked = (filters: Filter[]) => {
-
+  filters = filters.concat(props.CustomFilters ?? []);
   searchRequest.filters = filters;
   searchRequest.PageIndex = 1;
   Search();
@@ -120,12 +115,7 @@ const handleBtnSearchClicked = (filters: Filter[]) => {
 }
 const handleSaved = async () => {
   openDialogCreate.value = false;
-  if(isEditting.value){
-    searchRequest.PageIndex = searchRequest.PageIndex;
-  }
-  else{
-    searchRequest.PageIndex = 1;
-  }
+  searchRequest.PageIndex = 1;
   EdittingItem.value = new SearchDTOItem(props.tableColumns);
   Search();
 }
@@ -168,12 +158,12 @@ const handleDelete = async (id: string) => {
 }
 const handleSortChange = async (event: any) => {
   const sortByInfo: SortByInfo = {
-    FieldName:event.column.property,
-    Ascending:event.column.order!="descending"
+    FieldName: event.column.property,
+    Ascending: event.column.order != "descending"
 
   }
   searchRequest.SortBy = sortByInfo;
-  searchRequest.PageIndex=1;
+  searchRequest.PageIndex = 1;
   await Search();
 };
 const SelectedId = ref("");
@@ -194,7 +184,7 @@ const handleCustomAction = async (item: CustomActionResponse) => {
       return;
     }
     else {
-      searchRequest.PageIndex = searchRequest.PageIndex;
+      searchRequest.PageIndex = 1;
       await Search();
     }
   }
@@ -212,5 +202,11 @@ watch(() => props.CustomActions, () => {
   CustomButtons.value = props.CustomActions.filter(m => m.IsRowAction == false);
   CustomRowActions.value = props.CustomActions.filter(m => m.IsRowAction == true);
   console.log(CustomRowActions);
+}, { immediate: true })
+
+watch(() => props.isEditedOutSide, () => {
+  if(props.isEditedOutSide!=undefined && props.isEditedOutSide==true){
+    Search();
+  }
 }, { immediate: true })
 </script>

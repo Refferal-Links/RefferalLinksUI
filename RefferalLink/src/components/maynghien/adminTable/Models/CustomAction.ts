@@ -20,7 +20,7 @@ export class CustomActionResponse {
 }
 
 export enum CustomActionDataType {
-    MultiRowId, FullRow, RowId
+    MultiRowId, FullRow, RowId,Filters,null
 }
 export enum ApiActionType {
     POST, GET, PUT, DELETE

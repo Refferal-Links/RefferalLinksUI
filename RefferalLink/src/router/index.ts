@@ -108,7 +108,7 @@ router.beforeEach((to, from, next) => {
     next('/login'); // Chuyển hướng đến trang đăng nhập
   } else if (to.meta.roles && !hasPermission(userRoles, to.meta.roles as string[])) {
     // Xử lý truy cập không được phép
-    next('/403'); // Chuyển hướng đến trang 403 hoặc xử lý khác
+    next('/CustomerLink2'); // Chuyển hướng đến trang 403 hoặc xử lý khác
   } else {
     next(); // Tiếp tục đến trang yêu cầu
   }

@@ -7,10 +7,8 @@
 </template>
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-// @ts-ignore
-import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColumn.ts';
-// @ts-ignore
-import { SearchDTOItem } from '@/components/maynghien/adminTable/Models/SearchDTOItem.ts';
+import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColumn';
+import { SearchDTOItem } from '@/components/maynghien/adminTable/Models/SearchDTOItem';
 import { handleAPIGetDropdownList } from '../Service/BasicAdminService';
 
 const props = defineProps<{

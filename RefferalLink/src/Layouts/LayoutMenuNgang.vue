@@ -29,7 +29,7 @@
                         <router-link to="CustomerLink2">Khách hàng</router-link>
                     </el-menu-item>
                     <el-menu-item index="3">
-                        <router-link :to="`Register/Code=${decodedToken.RefferalCode}`">Đăng kí</router-link>
+                        <router-link :to="`Register/Code=${decodedToken.RefferalCode}`" v-if="hasSaleRole">Đăng kí</router-link>
                     </el-menu-item>
                     <el-menu-item index="4">
                         <el-dropdown>
@@ -39,6 +39,7 @@
                             <template #dropdown>
                                 <el-dropdown-menu>
                                     <el-dropdown-item @click="logout()"><el-icon><SwitchButton /></el-icon>{{decodedToken.UserName}}</el-dropdown-item>
+                                    <el-dropdown-item @click="()=>{ showChangePassword = true; }">Đổi mật khẩu</el-dropdown-item>
                                 </el-dropdown-menu>
                             </template>
                         </el-dropdown>
@@ -54,6 +55,9 @@
             <el-footer></el-footer>
         </el-container>
     </div>
+    <ChangePassword :userName="decodedToken.UserName" :openDialog="showChangePassword"
+    @close="()=>{ showChangePassword = false; console.log('close'); }"
+    ></ChangePassword>
 </template>
 <style>
 .el-menu-demo .el-menu-item:last-child {
@@ -106,8 +110,21 @@ import { Menu as IconMenu, Message,SwitchButton, Setting } from '@element-plus/i
 import router from '@/router';
 import { decode,verify } from 'jsonwebtoken';
 import Cookies from 'js-cookie';
+import ChangePassword from '@/components/ChangePassword.vue';
+import * as jwt from "jsonwebtoken";
 const activeIndex = ref('1')
 const activeIndex2 = ref('1')
+
+const token = Cookies.get("accessToken")?.toString() ?? "";
+const decodedToken = ref();
+const userRoles = ref<string[]>();
+const hasTeamleaderRole = ref<boolean>(false);
+const hasSaleRole = ref<boolean>(false);
+const hasAdminRole = ref<boolean>(false);
+const showChangePassword = ref<boolean>(false);
+interface TokenPayload {
+    Roles: string[];
+  }
 const handleSelect = (key: string, keyPath: string[]) => {
     console.log(key, keyPath)
     if (key === '2') {
@@ -116,12 +133,16 @@ const handleSelect = (key: string, keyPath: string[]) => {
     else if(key==='3')
     window.location.href = "";
 }
-const decodedToken = ref();
+
 
 function getCode(){
     var token = Cookies.get('accessToken')?.toString();
     decodedToken.value = decode(token ?? '');
     console.log(decodedToken.value);
+    userRoles.value = decodedToken.value.Roles ?? [];
+    hasTeamleaderRole.value = hasPermission(userRoles.value as string[], ["Teamleader"]);
+    hasSaleRole.value = hasPermission(userRoles.value as string[], ["Sale"]);
+    hasAdminRole.value = hasPermission(userRoles.value as string[], ["Admin", "superadmin"]);
 }
 getCode();
 const onMenuItemClick = (item: string) => {
@@ -143,5 +164,12 @@ function logout() {
   }
   window.location.href = "/login";
 }
-
+function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {
+  for (const requiredRole of requiredRoles) {
+    if (userRoles.includes(requiredRole)) {
+      return true;
+    }
+  }
+  return false;
+}
 </script>

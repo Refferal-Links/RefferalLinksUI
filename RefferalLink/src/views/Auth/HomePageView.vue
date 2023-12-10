@@ -1,5 +1,5 @@
 <template>
-    <p>http://localhost:5173/Register/Code={{decodedToken.RefferalCode}} </p>
+    <!-- <p>http://localhost:5173/Register/Code={{decodedToken.RefferalCode}} </p> -->
 </template>
 <script setup lang="ts">
 import { decode,verify } from 'jsonwebtoken';

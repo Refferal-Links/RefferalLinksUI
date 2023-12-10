@@ -7,7 +7,7 @@
             @row-click="handleRowClick">
             <el-table-column v-for="column in shownCol" :key="column.key" :prop="column.key" :label="column.label"
                 :sortable="column.sorable ? 'custom' : 'false'" :visible="column.hidden == false" />
-            <el-table-column label="Operations" v-if="enableDelete || enableEdit || CustomActions">
+            <el-table-column label="Operations" v-if="enableDelete || enableEdit">
                 <template #default="scope">
                     <el-button v-if="enableEdit" :icon="Edit" size="small"
                         @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
@@ -23,10 +23,8 @@
 </template>
   
 <script setup lang="ts">
-// @ts-ignore
-import { TableColumn } from '../Models/TableColumn.ts'
-// @ts-ignore
-import { SearchDTOItem } from '../Models/SearchDTOItem.ts'
+import { TableColumn } from './Models/TableColumn'
+import { SearchDTOItem } from './Models/SearchDTOItem'
 import { ref, watch } from 'vue';
 import {
     Check,
@@ -46,6 +44,7 @@ const props = defineProps<{
     enableEdit: boolean;
     enableDelete: boolean;
     CustomActions: CustomAction[];
+
 }>();
 const emit = defineEmits<{
     (e: 'onEdit', item: SearchDTOItem): void;
