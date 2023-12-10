@@ -313,5 +313,5 @@ function DownloadExcel(filters:Filter[]|undefined) {
       link.download = filename;
       link.click();
     });
-}  
+} 
 </script>
