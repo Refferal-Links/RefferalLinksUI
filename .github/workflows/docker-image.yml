@@ -11,20 +11,16 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    # Set the working directory for all steps in this job
+    defaults:
+      run:
+        working-directory: RefferalLink
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
       
     - name: list files
-      run: pwd
-      
-    - name: go to RefferalLink
-      run: cd RefferalLink
-      
-    - name: list files
-      run: pwd
-      
-    - name: display
       run: pwd
       
     - name: list files
