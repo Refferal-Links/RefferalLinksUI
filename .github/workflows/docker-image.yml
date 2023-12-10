@@ -34,3 +34,31 @@ jobs:
 
     - name: Push Docker image
       run: docker push maynghien/referallink
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.4
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Deploy to server
+      run: |
+        ssh root@maynghien.ddns.net "
+        if docker ps -a --format '{{.Names}}' | grep -q '^referal_crm'; then
+           docker stop $container_name
+        else
+           echo 'Container $container_name does not exist.'
+        fi;
+        docker system prune -af;
+        docker pull maynghien/referallink;
+        docker run --name referal_crm --expose=80 -d maynghien/referallink;
+        docker network connect nginx-proxy referal_crm;
+        docker exec -it nginx-proxy bash;
+        service nginx --full-restart; 
+        exit
+        "
