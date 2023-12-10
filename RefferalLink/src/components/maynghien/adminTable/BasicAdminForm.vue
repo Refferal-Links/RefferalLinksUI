@@ -19,21 +19,30 @@
   
 <script setup lang="ts">
 
+// @ts-ignore
 import MnTable from './MnTable.vue'
 
+// @ts-ignore
 import MnActionPane from './MnActionPane.vue'
+// @ts-ignore
 import MnEditItem from './MnEditItem.vue'
 
 import { ref, watch } from 'vue';
-import { TableColumn } from './Models/TableColumn'
-import { SearchDTOItem } from './Models/SearchDTOItem'
+// @ts-ignore
+import { TableColumn } from './Models/TableColumn.ts'
+// @ts-ignore
+import { SearchDTOItem } from './Models/SearchDTOItem.ts'
 
-import { handleAPICustom, handleAPIDelete, handleAPISearch } from './Service/BasicAdminService'
+// @ts-ignore
+import { handleAPICustom, handleAPIDelete, handleAPISearch } from './Service/BasicAdminService.ts'
 
+// @ts-ignore
 import { Filter } from '../BaseModels/Filter';
+// @ts-ignore
 import { SearchResponse } from '../BaseModels/SearchResponse';
 import { SearchRequest } from '../BaseModels/SearchRequest';
-import type { AppResponse } from '@/models/AppResponse';  
+import type { AppResponse } from '@/models/AppResponse';
+// @ts-ignore
 import { ElMessage } from 'element-plus';
 import type { CustomAction, CustomActionResponse } from './Models/CustomAction';
 import { SortByInfo } from '../BaseModels/SortByInfo';

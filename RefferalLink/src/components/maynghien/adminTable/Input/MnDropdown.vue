@@ -21,7 +21,7 @@ const editItem = ref<string | undefined>("");
 const dropdownData = ref<any[]>([]);
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void;
-  (e: 'changed', key: string, value: string): void;
+  (e: 'changed', key: string|undefined, value: string): void;
 
 }>();
 

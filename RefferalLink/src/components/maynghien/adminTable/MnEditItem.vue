@@ -9,12 +9,12 @@
                     <label>{{ column.label }}</label>
 
                     <el-input v-model="model[column.key]" :placeholder="column.label"
-                        v-if="column.inputType == undefined || column.inputType == 'text' || column.inputType == 'number'"
+                        v-if="column.key != undefined && (column.inputType == undefined || column.inputType == 'text' || column.inputType == 'number')"
                         :type="column.inputType" />
 
 
-                    <MnDropdown v-if="column.inputType == 'dropdown'" :column="column" @changed="handleUpdateValue"
-                        v-model="model[column.key]">
+                    <MnDropdown v-if="column.key != undefined && (column.inputType == 'dropdown')" :column="column"
+                        @changed="handleUpdateValue" v-model="model[column.key]">
                     </MnDropdown>
                 </div>
 
@@ -62,7 +62,7 @@ const model = ref<SearchDTOItem>(props.editItem);
 const Validate = (): boolean => {
     if (model != undefined)
         props.columns.forEach(column => {
-            if (column.enableEdit) {
+            if (column.enableEdit &&column.key!=undefined) {
                 const value = model.value[column.key];
                 if (column.key == "id" && props.isEdit) {
                     if (value == undefined)
@@ -114,10 +114,12 @@ const Save = async () => {
         ElMessage.error('valid failed.');
     }
 }
-const handleUpdateValue = (key: string, value: string): void => {
+const handleUpdateValue = (key: string | undefined, value: string): void => {
+    if (key != undefined) {
+        model.value[key] = value;
+        console.log(model.value);
+    }
 
-    model.value[key] = value;
-    console.log(model.value);
 }
 
 watch(() => props.editItem, () => {

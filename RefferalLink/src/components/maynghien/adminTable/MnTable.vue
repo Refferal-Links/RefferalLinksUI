@@ -6,7 +6,7 @@
         <el-table class="admin-table" :data="datas" @sort-change="handleSortChange" border row-key="id" table-layout="auto"
             @row-click="handleRowClick">
             <el-table-column v-for="column in shownCol" :key="column.key" :prop="column.key" :label="column.label"
-                :sortable="column.sorable ? 'custom' : 'false'" :visible="column.hidden == false" />
+                :sortable="column.sortable ? 'custom' : 'false'" :visible="column.hidden == false" />
             <el-table-column label="Operations" v-if="enableDelete || enableEdit">
                 <template #default="scope">
                     <el-button v-if="enableEdit" :icon="Edit" size="small"
@@ -23,8 +23,10 @@
 </template>
   
 <script setup lang="ts">
-import { TableColumn } from './Models/TableColumn'
-import { SearchDTOItem } from './Models/SearchDTOItem'
+// @ts-ignore
+import { TableColumn } from './Models/TableColumn.ts'
+// @ts-ignore
+import { SearchDTOItem } from './Models/SearchDTOItem.ts'
 import { ref, watch } from 'vue';
 import {
     Check,
@@ -48,7 +50,7 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{
     (e: 'onEdit', item: SearchDTOItem): void;
-    (e: 'onDelete', item: SearchDTOItem): void;
+    (e: 'onDelete', item: string): void;
     (e: 'onCustomAction', item: CustomActionResponse): void;
     (e: 'onSortChange', event: any): void;
 }>()
