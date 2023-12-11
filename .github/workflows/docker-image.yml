@@ -35,6 +35,7 @@ jobs:
     - name: Push Docker image
       run: docker push maynghien/referallink
   deploy:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
@@ -48,7 +49,7 @@ jobs:
 
     - name: Deploy to server
       run: |
-        ssh root@maynghien.ddns.net "
+        sshpass -p 'your_password'ssh root@maynghien.ddns.net "
         if docker ps -a --format '{{.Names}}' | grep -q '^referal_crm'; then
            docker stop $container_name
         else
@@ -62,3 +63,5 @@ jobs:
         service nginx --full-restart; 
         exit
         "
+        env:
+        SSHPASS: ${{ secrets.VPS_PASSWORD }}
