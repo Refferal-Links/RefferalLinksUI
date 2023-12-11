@@ -20,4 +20,4 @@ RUN npm run build
 EXPOSE 80
 
 # Define the command to run your application
-CMD [ "http-server", "dist" ]
+CMD [ "npm", "run" ,"serve"]
