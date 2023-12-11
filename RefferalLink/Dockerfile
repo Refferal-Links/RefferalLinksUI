@@ -21,3 +21,4 @@ EXPOSE 80
 
 # Define the command to run your application
 CMD [ "npm", "run" ,"serve"]
+
