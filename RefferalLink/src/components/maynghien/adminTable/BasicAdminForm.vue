@@ -41,7 +41,7 @@ import { Filter } from '../BaseModels/Filter';
 // @ts-ignore
 import { SearchResponse } from '../BaseModels/SearchResponse';
 import { SearchRequest } from '../BaseModels/SearchRequest';
-import type { AppResponse } from '@/models/AppResponse';
+import type { AppResponse } from '@/Models/AppResponse';
 // @ts-ignore
 import { ElMessage } from 'element-plus';
 import type { CustomAction, CustomActionResponse } from './Models/CustomAction';

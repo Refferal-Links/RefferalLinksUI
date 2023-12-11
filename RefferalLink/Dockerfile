@@ -1,5 +1,5 @@
 # Use the official Node.js image as a base image
-FROM node:14-alpine
+FROM node:18
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
@@ -14,10 +14,10 @@ RUN npm install
 COPY . .
 
 # Build the Vue.js application
-#RUN npm run build
+RUN npm run build
 
 # Expose the port that the app will run on
 EXPOSE 80
 
 # Define the command to run your application
-CMD ["npm", "run", "dev"]
+CMD [ "http-server", "dist" ]

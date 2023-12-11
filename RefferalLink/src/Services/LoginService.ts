@@ -1,7 +1,7 @@
 // @ts-ignore
-import { LoginViewModel } from '../models/LoginViewModel.ts'
+import { LoginViewModel } from '../Models/LoginViewModel.ts'
 // @ts-ignore
-import { AppResponse } from '../models/AppResponse.ts'
+import { AppResponse } from '../Models/AppResponse.ts'
 // @ts-ignore
 import { axiosInstance } from "./axiosConfig.ts"
 

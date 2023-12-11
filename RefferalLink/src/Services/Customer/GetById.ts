@@ -1,5 +1,5 @@
 import type { CustomerDto } from "@/Models/Dtos/CustomerDto";
-import { AppResponse } from "@/models/AppResponse";
+import { AppResponse } from "@/Models/AppResponse";
 import { axiosInstance } from "../axiosConfig";
 
 

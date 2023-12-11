@@ -1,6 +1,6 @@
 
 // @ts-ignore
-import { AppResponse } from '../../../../models/AppResponse.js'
+import { AppResponse } from '../../../../Models/AppResponse.js'
 
 // @ts-ignore
 import { SearchRequest } from '../../BaseModels/SearchRequest.js'
