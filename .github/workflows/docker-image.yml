@@ -20,11 +20,18 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
       
-    - name: list files
-      run: pwd
-      
-    - name: list files
-      run: ls
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build Vue app
+      run: npm run build
+    - name: list 
+      run: dir
 
     - name: Build the Docker image
       run: docker build . --file Dockerfile -t maynghien/referallink
