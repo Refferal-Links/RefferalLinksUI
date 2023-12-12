@@ -108,10 +108,8 @@ a{
 import { ref } from 'vue'
 import { Menu as IconMenu, Message,SwitchButton, Setting } from '@element-plus/icons-vue'
 import router from '@/router';
-import { decode,verify } from 'jsonwebtoken';
 import Cookies from 'js-cookie';
 import ChangePassword from '@/components/ChangePassword.vue';
-import * as jwt from "jsonwebtoken";
 import type { LoginResult } from '@/Models/LoginResult';
 const activeIndex = ref('1')
 const activeIndex2 = ref('1')
