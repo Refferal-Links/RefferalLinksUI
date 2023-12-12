@@ -52,7 +52,7 @@ jobs:
     
     - name: ssh to server
       run: |
-        sshpass -p "${{ secrets.VPS_PASSWORD }}" - e ssh root@maynghien.ddns.net "
+        sshpass -p "${{ secrets.VPS_PASSWORD }}" -e ssh root@maynghien.ddns.net "
         if docker ps -a --format '{{.Names}}' | grep -q '^referal_crm'; then
            docker stop $container_name
         else
