@@ -50,20 +50,12 @@ jobs:
     - name: Install sshpass
       run: sudo apt-get install -y sshpass
     
-    - name: ssh to server
+    - name: ssh to server and pull
       run: |
-        sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh root@maynghien.ddns.net "
-        if docker ps -a --format '{{.Names}}' | grep -q '^referal_crm'; then
-           docker stop $container_name
-        else
-           echo 'Container $container_name does not exist.'
-        fi;
-        docker system prune -af;
-        docker pull maynghien/referallink;
-        docker run --name referal_crm --expose=80 -d maynghien/referallink;
-        docker network connect nginx-proxy referal_crm;
-        docker exec -it nginx-proxy bash;
-        service nginx --full-restart; 
-        exit
-        "
+        sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh root@maynghien.ddns.net "docker stop referal_crm;docker system prune -af;"
+        sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh root@maynghien.ddns.net "docker pull maynghien/referallink;"
+        sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh root@maynghien.ddns.net "docker run --name referal_crm --expose=80 -d maynghien/referallink;"
+        sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh root@maynghien.ddns.net "docker network connect nginx-proxy referal_crm;"
+        sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh root@maynghien.ddns.net "docker exec -it nginx-proxy bash -c 'service nginx --full-restart'"
+        
        
