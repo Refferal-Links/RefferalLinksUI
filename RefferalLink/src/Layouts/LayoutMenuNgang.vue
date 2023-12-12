@@ -29,7 +29,7 @@
                         <router-link to="CustomerLink2">Khách hàng</router-link>
                     </el-menu-item>
                     <el-menu-item index="3">
-                        <router-link :to="`Register/Code=${decodedToken.RefferalCode}`" v-if="hasSaleRole">Đăng kí</router-link>
+                        <router-link :to="`Register/Code=${decodedToken?.refferalCode}`" v-if="hasSaleRole">Đăng kí</router-link>
                     </el-menu-item>
                     <el-menu-item index="4">
                         <el-dropdown>
@@ -38,7 +38,7 @@
                             </el-icon>
                             <template #dropdown>
                                 <el-dropdown-menu>
-                                    <el-dropdown-item @click="logout()"><el-icon><SwitchButton /></el-icon>{{decodedToken.UserName}}</el-dropdown-item>
+                                    <el-dropdown-item @click="logout()"><el-icon><SwitchButton /></el-icon>{{decodedToken?.userName}}</el-dropdown-item>
                                     <el-dropdown-item @click="()=>{ showChangePassword = true; }">Đổi mật khẩu</el-dropdown-item>
                                 </el-dropdown-menu>
                             </template>
@@ -55,7 +55,7 @@
             <el-footer></el-footer>
         </el-container>
     </div>
-    <ChangePassword :userName="decodedToken.UserName" :openDialog="showChangePassword"
+    <ChangePassword :userName="decodedToken?.userName ?? ''" :openDialog="showChangePassword"
     @close="()=>{ showChangePassword = false; console.log('close'); }"
     ></ChangePassword>
 </template>
@@ -112,11 +112,19 @@ import { decode,verify } from 'jsonwebtoken';
 import Cookies from 'js-cookie';
 import ChangePassword from '@/components/ChangePassword.vue';
 import * as jwt from "jsonwebtoken";
+import type { LoginResult } from '@/Models/LoginResult';
 const activeIndex = ref('1')
 const activeIndex2 = ref('1')
 
 const token = Cookies.get("accessToken")?.toString() ?? "";
-const decodedToken = ref();
+const decodedToken = ref<LoginResult>({
+    userName: "",
+    roles: [],
+    refferalCode: "",
+    token: "",
+    teamId: "",
+    tpBank: "",
+});
 const userRoles = ref<string[]>();
 const hasTeamleaderRole = ref<boolean>(false);
 const hasSaleRole = ref<boolean>(false);
@@ -137,9 +145,17 @@ const handleSelect = (key: string, keyPath: string[]) => {
 
 function getCode(){
     var token = Cookies.get('accessToken')?.toString();
-    decodedToken.value = decode(token ?? '');
+    decodedToken.value.userName = Cookies.get('UserName')?.toString();
+    decodedToken.value.refferalCode = Cookies.get('RefferalCode')?.toString();
+    decodedToken.value.teamId = Cookies.get('TeamId')?.toString();
+    decodedToken.value.tpBank = Cookies.get('TpBank')?.toString();
+
+    var jsonString = Cookies.get('Roles')?.toString() ?? '';
+    var jsonObject = JSON.parse(jsonString);
+    var arrayFromString = Object.values(jsonObject);
+    decodedToken.value.roles = arrayFromString as string[];
     console.log(decodedToken.value);
-    userRoles.value = decodedToken.value.Roles ?? [];
+    userRoles.value = decodedToken.value?.roles ?? [];
     hasTeamleaderRole.value = hasPermission(userRoles.value as string[], ["Teamleader"]);
     hasSaleRole.value = hasPermission(userRoles.value as string[], ["Sale"]);
     hasAdminRole.value = hasPermission(userRoles.value as string[], ["Admin", "superadmin"]);
@@ -147,7 +163,7 @@ function getCode(){
 getCode();
 const onMenuItemClick = (item: string) => {
     if(item =='Register'){
-        router.push(`${item}/Code=${decodedToken.value.RefferalCode}`);
+        router.push(`${item}/Code=${decodedToken.value.refferalCode}`);
     }
    else{
     router.push(`${item}`);
