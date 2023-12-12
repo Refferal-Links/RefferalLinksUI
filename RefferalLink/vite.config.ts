@@ -1,4 +1,4 @@
-import { fileURLToPath, URL } from "node:url";
+
 import { defineConfig, loadEnv } from "vite";
 import vue from "@vitejs/plugin-vue";
 
@@ -6,9 +6,10 @@ import vue from "@vitejs/plugin-vue";
 
 export default ({ mode}:{mode:any}) => {
   const env = loadEnv(mode, process.cwd(), "");
+
   return defineConfig({
     define: {
-      "process.env": env,
+      'process.env': env,
     },
     plugins: [vue()],
     server: {
@@ -17,7 +18,8 @@ export default ({ mode}:{mode:any}) => {
     },
     resolve: {
       alias: {
-        "@": fileURLToPath(new URL("./src", import.meta.url)),
+        // Assuming the "src" directory is in the root of your project
+        '@': '/src',
       },
     },
   });
