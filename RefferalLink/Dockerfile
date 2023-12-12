@@ -1,5 +1,6 @@
-# Use the official Node.js image as a base image
-FROM node:18
+
+# build stage
+FROM node:18 as build-stage
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
@@ -16,9 +17,10 @@ COPY . .
 # Build the Vue.js application
 RUN npm run build
 
-# Expose the port that the app will run on
+
+
+# production stage
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 EXPOSE 80
-
-# Define the command to run your application
-CMD [ "npm", "run" ,"serve"]
-
+CMD ["nginx", "-g", "daemon off;"]
