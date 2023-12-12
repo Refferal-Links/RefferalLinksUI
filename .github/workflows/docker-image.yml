@@ -32,7 +32,7 @@ jobs:
       run: npm run build
     - name: list 
       run: dir
-
+    
     - name: Build the Docker image
       run: docker build . --file Dockerfile -t maynghien/referallink
 
@@ -46,17 +46,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.5.4
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-    - name: Deploy to server
+   
+    - name: Install sshpass
+      run: sudo apt-get install -y sshpass
+    
+    - name: ssh to server
       run: |
-        sshpass -p 'your_password'ssh root@maynghien.ddns.net "
+        sshpass -p "${{ secrets.VPS_PASSWORD }}" ssh root@maynghien.ddns.net "
         if docker ps -a --format '{{.Names}}' | grep -q '^referal_crm'; then
            docker stop $container_name
         else
@@ -70,5 +66,4 @@ jobs:
         service nginx --full-restart; 
         exit
         "
-        env:
-        SSHPASS: ${{ secrets.VPS_PASSWORD }}
+       
