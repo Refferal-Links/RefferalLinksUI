@@ -14,7 +14,7 @@ import LinkTemplateView from "../views/Auth/LinkTemplateView.vue";
 import CustomerLinkView from "../views/CustomerLinkView.vue"
 import CustomerLinkView2 from "../views/Auth/CustomerLinkView2.vue"
 import Cookies from "js-cookie";
-import * as jwt from "jsonwebtoken";
+import { LoginResult } from "@/Models/LoginResult";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -102,7 +102,7 @@ const router = createRouter({
 });
 router.beforeEach((to, from, next) => {
   const isAuthenticated: boolean = !!Cookies.get('accessToken');
-  const userRoles: string[] = getRolesFromToken(Cookies.get('accessToken')?.toString() || '') ??[];
+  const userRoles: string[] = getRolesFromToken() ??[];
 
   if (to.meta.requiresAuth && !isAuthenticated) {
     next('/login'); // Chuyển hướng đến trang đăng nhập
@@ -122,12 +122,16 @@ function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {
   }
   return false;
 }
-function getRolesFromToken(token: string): string[] | null {
+function getRolesFromToken(): string[] | null {
   try {
-    var token = Cookies.get('accessToken')?.toString() ?? "";
-    const decodedToken = jwt.decode(token ?? '') as TokenPayload;
+    // var token = Cookies.get('accessToken')?.toString() ?? "";
+    const decodedToken = new LoginResult();
+    var jsonString = Cookies.get('Roles')?.toString() ?? '';
+    var jsonObject = JSON.parse(jsonString);
+    var arrayFromString = Object.values(jsonObject);
+    decodedToken.roles = arrayFromString as string[];
     console.log(decodedToken);
-    return decodedToken.Roles || [];
+    return decodedToken.roles || [];
   } catch (error) {
     console.error(error);
     return null;

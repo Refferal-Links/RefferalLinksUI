@@ -8,7 +8,5 @@ export default defineConfig({
       "@": "/src",
     },
   },
-  plugins: [
-    vue()
-  ]
-});
+
+})

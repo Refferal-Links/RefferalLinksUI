@@ -7,14 +7,15 @@ import { axiosInstance } from "./axiosConfig.ts"
 
 import Cookies from 'js-cookie';
 import { reactive } from 'vue';
+import type { LoginResult } from '@/Models/LoginResult.js';
 const loginUrl = "Account/login";
 
-export const handleLogin = async (model: LoginViewModel): Promise<AppResponse<string>> => {
+export const handleLogin = async (model: LoginViewModel): Promise<AppResponse<LoginResult>> => {
 
-    let resust: AppResponse<string>=({
+    let resust: AppResponse<LoginResult>=({
         isSuccess: false,
         message: '',
-        data: ''
+        data: undefined
     });
 
     try {
@@ -24,7 +25,12 @@ export const handleLogin = async (model: LoginViewModel): Promise<AppResponse<st
         resust = responseObject;
         if (resust.isSuccess) {
             if(resust.data!=undefined){
-                Cookies.set('accessToken', resust.data, { expires: undefined });
+                Cookies.set('accessToken', resust.data.token ?? "", { expires: undefined });
+                Cookies.set('UserName', resust.data.userName ?? "", { expires: undefined });
+                Cookies.set('RefferalCode', resust.data.refferalCode ?? "", { expires: undefined });
+                Cookies.set('Roles', JSON.stringify(resust.data.roles) ?? "", { expires: undefined });
+                Cookies.set('TeamId', resust.data.teamId ?? "", { expires: undefined });
+                Cookies.set('TpBank', resust.data.tpBank ?? "", { expires: undefined });
             }
             
         }
