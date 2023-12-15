@@ -4,7 +4,7 @@
             <el-header>
                 <el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal"
                     background-color="--el-text-color-primary" text-color="#fff" active-text-color="#ffd04b"
-                    @select="handleSelect">
+                    >
                     <el-menu-item index="1">
                         <el-dropdown>
                             <span class="el-dropdown-link">
@@ -20,16 +20,18 @@
                                     <el-dropdown-item @click="onMenuItemClick('Province')" >Tỉnh Thành</el-dropdown-item>
                                     <el-dropdown-item @click="onMenuItemClick('Team')" >Team</el-dropdown-item>
                                     <el-dropdown-item @click="onMenuItemClick('Link')">Liên Kết</el-dropdown-item>
+                                    <el-dropdown-item @click="onMenuItemClick('Branch')">Chi nhánh</el-dropdown-item>
                                     <el-dropdown-item divided @click="onMenuItemClick('User')">Quản Lý Người Dùng</el-dropdown-item>
                                 </el-dropdown-menu>
                             </template>
                         </el-dropdown>
                     </el-menu-item>
-                    <el-menu-item index="2">
-                        <router-link to="CustomerLink2">Khách hàng</router-link>
+                    <el-menu-item index="2" @click="onMenuItemClick('CustomerLink2')">
+                        Khách hàng
                     </el-menu-item>
-                    <el-menu-item index="3">
-                        <router-link :to="`Register/Code=${decodedToken?.refferalCode}`" v-if="hasSaleRole">Đăng kí</router-link>
+                    <el-menu-item index="3" @click="onMenuItemClick(`Register/Code=${decodedToken?.refferalCode}`)">
+                        Đăng kí
+                        
                     </el-menu-item>
                     <el-menu-item index="4">
                         <el-dropdown>
@@ -131,14 +133,14 @@ const showChangePassword = ref<boolean>(false);
 interface TokenPayload {
     Roles: string[];
   }
-const handleSelect = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
-    if (key === '2') {
-        window.location.href = "";
-    }
-    else if(key==='3')
-    window.location.href = "";
-}
+// const handleSelect = (key: string, keyPath: string[]) => {
+//     console.log(key, keyPath)
+//     if (key === '2') {
+//         window.location.href = "";
+//     }
+//     else if(key==='3')
+//     window.location.href = "";
+// }
 
 
 function getCode(){

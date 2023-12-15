@@ -8,6 +8,7 @@
 import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColumn'
 import BasicAdminFormVue from '@/components/maynghien/adminTable/BasicAdminForm.vue'
 import {CustomAction} from '@/components/maynghien/adminTable/Models/CustomAction'
+import { fa } from 'element-plus/lib/locale/index.js';
 const tableColumns: TableColumn[] = [
     {
         key: "name",
@@ -23,20 +24,38 @@ const tableColumns: TableColumn[] = [
         inputType:  "text",
         dropdownData:null,
     },
-    // {
-    //     key: "refferalCode",
-    //     label: "Mã Giới Thiệu",
-    //     width: 1000,
-    //     sortable: true,
-    //     enableEdit:  true,
+    {
+        key: "branchId",
+        label: "Chi nhánh",
+        width: 1000,
+        sortable: true,
+        enableEdit:  true,
 
-    //     enableCreate:  true,
-    //     required:false,
-    //     hidden: false,
-    //     showSearch: false,
-    //     inputType:  "text",
-    //     dropdownData:null,
-    // },
+        enableCreate:  true,
+        required:true,
+        hidden: true,
+        showSearch: true,
+        inputType: "dropdown",
+        dropdownData: {
+            displayMember: "name",
+            keyMember: "id",
+            apiUrl: "Branch",
+        },
+    },
+    {
+        key: "nameBranch",
+        label: "Chi nhánh",
+        width: 1000,
+        sortable: true,
+        enableEdit:  false,
+
+        enableCreate:  false,
+        required:true,
+        hidden: false,
+        showSearch: true,
+        inputType: "text",
+        dropdownData: null
+    },
 ]
 const CustomActions: CustomAction[]=([]);
 </script>
