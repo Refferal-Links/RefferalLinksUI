@@ -8,7 +8,7 @@
 import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColumn'
 import BasicAdminFormVue from '@/components/maynghien/adminTable/BasicAdminForm.vue'
 import {CustomAction} from '@/components/maynghien/adminTable/Models/CustomAction'
-import { fa } from 'element-plus/lib/locale/index.js';
+
 const tableColumns: TableColumn[] = [
     {
         key: "name",
