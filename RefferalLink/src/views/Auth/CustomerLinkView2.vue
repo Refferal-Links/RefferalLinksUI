@@ -49,7 +49,7 @@ const hasSaleRole = ref<boolean>(false);
 const hasAdminRole = ref<boolean>(false);
 function checkRole() {
   try {
-    var jsonString = Cookies.get('Roles')?.toString() ?? '';
+    var jsonString = Cookies.get("Roles")?.toString() ?? "";
     var jsonObject = JSON.parse(jsonString);
     var Roles = Object.values(jsonObject) as string[];
     console.log(Roles);
@@ -251,6 +251,20 @@ const tableColumns: TableColumn[] = [
       apiUrl: "UserManagemet/sale",
     },
   },
+  {
+    key: "statusText",
+    label: "Trạng thái",
+    width: 1000,
+    sortable: true,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: false,
+    showSearch: false,
+    inputType: "dropdown",
+    dropdownData: null
+  },
 ];
 
 function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {
@@ -272,7 +286,7 @@ const CustomActions: CustomAction[] = [
   },
   {
     ActionName: "statusChange",
-    ActionLabel: "statusChange",
+    ActionLabel: "Đổi trạng thái",
     ApiActiontype: ApiActionType.PUT,
     IsRowAction: true,
     DataType: CustomActionDataType.RowId,
