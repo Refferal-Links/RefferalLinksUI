@@ -6,8 +6,8 @@
         <el-table class="admin-table" :data="datas" @sort-change="handleSortChange" border row-key="id" table-layout="auto"
             @row-click="handleRowClick">
             <el-table-column v-for="column in shownCol" :key="column.key" :prop="column.key" :label="column.label"
-                :sortable="column.sorable ? 'custom' : 'false'" :visible="column.hidden == false" />
-            <el-table-column label="Operations" v-if="enableDelete || enableEdit">
+                :sortable="column.sortable ? 'custom' : 'false'" :visible="column.hidden == false" />
+            <el-table-column label="Operations" v-if="enableDelete || enableEdit || CustomActions">
                 <template #default="scope">
                     <el-button v-if="enableEdit" :icon="Edit" size="small"
                         @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
@@ -54,7 +54,7 @@ const emit = defineEmits<{
 }>()
 const selectedId = ref("");
 
-const shownCol = ref<TableColumn[]>([{}]);
+const shownCol = ref<TableColumn[]>([]);
 
 // column: The column component
 // prop: The property associated with the column
