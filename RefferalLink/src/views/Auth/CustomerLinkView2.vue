@@ -265,6 +265,48 @@ const tableColumns: TableColumn[] = [
     inputType: "dropdown",
     dropdownData: null
   },
+  {
+    key: "createOn",
+    label: "Ngày tạo",
+    width: 1000,
+    sortable: true,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: false,
+    showSearch: false,
+    inputType: "dropdown",
+    dropdownData: null
+  },
+  {
+    key: "modifiedOn",
+    label: "Ngày hỗ trợ",
+    width: 1000,
+    sortable: true,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: false,
+    showSearch: false,
+    inputType: "dropdown",
+    dropdownData: null
+  },
+  {
+    key: "note",
+    label: "Ghi chú",
+    width: 1000,
+    sortable: true,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: true,
+    showSearch: false,
+    inputType: "dropdown",
+    dropdownData: null
+  },
 ];
 
 function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {

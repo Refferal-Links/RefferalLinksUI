@@ -13,6 +13,14 @@
           <el-radio-button label="Rejected" />
         </el-radio-group>
       </div>
+      <div>
+        <el-input
+          v-model="customerLink.note"
+          :rows="2"
+          type="textarea"
+          placeholder="Ghi chú"
+        />
+      </div>
       <el-card class="box-card">
         <template #header>
           <div class="card-header">
@@ -22,7 +30,7 @@
         <div
           v-for="item in customerLink.listCustomerlinkImage"
           class="text item"
-          style="display: flex; align-items: flex-end; "
+          style="display: flex; align-items: flex-end"
         >
           <el-image
             style="width: 100px; height: 100px"
@@ -75,7 +83,8 @@ const customerLink = ref({
   statusText: "",
   listCustomerlinkImage: [] as CustomerlinkImageDto[],
   url: "",
-  CustomerId: "",
+  customerId: "",
+  note: "",
 });
 const getCustomerLink = async () => {
   await axiosInstance
@@ -119,6 +128,7 @@ async function Save() {
   request.id = props.CustomerLinkId;
   request.status = customerLink.value.status;
   request.listCustomerlinkImage = customerLink.value.listCustomerlinkImage;
+  request.note = customerLink.value.note;
   console.log("request", request);
   await axiosInstance
     .put(`/CustomerLink/StatusChange`, request)
@@ -146,6 +156,4 @@ function addImage() {
   }
 }
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>
