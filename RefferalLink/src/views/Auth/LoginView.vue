@@ -39,6 +39,7 @@ const state = reactive<LoginViewModel>({
   role:''
 });
 import { ElMessageBox } from 'element-plus'
+import router from '@/router';
 
 const dialogVisible = ref(false)
 
@@ -47,7 +48,8 @@ const login = async () => {
   if (!loginResult.isSuccess) {
     dialogVisible.value = true;
   } else {
-    window.location.href = '/Bank';
+    
+    router.push("/Bank");
   }
 }
 </script>
