@@ -32,7 +32,7 @@
             <el-date-picker
               v-model="state.dateOfBirth"
               type="date"
-              placeholder="Pick a day"
+              placeholder="Ngày sinh"
               format="DD/MM/YYYY"
               value-format="DD/MM/YYYY"
             >

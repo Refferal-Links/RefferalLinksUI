@@ -330,7 +330,7 @@ const tableColumns: TableColumn[] = [
 
     enableCreate: false,
     required: false,
-    hidden: true,
+    hidden: false,
     showSearch: false,
     inputType: "dropdown",
     dropdownData: null
