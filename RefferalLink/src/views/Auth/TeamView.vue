@@ -34,7 +34,7 @@ const tableColumns: TableColumn[] = [
         enableCreate:  true,
         required:true,
         hidden: true,
-        showSearch: true,
+        showSearch: false,
         inputType: "dropdown",
         dropdownData: {
             displayMember: "name",
@@ -52,7 +52,7 @@ const tableColumns: TableColumn[] = [
         enableCreate:  false,
         required:true,
         hidden: false,
-        showSearch: true,
+        showSearch: false,
         inputType: "text",
         dropdownData: null
     },

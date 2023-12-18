@@ -17,6 +17,9 @@ export class CustomerLinkDto{
     userName:string|undefined
     teamName:string|undefined
 
+    createOn: string|undefined
+    modifiedOn: string|undefined
+    note: string|undefined
 
     listCustomerlinkImage: CustomerlinkImageDto[]|undefined
 }

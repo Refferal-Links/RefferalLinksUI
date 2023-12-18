@@ -16,9 +16,9 @@
                             <template #dropdown>
                                 <el-dropdown-menu>
                                     <el-dropdown-item @click="onMenuItemClick('Bank')">Ngân Hàng</el-dropdown-item>
-                                    <el-dropdown-item @click="onMenuItemClick('Campaign')" >Chiến Dịch</el-dropdown-item>
-                                    <el-dropdown-item @click="onMenuItemClick('Province')" >Tỉnh Thành</el-dropdown-item>
-                                    <el-dropdown-item @click="onMenuItemClick('Team')" >Team</el-dropdown-item>
+                                    <el-dropdown-item @click="onMenuItemClick('Campaign')" v-if="hasAdminRole">Chiến Dịch</el-dropdown-item>
+                                    <el-dropdown-item @click="onMenuItemClick('Province')" v-if="hasAdminRole">Tỉnh Thành</el-dropdown-item>
+                                    <el-dropdown-item @click="onMenuItemClick('Team')" v-if="hasAdminRole">Team</el-dropdown-item>
                                     <el-dropdown-item @click="onMenuItemClick('Link')">Liên Kết</el-dropdown-item>
                                     <el-dropdown-item @click="onMenuItemClick('Branch')">Chi nhánh</el-dropdown-item>
                                     <el-dropdown-item divided @click="onMenuItemClick('User')">Quản Lý Người Dùng</el-dropdown-item>
@@ -29,7 +29,7 @@
                     <el-menu-item index="2" @click="onMenuItemClick('CustomerLink2')">
                         Khách hàng
                     </el-menu-item>
-                    <el-menu-item index="3" @click="onMenuItemClick(`Register/Code=${decodedToken?.refferalCode}`)">
+                    <el-menu-item index="3" @click="onMenuItemClick(`Register`)" v-if="hasSaleRole">
                         Đăng kí
                         
                     </el-menu-item>
