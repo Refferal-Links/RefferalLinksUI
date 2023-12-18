@@ -29,7 +29,7 @@
                     <el-menu-item index="2" @click="onMenuItemClick('CustomerLink2')">
                         Khách hàng
                     </el-menu-item>
-                    <el-menu-item index="3" @click="onMenuItemClick(`Register`)" v-if="hasSaleRole">
+                    <el-menu-item index="3" @click="onMenuItemClick(`Register`)" v-if="hasSaleRole || hasCSKHRole">
                         Đăng kí
                         
                     </el-menu-item>
@@ -128,6 +128,7 @@ const decodedToken = ref<LoginResult>({
 const userRoles = ref<string[]>();
 const hasTeamleaderRole = ref<boolean>(false);
 const hasSaleRole = ref<boolean>(false);
+const hasCSKHRole = ref<boolean>(false);
 const hasAdminRole = ref<boolean>(false);
 const showChangePassword = ref<boolean>(false);
 interface TokenPayload {
@@ -159,6 +160,7 @@ function getCode(){
     hasTeamleaderRole.value = hasPermission(userRoles.value as string[], ["Teamleader"]);
     hasSaleRole.value = hasPermission(userRoles.value as string[], ["Sale"]);
     hasAdminRole.value = hasPermission(userRoles.value as string[], ["Admin", "superadmin"]);
+    hasCSKHRole.value = hasPermission(userRoles.value as string[], ["CSKH"]);
 }
 getCode();
 const onMenuItemClick = (item: string) => {

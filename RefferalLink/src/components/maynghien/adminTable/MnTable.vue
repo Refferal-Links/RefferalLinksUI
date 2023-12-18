@@ -5,8 +5,15 @@
     <div>
         <el-table class="admin-table" :data="datas" @sort-change="handleSortChange" border row-key="id" table-layout="auto"
             @row-click="handleRowClick">
-            <el-table-column v-for="column in shownCol" :key="column.key" :prop="column.key" :label="column.label"
-                :sortable="column.sortable ? 'custom' : 'false'" :visible="column.hidden == false" />
+            <!-- <el-table-column v-for="column in shownCol" :key="column.key" :prop="column.key" :label="column.label"
+                :sortable="column.sortable ? 'custom' : 'false'" :visible="column.hidden == false" /> -->
+            <el-table-column v-for="column in shownCol" :key="column.key" :label="column.label" :visible="column.hidden == false"
+            :sortable="column.sortable ? 'custom' : 'false'">
+                <template #default="scope">
+                    <el-link v-if="column.inputType == 'link' && scope.row[column.key]" :href="scope.row[column.key]" target="_blank" type="primary">Xem</el-link>
+                    <span v-else>{{ scope.row[column.key] }}</span>
+                </template>
+            </el-table-column>
             <el-table-column label="Operations" v-if="enableDelete || enableEdit || CustomActions">
                 <template #default="scope">
                     <el-button v-if="enableEdit" :icon="Edit" size="small"

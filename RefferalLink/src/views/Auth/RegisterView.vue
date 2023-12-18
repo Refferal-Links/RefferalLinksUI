@@ -62,7 +62,7 @@
           <el-form-item>
             <el-select v-model="state.source" placeholder="Nguồn">
               <el-option
-                v-for="item in source"
+                v-for="item in (hasSaleRole ? sourceSale: source)"
                 :key="item"
                 :label="item"
                 :value="item"
@@ -96,7 +96,10 @@ import { handleRegister } from "../../Services/RegisterService.ts";
 import { axiosInstance } from "../../Services/axiosConfig";
 import { useRoute } from "vue-router";
 import router from "@/router";
+import Cookies from 'js-cookie';
+import type { LoginResult } from "@/Models/LoginResult";
 const dialogVisible = ref(false);
+const hasSaleRole = ref<boolean>(false);
 const state = reactive<RegisterViewModel>({
   name: "",
   phoneNumber: "",
@@ -110,6 +113,15 @@ const state = reactive<RegisterViewModel>({
   job: "",
 });
 const route = useRoute();
+const decodedToken = ref<LoginResult>({
+    userName: "",
+    roles: [],
+    refferalCode: "",
+    token: "",
+    teamId: "",
+    tpBank: "",
+});
+const userRoles = ref<string[]>();
 async function register() {
   console.log(state);
   const code = route.params.Code;
@@ -133,6 +145,12 @@ const source = ref<string[]>([
   "Tự khai thác",
   "AutoCall",
   "SMS",
+  // "Tư vấn viên",
+]);
+const sourceSale = ref<string[]>([
+  // "Tự khai thác",
+  // "AutoCall",
+  // "SMS",
   "Tư vấn viên",
 ]);
 async function fetchProvinceData() {
@@ -148,7 +166,27 @@ async function fetchProvinceData() {
     console.error(error);
   }
 }
+function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {
+  for (const requiredRole of requiredRoles) {
+    if (userRoles.includes(requiredRole)) {
+      return true;
+    }
+  }
+  return false;
+}
 fetchProvinceData();
+function getCode(){
+    var token = Cookies.get('accessToken')?.toString();
+
+    var jsonString = Cookies.get('Roles')?.toString() ?? '';
+    var jsonObject = JSON.parse(jsonString);
+    var arrayFromString = Object.values(jsonObject);
+    decodedToken.value.roles = arrayFromString as string[];
+    console.log(decodedToken.value);
+    userRoles.value = decodedToken.value?.roles ?? [];
+    hasSaleRole.value = hasPermission(userRoles.value as string[], ["Sale"]);
+}
+getCode();
 </script>
 <style>
 .login-container {
