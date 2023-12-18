@@ -48,7 +48,8 @@ const login = async () => {
   if (!loginResult.isSuccess) {
     dialogVisible.value = true;
   } else {
-    router.push('/Bank');
+    
+    router.push("/Bank");
   }
 }
 </script>

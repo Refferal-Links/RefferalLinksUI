@@ -31,6 +31,7 @@ export const handleLogin = async (model: LoginViewModel): Promise<AppResponse<Lo
                 Cookies.set('Roles', JSON.stringify(resust.data.roles) ?? "", { expires: undefined });
                 Cookies.set('TeamId', resust.data.teamId ?? "", { expires: undefined });
                 Cookies.set('TpBank', resust.data.tpBank ?? "", { expires: undefined });
+                axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${resust.data.token }`;
             }
             
         }
