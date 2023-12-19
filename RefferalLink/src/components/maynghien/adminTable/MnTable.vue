@@ -10,8 +10,8 @@
             <el-table-column v-for="column in shownCol" :key="column.key" :label="column.label" :visible="column.hidden == false"
             :sortable="column.sortable ? 'custom' : 'false'">
                 <template #default="scope">
-                    <el-link v-if="column.inputType == 'link' && scope.row[column.key]" :href="scope.row[column.key]" target="_blank" type="primary">Xem</el-link>
-                    <span v-else>{{ scope.row[column.key] }}</span>
+                    <el-link v-if="column.inputType == 'link' && column.key"  :href="scope.row[column.key]" target="_blank" type="primary">Xem</el-link>
+                    <span v-else-if="column.key">{{ scope.row[column.key] }}</span>
                 </template>
             </el-table-column>
             <el-table-column label="Operations" v-if="enableDelete || enableEdit || CustomActions">
@@ -30,10 +30,8 @@
 </template>
   
 <script setup lang="ts">
-// @ts-ignore
-import { TableColumn } from './Models/TableColumn.ts'
-// @ts-ignore
-import { SearchDTOItem } from './Models/SearchDTOItem.ts'
+import { TableColumn } from './Models/TableColumn'
+import { SearchDTOItem } from './Models/SearchDTOItem'
 import { ref, watch } from 'vue';
 import {
     Check,
@@ -57,7 +55,7 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{
     (e: 'onEdit', item: SearchDTOItem): void;
-    (e: 'onDelete', item: string): void;
+    (e: 'onDelete', item: SearchDTOItem): void;
     (e: 'onCustomAction', item: CustomActionResponse): void;
     (e: 'onSortChange', event: any): void;
 }>()
