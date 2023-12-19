@@ -90,7 +90,7 @@ const tableColumns: TableColumn[] = [
 
     enableCreate: false,
     required: false,
-    hidden: false,
+    hidden: true,
     showSearch: true,
     inputType: "text",
     dropdownData: null,
@@ -104,7 +104,7 @@ const tableColumns: TableColumn[] = [
 
     enableCreate: false,
     required: false,
-    hidden: false,
+    hidden: true,
     showSearch: true,
     inputType: "text",
     dropdownData: null,
@@ -118,7 +118,7 @@ const tableColumns: TableColumn[] = [
 
     enableCreate: false,
     required: false,
-    hidden: false,
+    hidden: true,
     showSearch: true,
     inputType: "text",
     dropdownData: null,
@@ -126,6 +126,20 @@ const tableColumns: TableColumn[] = [
   {
     key: "email",
     label: "Email",
+    width: 1000,
+    sortable: true,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: true,
+    showSearch: true,
+    inputType: "text",
+    dropdownData: null,
+  },
+  {
+    key: "inforCustomer",
+    label: "Thông tin khách hàng",
     width: 1000,
     sortable: true,
     enableEdit: false,
@@ -235,9 +249,9 @@ const tableColumns: TableColumn[] = [
   },
   {
     key: "userName",
-    label: "Sale",
+    label: "Nhân viên",
     width: 1000,
-    sortable: true,
+    sortable: false,
     enableEdit: false,
 
     enableCreate: false,
@@ -250,6 +264,20 @@ const tableColumns: TableColumn[] = [
       keyMember: "id",
       apiUrl: "UserManagemet/sale",
     },
+  },
+  {
+    key: "refferalCode",
+    label: "Code",
+    width: 1000,
+    sortable: false,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: false,
+    showSearch: false ,
+    inputType: "text",
+    dropdownData:null
   },
   {
     key: "statusText",
@@ -267,7 +295,7 @@ const tableColumns: TableColumn[] = [
   },
   {
     key: "createOn",
-    label: "Ngày tạo",
+    label: "Ngày tạo   ",
     width: 1000,
     sortable: true,
     enableEdit: false,
@@ -302,9 +330,65 @@ const tableColumns: TableColumn[] = [
 
     enableCreate: false,
     required: false,
-    hidden: true,
+    hidden: false,
     showSearch: false,
     inputType: "dropdown",
+    dropdownData: null
+  },
+  {
+    key: "image1",
+    label: "ảnh 1",
+    width: 1000,
+    sortable: true,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: false,
+    showSearch: false,
+    inputType: 'link',
+    dropdownData: null
+  },
+  {
+    key: "image2",
+    label: "ảnh 2",
+    width: 1000,
+    sortable: true,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: false,
+    showSearch: false,
+    inputType: 'image',
+    dropdownData: null
+  },
+  {
+    key: "image3",
+    label: "ảnh 3",
+    width: 1000,
+    sortable: true,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: false,
+    showSearch: false,
+    inputType: 'image',
+    dropdownData: null
+  },
+  {
+    key: "image4",
+    label: "ảnh 4",
+    width: 1000,
+    sortable: true,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: false,
+    showSearch: false,
+    inputType: 'image',
     dropdownData: null
   },
 ];

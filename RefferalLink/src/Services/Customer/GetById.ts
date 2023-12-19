@@ -11,7 +11,7 @@ export const GetCustomer = async (Id: string): Promise<AppResponse<CustomerDto>>
     });
 
     try {
-        await axiosInstance.get("Customer/"+Id).then((response) => {
+        await axiosInstance.get("/Customer/"+Id).then((response) => {
             result = response.data;
         })
     }

@@ -53,22 +53,22 @@ const router = createRouter({
         {
           path: "Link",
           component: LinkTemplateView,
-          meta: { requiresAuth: true, roles: ["Admin", "Sale", "Teamleader", "superadmin"] },
+          meta: { requiresAuth: true, roles: ["Admin", "Sale", "Teamleader", "superadmin","CSKH"] },
         },
         {
           path: "User",
           component: UserManagementView,
-          meta: { requiresAuth: true, roles: ["Admin", "Sale", "superadmin"] },
+          meta: { requiresAuth: true, roles: ["Admin", "superadmin"] },
         },
-        {
-          path: "CustomerLink",
-          component: CustomerLinkView,
-          meta: { requiresAuth: true, roles: ["Admin", "Sale", "superadmin"] },
-        },
+        // {
+        //   path:"CustomerLink/:Id",
+        //   component: CustomerLinkView,
+        //   meta: { requiresAuth: true, roles: ["Admin", "Sale", "superadmin"] },
+        // },
         {
           path: "CustomerLink2",
           component: CustomerLinkView2,
-          meta: { requiresAuth: true, roles: ["Admin", "Sale", "Teamleader","superadmin"] },
+          meta: { requiresAuth: true, roles: ["Admin", "Sale", "Teamleader","superadmin","CSKH"] },
         },
         {
           path: "Branch",
@@ -92,7 +92,7 @@ const router = createRouter({
     {
       path:"/",
       component: LayoutBlank,
-      meta: { requiresAuth: false },
+      meta: { requiresAuth: true },
       children:[
         {
           path:"CustomerLink/:Id",
@@ -101,7 +101,7 @@ const router = createRouter({
         {
           path: "Register/Code=:Code",
           component: RegisterView,
-          meta: { requiresAuth: true, roles: ["Sale"]},
+          meta: { requiresAuth: true, roles: ["Sale","CSKH"]},
         },
       ]
     }

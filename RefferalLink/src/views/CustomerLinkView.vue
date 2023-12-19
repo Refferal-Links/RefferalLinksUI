@@ -38,7 +38,7 @@ const Customer = ref<CustomerDto>({
 const isLoading = ref(true);
 
 async function fetchCustomer() {
-  await GetCustomer(useRoute().params.Id.toString()).then((x) => {
+  await GetCustomer( useRoute().params.Id.toString()).then((x) => {
     if (x.isSuccess && x.data != null) {
       Customer.value = x.data;
       console.log(Customer.value);

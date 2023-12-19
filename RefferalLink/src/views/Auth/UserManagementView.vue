@@ -123,6 +123,10 @@ const tableColumns: TableColumn[] = [
 
                     role: "Sale",
                     roleName: "Sale"
+                },
+                {
+                    role: "CSKH",
+                    roleName: "CSKH"
                 }
             ]
 

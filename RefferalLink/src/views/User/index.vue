@@ -52,6 +52,10 @@ const tableColumns: TableColumn[] = [
 
                     role: "TenantAdmin",
                     roleName: "Personal"
+                },
+                {
+                    role: "CSKH",
+                    roleName: "CSKH"
                 }
             ]
 
