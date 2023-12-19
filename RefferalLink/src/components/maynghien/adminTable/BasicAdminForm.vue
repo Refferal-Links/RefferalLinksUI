@@ -149,7 +149,8 @@ const handleOpenCreate = async () => {
   openDialogCreate.value = true;
 }
 
-const handleDelete = async (id: string) => {
+const handleDelete = async (item: SearchDTOItem) => {
+  var id = item.toString();
   var deleteresult = await handleAPIDelete(id, props.apiName);
   if (deleteresult.isSuccess) {
     ElMessage({

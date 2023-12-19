@@ -10,7 +10,7 @@
             <el-table-column v-for="column in shownCol" :key="column.key" :label="column.label" :visible="column.hidden == false"
             :sortable="column.sortable ? 'custom' : 'false'">
                 <template #default="scope">
-                    <el-link v-if="column.inputType == 'link' && column.key"  :href="scope.row[column.key]" target="_blank" type="primary">Xem</el-link>
+                    <el-link v-if="column.inputType == 'link' && column.key && scope.row[column.key]"  :href="scope.row[column.key]" target="_blank" type="primary">Xem</el-link>
                     <span v-else-if="column.key">{{ scope.row[column.key] }}</span>
                 </template>
             </el-table-column>

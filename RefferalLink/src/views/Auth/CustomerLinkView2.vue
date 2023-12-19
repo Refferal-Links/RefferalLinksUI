@@ -83,7 +83,7 @@ const tableColumns: TableColumn[] = [
   },
   {
     key: "name",
-    label: "Người dùng",
+    label: "Khách hàng",
     width: 1000,
     sortable: true,
     enableEdit: false,
@@ -147,7 +147,7 @@ const tableColumns: TableColumn[] = [
     enableCreate: false,
     required: false,
     hidden: false,
-    showSearch: true,
+    showSearch: false,
     inputType: "text",
     dropdownData: null,
   },
@@ -225,7 +225,7 @@ const tableColumns: TableColumn[] = [
     enableCreate: false,
     required: false,
     hidden: true,
-    showSearch: hasAdminRole ? true : false,
+    showSearch: hasAdminRole.value ? true : false,
     inputType: "dropdown",
     dropdownData: {
       displayMember: "name",
@@ -242,7 +242,7 @@ const tableColumns: TableColumn[] = [
 
     enableCreate: false,
     required: false,
-    hidden: hasAdminRole ? true : false,
+    hidden: false,
     showSearch: false,
     inputType: "text",
     dropdownData: null,
@@ -257,7 +257,7 @@ const tableColumns: TableColumn[] = [
     enableCreate: false,
     required: false,
     hidden: false,
-    showSearch: hasSaleRole ? false : true,
+    showSearch: hasSaleRole.value == false ? true : false,
     inputType: "dropdown",
     dropdownData: {
       displayMember: "userName",
