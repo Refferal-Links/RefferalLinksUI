@@ -3,18 +3,18 @@
 
 <template>
     <div>
-        <el-table class="admin-table" :data="datas" @sort-change="handleSortChange" border row-key="id" table-layout="auto"
+        <el-table :class="scroll == false ? 'admin-table' :'scroll'" :data="datas" @sort-change="handleSortChange" border row-key="id" table-layout="auto" 
             @row-click="handleRowClick">
             <!-- <el-table-column v-for="column in shownCol" :key="column.key" :prop="column.key" :label="column.label"
                 :sortable="column.sortable ? 'custom' : 'false'" :visible="column.hidden == false" /> -->
-            <el-table-column v-for="column in shownCol" :key="column.key" :label="column.label" :visible="column.hidden == false"
+            <el-table-column v-for="column in shownCol" :key="column.key" :label="column.label" :visible="column.hidden == false" :width="scroll ? column.width : undefined"
             :sortable="column.sortable ? 'custom' : 'false'">
                 <template #default="scope">
                     <el-link v-if="column.inputType == 'link' && column.key && scope.row[column.key]"  :href="scope.row[column.key]" target="_blank" type="primary">Xem</el-link>
                     <span v-else-if="column.key">{{ scope.row[column.key] }}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="Operations" v-if="enableDelete || enableEdit || CustomActions">
+            <el-table-column label="Operations" v-if="enableDelete || enableEdit || CustomActions" fixed="right">
                 <template #default="scope">
                     <el-button v-if="enableEdit" :icon="Edit" size="small"
                         @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
@@ -52,6 +52,7 @@ const props = defineProps<{
     enableDelete: boolean;
     CustomActions: CustomAction[];
 
+    scroll?: boolean
 }>();
 const emit = defineEmits<{
     (e: 'onEdit', item: SearchDTOItem): void;
@@ -116,10 +117,14 @@ watch(() => props.columns, () => {
 
 </script>
   
-<style scoped>
+<style>
 /* Add your table styling here */
 .admin-table {
     width: 100%;
+}
+
+.scroll{
+    overflow-x: scroll;
 }
 </style>
   

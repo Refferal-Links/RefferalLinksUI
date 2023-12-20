@@ -18,6 +18,19 @@
                                     :label="item[filter.dropdownData.displayMember]"
                                     :value="item[filter.dropdownData.keyMember]" />
                             </el-select>
+                            <el-date-picker v-if="filter.Type == 'date'" class="action-input"
+                                v-model="filter.Value"
+                                type="date"
+                                :placeholder= filter.DisplayName 
+                                format="DD/MM/YYYY"
+                                value-format="DD/MM/YYYY"
+                            >
+                                <template #default="cell">
+                                    <div class="cell" :class="{ current: cell.isCurrent }">
+                                    <span class="text">{{ cell.text }}</span>
+                                    </div>
+                                </template>
+                            </el-date-picker>
                         </div>
                         <el-button v-if="filters != undefined && filters.length > 0" :icon="Search"
                             @click="handlebtnSearchClicked"> search</el-button>

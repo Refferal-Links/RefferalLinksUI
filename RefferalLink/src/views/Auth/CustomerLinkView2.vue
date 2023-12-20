@@ -10,6 +10,7 @@
       title="CustomerLink"
       :CustomActions="CustomActions"
       @onCustomAction="ChangePage"
+      :scroll="true"
     />
   </Suspense>
   <StatusChange
@@ -70,7 +71,7 @@ const tableColumns: TableColumn[] = [
   {
     key: "id",
     label: "ID",
-    width: 1000,
+    width: 100,
     sortable: true,
     enableEdit: false,
 
@@ -84,7 +85,7 @@ const tableColumns: TableColumn[] = [
   {
     key: "name",
     label: "Khách hàng",
-    width: 1000,
+    width: 100,
     sortable: true,
     enableEdit: false,
 
@@ -98,7 +99,7 @@ const tableColumns: TableColumn[] = [
   {
     key: "passport",
     label: "Hộ Chiếu",
-    width: 1000,
+    width: 100,
     sortable: true,
     enableEdit: false,
 
@@ -112,7 +113,7 @@ const tableColumns: TableColumn[] = [
   {
     key: "phoneNumber",
     label: "Số điện thoại",
-    width: 1000,
+    width: 100,
     sortable: true,
     enableEdit: false,
 
@@ -126,7 +127,7 @@ const tableColumns: TableColumn[] = [
   {
     key: "email",
     label: "Email",
-    width: 1000,
+    width: 100,
     sortable: true,
     enableEdit: false,
 
@@ -140,7 +141,7 @@ const tableColumns: TableColumn[] = [
   {
     key: "inforCustomer",
     label: "Thông tin khách hàng",
-    width: 1000,
+    width: 300,
     sortable: true,
     enableEdit: false,
 
@@ -154,7 +155,7 @@ const tableColumns: TableColumn[] = [
   {
     key: "bankName",
     label: "Ngân Hàng",
-    width: 1000,
+    width: 100,
     sortable: true,
     enableEdit: false,
 
@@ -168,7 +169,7 @@ const tableColumns: TableColumn[] = [
   {
     key: "bankId",
     label: "Ngân Hàng",
-    width: 1000,
+    width: 100,
     sortable: true,
     enableEdit: false,
 
@@ -186,7 +187,7 @@ const tableColumns: TableColumn[] = [
   {
     key: "camPaignName",
     label: "Chiến Dịch",
-    width: 1000,
+    width: 100,
     sortable: true,
     enableEdit: false,
 
@@ -200,7 +201,7 @@ const tableColumns: TableColumn[] = [
   {
     key: "campaignId",
     label: "Chiến Dịch",
-    width: 1000,
+    width: 100,
     sortable: true,
     enableEdit: false,
 
@@ -218,7 +219,7 @@ const tableColumns: TableColumn[] = [
   {
     key: "teamId",
     label: "Đội",
-    width: 1000,
+    width: 100,
     sortable: true,
     enableEdit: false,
 
@@ -236,7 +237,7 @@ const tableColumns: TableColumn[] = [
   {
     key: "teamName",
     label: "Team",
-    width: 1000,
+    width: 100,
     sortable: true,
     enableEdit: false,
 
@@ -249,8 +250,8 @@ const tableColumns: TableColumn[] = [
   },
   {
     key: "userName",
-    label: "Nhân viên",
-    width: 1000,
+    label: "Nhân viên Sale",
+    width: 100,
     sortable: false,
     enableEdit: false,
 
@@ -267,8 +268,40 @@ const tableColumns: TableColumn[] = [
   },
   {
     key: "refferalCode",
-    label: "Code",
-    width: 1000,
+    label: "Mã NV",
+    width: 100,
+    sortable: false,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: false,
+    showSearch: true ,
+    inputType: "text",
+    dropdownData:null
+  },
+  {
+    key: "nvCSKH",
+    label: "Nhân viên CSKH",
+    width: 100,
+    sortable: false,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: false,
+    showSearch:  true,
+    inputType: "dropdown",
+    dropdownData:{
+      displayMember: "userName",
+      keyMember: "id",
+      apiUrl: "UserManagemet/cskh",
+    },
+  },
+  {
+    key: "codeNVCSKH",
+    label: "Mã NVCSKH",
+    width: 100,
     sortable: false,
     enableEdit: false,
 
@@ -282,49 +315,69 @@ const tableColumns: TableColumn[] = [
   {
     key: "statusText",
     label: "Trạng thái",
-    width: 1000,
+    width: 100,
     sortable: true,
     enableEdit: false,
 
     enableCreate: false,
     required: false,
     hidden: false,
-    showSearch: false,
+    showSearch: true,
     inputType: "dropdown",
-    dropdownData: null
+    dropdownData: {
+            displayMember: "statusText",
+            keyMember: "status",
+            data: [
+                {
+                    status: "0",
+                    statusText: "Pending"
+                },
+                {
+
+                    status: "1",
+                    statusText: "Approved"
+                },
+                {
+
+                    status: "2",
+                    statusText: "Rejected"
+                },
+            ]
+
+        },
   },
   {
     key: "createOn",
-    label: "Ngày tạo   ",
-    width: 1000,
+    label: "Ngày tạo",
+    width: 100,
     sortable: true,
     enableEdit: false,
 
     enableCreate: false,
     required: false,
     hidden: false,
-    showSearch: false,
-    inputType: "dropdown",
+    showSearch: true,
+    inputType: "date",
     dropdownData: null
   },
   {
     key: "modifiedOn",
     label: "Ngày hỗ trợ",
-    width: 1000,
+    width: 100,
     sortable: true,
     enableEdit: false,
 
     enableCreate: false,
     required: false,
     hidden: false,
-    showSearch: false,
-    inputType: "dropdown",
+    showSearch: true,
+    inputType: "date",
     dropdownData: null
   },
   {
     key: "note",
     label: "Ghi chú",
-    width: 1000,
+    width: 100,
     sortable: true,
     enableEdit: false,
 
@@ -338,7 +391,7 @@ const tableColumns: TableColumn[] = [
   {
     key: "image1",
     label: "ảnh 1",
-    width: 1000,
+    width: 70,
     sortable: true,
     enableEdit: false,
 
@@ -352,7 +405,7 @@ const tableColumns: TableColumn[] = [
   {
     key: "image2",
     label: "ảnh 2",
-    width: 1000,
+    width: 70,
     sortable: true,
     enableEdit: false,
 
@@ -366,7 +419,7 @@ const tableColumns: TableColumn[] = [
   {
     key: "image3",
     label: "ảnh 3",
-    width: 1000,
+    width: 70,
     sortable: true,
     enableEdit: false,
 
@@ -380,7 +433,7 @@ const tableColumns: TableColumn[] = [
   {
     key: "image4",
     label: "ảnh 4",
-    width: 1000,
+    width: 70,
     sortable: true,
     enableEdit: false,
 
