@@ -43,7 +43,7 @@ const tableColumns: TableColumn[] = [
         key: "email",
         label: "Email",
         width: 1000,
-        sortable: true,
+        sortable: false,
         enableEdit: false,
 
         enableCreate: true,
@@ -103,7 +103,7 @@ const tableColumns: TableColumn[] = [
         hidden: false,
         width: 300,
         required: true,
-        sortable: true,
+        sortable: false,
         showSearch: false,
         inputType: "dropdown",
         dropdownData: {
@@ -137,7 +137,7 @@ const tableColumns: TableColumn[] = [
         key: "teamId",
         label: "Team",
         width: 1000,
-        sortable: true,
+        sortable: false,
         enableEdit:  false,
 
         enableCreate:  true,
@@ -156,7 +156,7 @@ const tableColumns: TableColumn[] = [
         key: "teamName",
         label: "Team",
         width: 1000,
-        sortable: true,
+        sortable: false,
         enableEdit:  false,
 
         enableCreate:  false,

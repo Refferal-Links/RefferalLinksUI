@@ -28,7 +28,7 @@ const tableColumns: TableColumn[] = [
         key: "isActive",
         label: "Trạng Thái",
         width: 500,
-        sortable: false,
+        sortable: true,
         enableEdit:  false,
 
         enableCreate:  false,

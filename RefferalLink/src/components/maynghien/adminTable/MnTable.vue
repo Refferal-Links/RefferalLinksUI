@@ -8,7 +8,7 @@
             <!-- <el-table-column v-for="column in shownCol" :key="column.key" :prop="column.key" :label="column.label"
                 :sortable="column.sortable ? 'custom' : 'false'" :visible="column.hidden == false" /> -->
             <el-table-column v-for="column in shownCol" :key="column.key" :label="column.label" :visible="column.hidden == false" :width="scroll ? column.width : undefined"
-            :sortable="column.sortable ? 'custom' : 'false'">
+            :sortable="column.sortable == true ? 'custom' : false" :prop="column.key">
                 <template #default="scope">
                     <el-link v-if="column.inputType == 'link' && column.key && scope.row[column.key]"  :href="scope.row[column.key]" target="_blank" type="primary">Xem</el-link>
                     <span v-else-if="column.key">{{ scope.row[column.key] }}</span>

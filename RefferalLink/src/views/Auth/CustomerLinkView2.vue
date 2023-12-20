@@ -142,7 +142,7 @@ const tableColumns: TableColumn[] = [
     key: "inforCustomer",
     label: "Thông tin khách hàng",
     width: 300,
-    sortable: true,
+    sortable: false,
     enableEdit: false,
 
     enableCreate: false,
@@ -238,7 +238,7 @@ const tableColumns: TableColumn[] = [
     key: "teamName",
     label: "Team",
     width: 100,
-    sortable: true,
+    sortable: false,
     enableEdit: false,
 
     enableCreate: false,
@@ -392,7 +392,7 @@ const tableColumns: TableColumn[] = [
     key: "image1",
     label: "ảnh 1",
     width: 70,
-    sortable: true,
+    sortable: false,
     enableEdit: false,
 
     enableCreate: false,
@@ -406,7 +406,7 @@ const tableColumns: TableColumn[] = [
     key: "image2",
     label: "ảnh 2",
     width: 70,
-    sortable: true,
+    sortable: false,
     enableEdit: false,
 
     enableCreate: false,
@@ -420,7 +420,7 @@ const tableColumns: TableColumn[] = [
     key: "image3",
     label: "ảnh 3",
     width: 70,
-    sortable: true,
+    sortable: false,
     enableEdit: false,
 
     enableCreate: false,
@@ -434,7 +434,7 @@ const tableColumns: TableColumn[] = [
     key: "image4",
     label: "ảnh 4",
     width: 70,
-    sortable: true,
+    sortable: false,
     enableEdit: false,
 
     enableCreate: false,

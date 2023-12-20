@@ -22,7 +22,7 @@ const tableColumns: TableColumn[] = [
         key: "url",
         label: "Url",
         width: 1000,
-        sortable: true,
+        sortable: false,
         enableEdit:  true,
 
         enableCreate:  true,
@@ -110,7 +110,7 @@ const tableColumns: TableColumn[] = [
         key: "isActive",
         label: "Trạng Thái",
         width: 500,
-        sortable: false,
+        sortable: true,
         enableEdit:  false,
         enableCreate:  false,
         required:false,
