@@ -58,7 +58,7 @@ const router = createRouter({
         {
           path: "User",
           component: UserManagementView,
-          meta: { requiresAuth: true, roles: ["Admin", "superadmin"] },
+          meta: { requiresAuth: true, roles: ["Admin", "superadmin", "Teamleader"] },
         },
         // {
         //   path:"CustomerLink/:Id",
