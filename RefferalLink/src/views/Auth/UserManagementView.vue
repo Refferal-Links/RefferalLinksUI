@@ -1,6 +1,6 @@
 <template>
     <Suspense>
-        <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'UserManagemet'" :allowAdd="true" :allowEdit="false"
+        <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'UserManagemet'" :allowAdd="true" :allowEdit="true"
             :allowDelete="true" title="UserManagemet" :CustomActions="CustomActions"></BasicAdminFormVue>
     </Suspense>
 </template>
@@ -58,7 +58,7 @@ const tableColumns: TableColumn[] = [
         label: "RefferalCode",
         width: 500,
         sortable: false,
-        enableEdit:  false,
+        enableEdit:  true,
 
         enableCreate:  true,
         required:false,
@@ -72,7 +72,7 @@ const tableColumns: TableColumn[] = [
         label: "TpBank",
         width: 500,
         sortable: false,
-        enableEdit:  false,
+        enableEdit:  true,
 
         enableCreate:  true,
         required:false,
@@ -138,7 +138,7 @@ const tableColumns: TableColumn[] = [
         label: "Team",
         width: 1000,
         sortable: false,
-        enableEdit:  false,
+        enableEdit:  true,
 
         enableCreate:  true,
         required:true,
