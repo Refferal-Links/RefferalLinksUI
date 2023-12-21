@@ -1,6 +1,6 @@
 <template>
     <Suspense>
-        <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'UserManagemet'" :allowAdd="true" :allowEdit="true"
+        <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'UserManagemet'" :allowAdd="true" :allowEdit="false"
             :allowDelete="true" title="UserManagemet" :CustomActions="CustomActions"></BasicAdminFormVue>
     </Suspense>
 </template>
