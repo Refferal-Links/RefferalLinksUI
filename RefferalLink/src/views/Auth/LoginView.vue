@@ -1,6 +1,6 @@
 <template>
   <div class="Content">
-    <el-form ref="ruleFormRef" :model="state" status-icon label-width="px" class="demo-ruleForm">
+    <el-form ref="ruleFormRef" :model="state" status-icon label-width="px" class="demo-ruleForm" @keyup.enter="login">
 
       <el-form-item label="" prop="username">
         <el-input v-model="state.userName" placeholder="User name" />

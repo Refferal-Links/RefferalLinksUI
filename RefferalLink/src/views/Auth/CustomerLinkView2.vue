@@ -11,6 +11,7 @@
       :CustomActions="CustomActions"
       @onCustomAction="ChangePage"
       :scroll="true"
+      :changePageSize="true"
     />
   </Suspense>
   <StatusChange

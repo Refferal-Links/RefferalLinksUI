@@ -44,7 +44,7 @@ const tableColumns: TableColumn[] = [
         label: "Email",
         width: 1000,
         sortable: false,
-        enableEdit: false,
+        enableEdit: true,
 
         enableCreate: true,
         required: false,

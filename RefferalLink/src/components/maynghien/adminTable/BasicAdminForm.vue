@@ -7,6 +7,15 @@
   <MnTable :columns="tableColumns" :datas="datas" :onSaved="handleSaved" :enableEdit="allowEdit"
     :enableDelete="allowDelete" :onCloseClicked="handleOnEditCloseClicked" @onEdit="handleEdit" @onDelete="handleDelete"
     :CustomActions="CustomRowActions" @on-custom-action="handleCustomAction" @onSortChange="handleSortChange" :scroll="scroll"/>
+
+    <el-input-number v-if="changePageSize"
+    v-model="pageSize"
+    :min="10"
+    :max="500"
+    size="small"
+    @keyup.enter="Search"
+  />
+
   <el-pagination small background layout="prev, pager, next" :total="totalItem" :page-size="10"
     @current-change="handlePageChange" :current-page="searchRequest.PageIndex" class="mt-4" />
   Found {{ totalItem }} results. Page {{ searchRequest.PageIndex }} of total {{ totalPages }} pages
@@ -48,7 +57,10 @@ import type { CustomAction, CustomActionResponse } from './Models/CustomAction';
 import { SortByInfo } from '../BaseModels/SortByInfo';
 //#region Method
 
+const pageSize = ref<number>(10);
+
 const Search = async () => {
+  searchRequest.PageSize = pageSize.value;
   var searchApiResponse = await handleAPISearch(searchRequest, props.apiName);
   if (searchApiResponse.isSuccess && searchApiResponse.data != undefined) {
     let dataresponse: SearchResponse<SearchDTOItem[] | undefined> = searchApiResponse.data;
@@ -88,6 +100,7 @@ const props = defineProps<{
   isEditedOutSide?: boolean;
 
   scroll?: boolean;
+  changePageSize?: boolean; 
 }>();
 const emit = defineEmits<{
 
@@ -100,7 +113,7 @@ const totalItem = ref(10);
 
 let searchRequest: SearchRequest = {
   PageIndex: 1,
-  PageSize: 10,
+  PageSize: pageSize.value,
   filters: props.CustomFilters,
   SortBy: undefined
 }

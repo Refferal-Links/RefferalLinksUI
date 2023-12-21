@@ -15,13 +15,13 @@
                             </span>
                             <template #dropdown>
                                 <el-dropdown-menu>
-                                    <el-dropdown-item @click="onMenuItemClick('Bank')">Ngân Hàng</el-dropdown-item>
+                                    <el-dropdown-item @click="onMenuItemClick('Bank')" v-if="hasAdminRole">Ngân Hàng</el-dropdown-item>
                                     <el-dropdown-item @click="onMenuItemClick('Campaign')" v-if="hasAdminRole">Chiến Dịch</el-dropdown-item>
                                     <el-dropdown-item @click="onMenuItemClick('Province')" v-if="hasAdminRole">Tỉnh Thành</el-dropdown-item>
                                     <el-dropdown-item @click="onMenuItemClick('Team')" v-if="hasAdminRole">Team</el-dropdown-item>
                                     <el-dropdown-item @click="onMenuItemClick('Link')">Liên Kết</el-dropdown-item>
-                                    <el-dropdown-item @click="onMenuItemClick('Branch')">Chi nhánh</el-dropdown-item>
-                                    <el-dropdown-item divided @click="onMenuItemClick('User')">Quản Lý Người Dùng</el-dropdown-item>
+                                    <el-dropdown-item @click="onMenuItemClick('Branch')" v-if="hasAdminRole">Chi nhánh</el-dropdown-item>
+                                    <el-dropdown-item divided @click="onMenuItemClick('User')" v-if="hasAdminRole || hasTeamleaderRole">Quản Lý Người Dùng</el-dropdown-item>
                                 </el-dropdown-menu>
                             </template>
                         </el-dropdown>

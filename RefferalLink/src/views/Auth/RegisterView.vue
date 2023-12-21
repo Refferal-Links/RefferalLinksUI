@@ -76,7 +76,7 @@
           </el-form-item>
         </el-form>
         <el-dialog v-model="dialogVisible" title="Error">
-          <p>Hộ Chiếu Này Đã Tồn Tại</p>
+          <p>{{ message }}</p>
           <el-button type="primary" @click="dialogVisible = false"
             >OK</el-button
           >
@@ -105,7 +105,7 @@ const state = reactive<RegisterViewModel>({
   phoneNumber: "",
   email: "",
   refferalCode: "",
-  provinceId: "",
+  provinceId: undefined,
   passport: "",
   oldPassport: "",
   dateOfBirth: "",
@@ -121,6 +121,7 @@ const decodedToken = ref<LoginResult>({
     teamId: "",
     tpBank: "",
 });
+const message = ref<string>("");
 const userRoles = ref<string[]>();
 async function register() {
   console.log(state);
@@ -129,6 +130,7 @@ async function register() {
   const result = await handleRegister(state);
   console.log("logresult:" + result);
   if (!result.isSuccess) {
+    message.value = result.message;
     dialogVisible.value = true;
   } else {
     router.push("/CustomerLink/" + result.data?.id);
