@@ -6,7 +6,7 @@
       :apiName="'CustomerLink'"
       :allowAdd="false"
       :allowEdit="false"
-      :allowDelete="false"
+      :allowDelete="hasAdminRole == true ? true : false"
       title="CustomerLink"
       :CustomActions="CustomActions"
       @onCustomAction="ChangePage"

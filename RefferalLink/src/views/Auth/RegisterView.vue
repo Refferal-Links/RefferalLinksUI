@@ -14,13 +14,13 @@
             <el-input v-model="state.name" placeholder="Họ Tên" />
           </el-form-item>
           <el-form-item label="" prop="passport">
-            <el-input v-model="state.passport" placeholder="Căn cước công dân" />
+            <el-input v-model="state.passport" placeholder="Căn cước công dân"  maxlength="12"/>
           </el-form-item>
           <el-form-item label="" prop="ldPassport">
-            <el-input v-model="state.oldPassport" placeholder="Căn cước công dân cũ" />
+            <el-input v-model="state.oldPassport" placeholder="Căn cước công dân cũ" maxlength="9"/>
           </el-form-item>
           <el-form-item label="" prop="phoneNumber">
-            <el-input v-model="state.phoneNumber" placeholder="Số Điện Thoại" />
+            <el-input v-model="state.phoneNumber" placeholder="Số Điện Thoại" maxlength="10"/>
           </el-form-item>
           <el-form-item label="" prop="email">
             <el-input v-model="state.email" placeholder="Email" />
@@ -75,7 +75,7 @@
             <el-button type="primary" @click="register">Xác Nhận</el-button>
           </el-form-item>
         </el-form>
-        <el-dialog v-model="dialogVisible" title="Error">
+        <el-dialog v-if="dialogVisible == true" title="Error" @close="dialogVisible = false">
           <p>{{ message }}</p>
           <el-button type="primary" @click="dialogVisible = false"
             >OK</el-button
@@ -126,6 +126,22 @@ const message = ref<string>("");
 const userRoles = ref<string[]>();
 async function register() {
   console.log(state);
+  if(state.passport?.length != 12) {
+    alert("căn cước công dân phải đúng 12 kí tự")
+    return;
+  }
+  if(state.oldPassport?.length != 9 && state.oldPassport?.length != 0) {
+    alert("căn cước công dân cũ phải đúng 9 kí tự hoặc bỏ trống nếu không có")
+    return;
+  }
+  if(state.phoneNumber?.length != 10) {
+    alert("số điện thoại phải đúng 10 kí tự")
+    return;
+  }
+  if(!state.email?.endsWith("@gmail.com")) {
+    alert("email phải có đuôi là @gmail.com")
+    return;
+  }
   const code = route.params.Code;
   const tpBank = route.params.TpBank;
   state.refferalCode = code.toString();
