@@ -44,15 +44,15 @@ const Customer = ref<CustomerDto>({
 const isLoading = ref(true);
 
 async function fetchCustomer() {
-  // await GetCustomer( useRoute().params.Id.toString()).then((x) => {
-  //   if (x.isSuccess && x.data != null) {
-  //     Customer.value = x.data;
-  //     console.log(Customer.value);
-  //   }
-  // });
-  const value = JSON.parse(localStorage.getItem('Customer') || 'null');
-  console.log(value);
-  Customer.value = value;
+  await GetCustomer( useRoute().params.Id.toString()).then((x) => {
+    if (x.isSuccess && x.data != null) {
+      Customer.value = x.data;
+      console.log(Customer.value);
+    }
+  });
+  // const value = JSON.parse(localStorage.getItem('Customer') || 'null');
+  // console.log(value);
+  // Customer.value = value;
   isLoading.value = false;
 }
 

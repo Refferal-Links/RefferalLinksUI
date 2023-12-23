@@ -487,8 +487,10 @@ function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {
 const idCustomerLink = ref("");
 const openDialog = ref<boolean>(false);
 function ChangePage(item: CustomActionResponse) {
-  if (item.Action.ActionName == "Deatail")
+  if (item.Action.ActionName == "Deatail"){
     router.push("/CustomerLink/" + item.Data.customerId);
+  }
+    
   if (item.Action.ActionName == "statusChange") {
     idCustomerLink.value = item.Data.id;
     openDialog.value = true;

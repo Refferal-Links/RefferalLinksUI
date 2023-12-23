@@ -136,8 +136,8 @@ async function register() {
     message.value = result.message;
     dialogVisible.value = true;
   } else {
-    const responseData =  result.data;
-    localStorage.setItem('Customer', JSON.stringify(responseData));
+    // const responseData =  result.data;
+    // localStorage.setItem('Customer', JSON.stringify(responseData));
     router.push("/CustomerLink/" + result.data?.id);
   }
 }
