@@ -21,6 +21,15 @@ export class CustomerLinkDto{
     modifiedOn: string|undefined
     note: string|undefined
 
+
+    image1: string|undefined
+    image2: string|undefined
+    image3: string|undefined
+    image4: string|undefined
+
+    nvCSKH: string|undefined
+    codeNVCSKH: string|undefined
+
     listCustomerlinkImage: CustomerlinkImageDto[]|undefined
 }
 

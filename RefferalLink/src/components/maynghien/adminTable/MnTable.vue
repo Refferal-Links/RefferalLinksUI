@@ -4,7 +4,7 @@
 <template>
     <div>
         <el-table :class="scroll == false ? 'admin-table' :'scroll'" :data="datas" @sort-change="handleSortChange" border row-key="id" table-layout="auto" 
-            @row-click="handleRowClick">
+            @row-click="handleRowClick" v-loading="loadding == true">
             <!-- <el-table-column v-for="column in shownCol" :key="column.key" :prop="column.key" :label="column.label"
                 :sortable="column.sortable ? 'custom' : 'false'" :visible="column.hidden == false" /> -->
             <el-table-column v-for="column in shownCol" :key="column.key" :label="column.label" :visible="column.hidden == false" :width="scroll ? column.width : undefined"
@@ -25,7 +25,6 @@
                 </template>
             </el-table-column>
         </el-table>
-
     </div>
 </template>
   
@@ -53,6 +52,7 @@ const props = defineProps<{
     CustomActions: CustomAction[];
 
     scroll?: boolean
+    loadding?: boolean
 }>();
 const emit = defineEmits<{
     (e: 'onEdit', item: SearchDTOItem): void;
@@ -71,7 +71,6 @@ const shownCol = ref<TableColumn[]>([]);
 // Perform sorting logic here based on the prop and order
 // You can update the tableData array with sorted data
 const handleSortChange = (event: any) => {
-    
     emit('onSortChange', event);
 };
 const getWidth = (column: TableColumn): string => {

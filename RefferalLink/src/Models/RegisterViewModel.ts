@@ -10,4 +10,5 @@ export class RegisterViewModel{
     dateOfBirth: string | undefined;
     job: string | undefined;
     source: string | undefined;
+    tpBank: string | undefined;
 }

@@ -49,6 +49,23 @@ import { LoginResult } from "@/Models/LoginResult";
 const hasTeamleaderRole = ref<boolean>(false);
 const hasSaleRole = ref<boolean>(false);
 const hasAdminRole = ref<boolean>(false);
+const CustomActions: CustomAction[] = [
+  {
+    ActionName: "Deatail",
+    ActionLabel: "Link",
+    ApiActiontype: ApiActionType.PUT,
+    IsRowAction: true,
+    DataType: CustomActionDataType.RowId,
+  },
+  {
+    ActionName: "statusChange",
+    ActionLabel: "Đổi trạng thái",
+    ApiActiontype: ApiActionType.PUT,
+    IsRowAction: true,
+    DataType: CustomActionDataType.RowId,
+  },
+
+];
 function checkRole() {
   try {
     var jsonString = Cookies.get("Roles")?.toString() ?? "";
@@ -56,8 +73,17 @@ function checkRole() {
     var Roles = Object.values(jsonObject) as string[];
     console.log(Roles);
     hasTeamleaderRole.value = hasPermission(Roles, ["Teamleader"]);
-    hasSaleRole.value = hasPermission(Roles, ["Sale"]);
+    hasSaleRole.value = hasPermission(Roles, ["Sale", "CSKH"]);
     hasAdminRole.value = hasPermission(Roles, ["Admin", "superadmin"]);
+    if(!hasSaleRole.value){
+      CustomActions.push({
+        ActionName: "Export",
+        ActionLabel: "Export",
+        ApiActiontype: ApiActionType.PUT,
+        IsRowAction: false,
+        DataType: CustomActionDataType.Filters,
+      })
+    }
   } catch (error) {
     console.error(error);
   }
@@ -99,7 +125,7 @@ const tableColumns: TableColumn[] = [
   },
   {
     key: "passport",
-    label: "Hộ Chiếu",
+    label: "Căn cước công dân",
     width: 100,
     sortable: true,
     enableEdit: false,
@@ -414,7 +440,7 @@ const tableColumns: TableColumn[] = [
     required: false,
     hidden: false,
     showSearch: false,
-    inputType: 'image',
+    inputType: 'link',
     dropdownData: null
   },
   {
@@ -428,7 +454,7 @@ const tableColumns: TableColumn[] = [
     required: false,
     hidden: false,
     showSearch: false,
-    inputType: 'image',
+    inputType: 'link',
     dropdownData: null
   },
   {
@@ -442,7 +468,7 @@ const tableColumns: TableColumn[] = [
     required: false,
     hidden: false,
     showSearch: false,
-    inputType: 'image',
+    inputType: 'link',
     dropdownData: null
   },
 ];
@@ -456,29 +482,7 @@ function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {
   return false;
 }
 
-const CustomActions: CustomAction[] = [
-  {
-    ActionName: "Deatail",
-    ActionLabel: "Link",
-    ApiActiontype: ApiActionType.PUT,
-    IsRowAction: true,
-    DataType: CustomActionDataType.RowId,
-  },
-  {
-    ActionName: "statusChange",
-    ActionLabel: "Đổi trạng thái",
-    ApiActiontype: ApiActionType.PUT,
-    IsRowAction: true,
-    DataType: CustomActionDataType.RowId,
-  },
-  {
-    ActionName: "Export",
-    ActionLabel: "Export",
-    ApiActiontype: ApiActionType.PUT,
-    IsRowAction: false,
-    DataType: CustomActionDataType.Filters,
-  },
-];
+
 
 const idCustomerLink = ref("");
 const openDialog = ref<boolean>(false);

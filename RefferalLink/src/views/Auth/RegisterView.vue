@@ -14,10 +14,10 @@
             <el-input v-model="state.name" placeholder="Họ Tên" />
           </el-form-item>
           <el-form-item label="" prop="passport">
-            <el-input v-model="state.passport" placeholder="Hộ Chiếu" />
+            <el-input v-model="state.passport" placeholder="Căn cước công dân" />
           </el-form-item>
           <el-form-item label="" prop="ldPassport">
-            <el-input v-model="state.oldPassport" placeholder="Hộ chiếu cũ" />
+            <el-input v-model="state.oldPassport" placeholder="Căn cước công dân cũ" />
           </el-form-item>
           <el-form-item label="" prop="phoneNumber">
             <el-input v-model="state.phoneNumber" placeholder="Số Điện Thoại" />
@@ -111,6 +111,7 @@ const state = reactive<RegisterViewModel>({
   dateOfBirth: "",
   source: "",
   job: "",
+  tpBank: "",
 });
 const route = useRoute();
 const decodedToken = ref<LoginResult>({
@@ -126,13 +127,17 @@ const userRoles = ref<string[]>();
 async function register() {
   console.log(state);
   const code = route.params.Code;
+  const tpBank = route.params.TpBank;
   state.refferalCode = code.toString();
+  state.tpBank = tpBank.toString();
   const result = await handleRegister(state);
   console.log("logresult:" + result);
   if (!result.isSuccess) {
     message.value = result.message;
     dialogVisible.value = true;
   } else {
+    const responseData =  result.data;
+    localStorage.setItem('Customer', JSON.stringify(responseData));
     router.push("/CustomerLink/" + result.data?.id);
   }
 }

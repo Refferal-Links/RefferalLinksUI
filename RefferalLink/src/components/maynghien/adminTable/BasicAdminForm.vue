@@ -6,7 +6,9 @@
   </MnActionPane>
   <MnTable :columns="tableColumns" :datas="datas" :onSaved="handleSaved" :enableEdit="allowEdit"
     :enableDelete="allowDelete" :onCloseClicked="handleOnEditCloseClicked" @onEdit="handleEdit" @onDelete="handleDelete"
-    :CustomActions="CustomRowActions" @on-custom-action="handleCustomAction" @onSortChange="handleSortChange" :scroll="scroll"/>
+    :CustomActions="CustomRowActions" @on-custom-action="handleCustomAction" @onSortChange="handleSortChange" :scroll="scroll"
+    :loadding="loadding"
+    />
 
     <el-input-number v-if="changePageSize"
     v-model="pageSize"
@@ -58,9 +60,10 @@ import { SortByInfo } from '../BaseModels/SortByInfo';
 //#region Method
 
 const pageSize = ref<number>(10);
-
+const loadding =ref<boolean>(false);
 const Search = async () => {
   searchRequest.PageSize = pageSize.value;
+  loadding.value = true;
   var searchApiResponse = await handleAPISearch(searchRequest, props.apiName);
   if (searchApiResponse.isSuccess && searchApiResponse.data != undefined) {
     let dataresponse: SearchResponse<SearchDTOItem[] | undefined> = searchApiResponse.data;
@@ -81,6 +84,7 @@ const Search = async () => {
       datas.value = [];
     }
   }
+  loadding.value = false
 }
 
 //#endregion

@@ -91,7 +91,7 @@ const router = createRouter({
     },
     {
       path:"/",
-      component: LayoutBlank,
+      component: LayoutMenuNgang,
       meta: { requiresAuth: true },
       children:[
         {
@@ -99,7 +99,7 @@ const router = createRouter({
           component: CustomerLinkView
         },
         {
-          path: "Register/Code=:Code",
+          path: "Register/Code=:Code/TpBank=:TpBank",
           component: RegisterView,
           meta: { requiresAuth: true, roles: ["Sale","CSKH"]},
         },
