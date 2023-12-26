@@ -42,7 +42,7 @@ const tableColumns: TableColumn[] = [
 const CustomActions: CustomAction[] = ([
     {
         ActionName: "StatusChange",
-        ActionLabel: "StatusChange",
+        ActionLabel: "Khóa/Mở",
         ApiAction: "StatusChange",
         ApiActiontype:ApiActionType.PUT,
         IsRowAction: true,

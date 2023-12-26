@@ -137,20 +137,7 @@ const tableColumns: TableColumn[] = [
     inputType: "text",
     dropdownData: null,
   },
-  {
-    key: "phoneNumber",
-    label: "Số điện thoại",
-    width: 100,
-    sortable: true,
-    enableEdit: false,
-
-    enableCreate: false,
-    required: false,
-    hidden: true,
-    showSearch: true,
-    inputType: "text",
-    dropdownData: null,
-  },
+  
   {
     key: "email",
     label: "Email",
@@ -177,6 +164,20 @@ const tableColumns: TableColumn[] = [
     hidden: false,
     showSearch: false,
     inputType: "text",
+    dropdownData: null,
+  },
+  {
+    key: "phoneNumber",
+    label: "Số điện thoại",
+    width: 130,
+    sortable: true,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: false,
+    showSearch: true,
+    inputType: "phoneNumber",
     dropdownData: null,
   },
   {

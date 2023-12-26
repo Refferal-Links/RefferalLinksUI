@@ -11,6 +11,7 @@
             :sortable="column.sortable == true ? 'custom' : false" :prop="column.key">
                 <template #default="scope">
                     <el-link v-if="column.inputType == 'link' && column.key && scope.row[column.key]"  :href="scope.row[column.key]" target="_blank" type="primary">Xem</el-link>
+                    <el-link v-else-if="column.inputType == 'phoneNumber' && column.key && scope.row[column.key]" :href="'tel:' + scope.row[column.key]" target="_blank" type="primary">{{hideMiddleNumbers(scope.row[column.key]) }}</el-link>
                     <span v-else-if="column.key">{{ scope.row[column.key] }}</span>
                 </template>
             </el-table-column>
@@ -113,6 +114,18 @@ watch(() => props.columns, () => {
     shownCol.value = props.columns.filter(m => m.hidden == false);
 
 }, { immediate: true })
+
+
+
+function hideMiddleNumbers(phoneNumber : string) {
+    try{
+        const hiddenNumber = phoneNumber.substring(0, 3) + "xxx" + phoneNumber.substring(6);
+        return hiddenNumber;
+    }
+    catch{
+        return phoneNumber
+    }
+}
 
 </script>
   

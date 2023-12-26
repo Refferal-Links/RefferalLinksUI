@@ -9,7 +9,6 @@ import BasicAdminFormVue from '@/components/maynghien/adminTable/BasicAdminForm.
 import { ApiActionType, CustomAction, CustomActionDataType } from '@/components/maynghien/adminTable/Models/CustomAction';
 // @ts-ignore
 import { TableColumn } from '@/components/maynghien/adminTable/Models/TableColumn.ts';
-import { axiosInstance } from '@/Services/axiosConfig';
 const tableColumns: TableColumn[] = [
     {
         key: "userName",
@@ -127,6 +126,10 @@ const tableColumns: TableColumn[] = [
                 {
                     role: "CSKH",
                     roleName: "CSKH"
+                },
+                {
+                    role: "SUP",
+                    roleName: "SUP"
                 }
             ]
 
@@ -171,7 +174,40 @@ const tableColumns: TableColumn[] = [
         },
 
     },
- 
+    {
+        key: "branchId",
+        label: "Chi nhánh",
+        width: 1000,
+        sortable: false,
+        enableEdit:  true,
+
+        enableCreate:  true,
+        required:true,
+        hidden: true,
+        showSearch: true,
+        inputType: "dropdown",
+        dropdownData: {
+            displayMember: "name",
+            keyMember: "id",
+            apiUrl: "Branch",
+        },
+
+    },
+    {
+        key: "branchName",
+        label: "Chi nhánh",
+        width: 1000,
+        sortable: false,
+        enableEdit:  false,
+
+        enableCreate:  false,
+        required:true,
+        hidden: false,
+        showSearch: false,
+        inputType: "text",
+        dropdownData: null
+
+    },
 ]
 const CustomActions: CustomAction[] = ([
     {

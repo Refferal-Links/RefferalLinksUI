@@ -58,7 +58,7 @@ const router = createRouter({
         {
           path: "User",
           component: UserManagementView,
-          meta: { requiresAuth: true, roles: ["Admin", "superadmin", "Teamleader"] },
+          meta: { requiresAuth: true, roles: ["Admin", "superadmin", "Teamleader", "SUP"] },
         },
         // {
         //   path:"CustomerLink/:Id",
@@ -68,7 +68,7 @@ const router = createRouter({
         {
           path: "CustomerLink2",
           component: CustomerLinkView2,
-          meta: { requiresAuth: true, roles: ["Admin", "Sale", "Teamleader","superadmin","CSKH"] },
+          meta: { requiresAuth: true, roles: ["Admin", "Sale", "Teamleader","superadmin","CSKH","SUP"] },
         },
         {
           path: "Branch",
@@ -111,7 +111,7 @@ router.beforeEach((to, from, next) => {
   const isAuthenticated: boolean = !!Cookies.get('accessToken');
   const userRoles: string[] = getRolesFromToken() ??[];
 
-  if (to.meta.requiresAuth && !isAuthenticated) {
+  if (to.meta.requiresAuth && isAuthenticated == false) {
     next('/login'); // Chuyển hướng đến trang đăng nhập
   } else if (to.meta.roles && !hasPermission(userRoles, to.meta.roles as string[])) {
     // Xử lý truy cập không được phép
@@ -140,7 +140,7 @@ function getRolesFromToken(): string[] | null {
     console.log(decodedToken);
     return decodedToken.roles || [];
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return null;
   }
 }

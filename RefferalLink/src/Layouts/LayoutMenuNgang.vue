@@ -21,7 +21,7 @@
                                     <el-dropdown-item @click="onMenuItemClick('Team')" v-if="hasAdminRole">Team</el-dropdown-item>
                                     <el-dropdown-item @click="onMenuItemClick('Link')">Liên Kết</el-dropdown-item>
                                     <el-dropdown-item @click="onMenuItemClick('Branch')" v-if="hasAdminRole">Chi nhánh</el-dropdown-item>
-                                    <el-dropdown-item divided @click="onMenuItemClick('User')" v-if="hasAdminRole || hasTeamleaderRole">Quản Lý Người Dùng</el-dropdown-item>
+                                    <el-dropdown-item divided @click="onMenuItemClick('User')" v-if="hasAdminRole || hasTeamleaderRole || hasSUPRole">Quản Lý Người Dùng</el-dropdown-item>
                                 </el-dropdown-menu>
                             </template>
                         </el-dropdown>
@@ -130,6 +130,7 @@ const hasTeamleaderRole = ref<boolean>(false);
 const hasSaleRole = ref<boolean>(false);
 const hasCSKHRole = ref<boolean>(false);
 const hasAdminRole = ref<boolean>(false);
+const hasSUPRole = ref<boolean>(false);
 const showChangePassword = ref<boolean>(false);
 interface TokenPayload {
     Roles: string[];
@@ -161,6 +162,7 @@ function getCode(){
     hasSaleRole.value = hasPermission(userRoles.value as string[], ["Sale"]);
     hasAdminRole.value = hasPermission(userRoles.value as string[], ["Admin", "superadmin"]);
     hasCSKHRole.value = hasPermission(userRoles.value as string[], ["CSKH"]);
+    hasSUPRole.value = hasPermission(userRoles.value as string[], ["SUP"]);
 }
 getCode();
 const onMenuItemClick = (item: string) => {
