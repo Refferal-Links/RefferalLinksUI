@@ -68,13 +68,19 @@ async function CreateCustomerLink(idCustomerLink: string) {
 
   var result = await handelCreateCustomerLink(newCustomerLink);
   if(result.isSuccess && result.data != null) {
-    window.open(result.data.url, "_blank");
+    // window.open(result.data.url, "_blank");
+    myFunction(result.data.url as string);
   }
   else{
     alert(result.message);
   }
 };
-
+function myFunction( text:string) {
+  navigator.clipboard.writeText(text);
+  
+  // Alert the copied text
+  alert("Copy: " + text);
+}
 </script>
 <style>
 .box-card {

@@ -190,7 +190,7 @@ function checkRole() {
     if(hasAdminRole.value == true){
         CustomActions.push({
             ActionName: "StatusChange",
-            ActionLabel: "Đống/Mở",
+            ActionLabel: "Đóng/Mở",
             ApiAction: "StatusChange",
             ApiActiontype: ApiActionType.PUT,
             IsRowAction: true,

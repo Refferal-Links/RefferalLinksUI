@@ -175,6 +175,7 @@ const sourceSale = ref<string[]>([
   // "AutoCall",
   // "SMS",
   "Tư vấn viên",
+  "Đi thị trường"
 ]);
 async function fetchProvinceData() {
   try {
