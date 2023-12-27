@@ -165,16 +165,16 @@ interface Province {
 
 const provinceData = ref<Province[]>([]);
 const source = ref<string[]>([
-  "Tự khai thác",
+  // "Tự khai thác",
   "AutoCall",
   "SMS",
-  // "Tư vấn viên",
+  "Tư vấn viên",
 ]);
 const sourceSale = ref<string[]>([
-  // "Tự khai thác",
+  "Tự khai thác",
   // "AutoCall",
   // "SMS",
-  "Tư vấn viên",
+  // "Tư vấn viên",
   "Đi thị trường"
 ]);
 async function fetchProvinceData() {
