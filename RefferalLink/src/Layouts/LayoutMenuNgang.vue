@@ -54,7 +54,7 @@
                     <router-view />
                 </div>
             </el-main>
-            <el-footer></el-footer>
+            <!-- <el-footer></el-footer> -->
         </el-container>
     </div>
     <ChangePassword :userName="decodedToken?.userName ?? ''" :openDialog="showChangePassword"
