@@ -27,6 +27,7 @@ import { CustomerLinkDto } from '@/Models/Dtos/CustomerLinkDto';
 import router from '@/router';
 import type { Bank } from '@/Models/Dtos/BankViewModel';
 import {handelCreateCustomerLink} from '../Services/CustomerLink/Create';
+import Clipboard from 'clipboard';
 const route = useRoute();
 
 
@@ -76,7 +77,7 @@ async function CreateCustomerLink(idCustomerLink: string) {
   }
 };
 function myFunction( text:string) {
-  navigator.clipboard.writeText(text);
+  Clipboard.copy(text);
   
   // Alert the copied text
   alert("Copy: " + text);

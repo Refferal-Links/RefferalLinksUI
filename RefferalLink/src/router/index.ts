@@ -53,7 +53,7 @@ const router = createRouter({
         {
           path: "Link",
           component: LinkTemplateView,
-          meta: { requiresAuth: true, roles: ["Admin", "Sale", "Teamleader", "superadmin","CSKH"] },
+          meta: { requiresAuth: true, roles: ["Admin", "Sale", "Teamleader", "superadmin","CSKH", "SUP"] },
         },
         {
           path: "User",
@@ -101,7 +101,7 @@ const router = createRouter({
         {
           path: "Register/Code=:Code/TpBank=:TpBank",
           component: RegisterView,
-          meta: { requiresAuth: true, roles: ["Sale","CSKH"]},
+          meta: { requiresAuth: true, roles: ["Sale","CSKH", "Teamleader", "SUP"]},
         },
       ]
     }

@@ -29,7 +29,7 @@
                     <el-menu-item index="2" @click="onMenuItemClick('CustomerLink2')">
                         Khách hàng
                     </el-menu-item>
-                    <el-menu-item index="3" @click="onMenuItemClick(`Register`)" v-if="hasSaleRole || hasCSKHRole">
+                    <el-menu-item index="3" @click="onMenuItemClick(`Register`)" v-if="hasSaleRole || hasCSKHRole || hasTeamleaderRole || hasSUPRole">
                         Đăng kí
                         
                     </el-menu-item>
