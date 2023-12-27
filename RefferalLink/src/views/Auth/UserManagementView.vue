@@ -208,12 +208,35 @@ const tableColumns: TableColumn[] = [
         dropdownData: null
 
     },
+    {
+        key: "receiveAllocation",
+        label: "Phân bổ",
+        width: 1000,
+        sortable: false,
+        enableEdit:  false,
+
+        enableCreate:  false,
+        required:true,
+        hidden: false,
+        showSearch: false,
+        inputType: "text",
+        dropdownData: null
+
+    },
 ]
 const CustomActions: CustomAction[] = ([
     {
         ActionName: "StatusChange",
         ActionLabel: "Khóa/Mở",
         ApiAction: "StatusChange",
+        ApiActiontype:ApiActionType.PUT,
+        IsRowAction: true,
+        DataType: CustomActionDataType.RowId,
+    },
+    {
+        ActionName: "ReceiveAllocation",
+        ActionLabel: "Bật/Tắt phân bổ",
+        ApiAction: "ReceiveAllocation",
         ApiActiontype:ApiActionType.PUT,
         IsRowAction: true,
         DataType: CustomActionDataType.RowId,
