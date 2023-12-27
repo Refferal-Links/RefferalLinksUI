@@ -9,7 +9,7 @@
                     <label>{{ column.label }}</label>
 
                     <el-input v-model="model[column.key]" :placeholder="column.label"
-                        v-if="column.key != undefined && (column.inputType == undefined || column.inputType == 'text' || column.inputType == 'number')"
+                        v-if="column.key != undefined && (column.inputType == undefined || column.inputType == 'text' || column.inputType == 'number' || column.inputType == 'link')"
                         :type="column.inputType" />
 
 

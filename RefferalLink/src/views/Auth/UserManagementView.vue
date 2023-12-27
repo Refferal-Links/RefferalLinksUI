@@ -15,7 +15,7 @@ const tableColumns: TableColumn[] = [
         label: "Tên Người dùng",
         width: 1000,
         sortable: true,
-        enableEdit: false,
+        enableEdit: true,
 
         enableCreate: true,
         required: false,
@@ -97,7 +97,7 @@ const tableColumns: TableColumn[] = [
     {
         key: "role",
         label: "Role",
-        enableEdit: false,
+        enableEdit: true,
         enableCreate: true,
         hidden: false,
         width: 300,

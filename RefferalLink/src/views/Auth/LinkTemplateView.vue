@@ -132,6 +132,34 @@ const tableColumns: TableColumn[] = [
     inputType: "text",
     dropdownData: null,
   },
+  {
+    key: "instructionsLink",
+    label: "Hướng dẫn",
+    width: 1000,
+    sortable: false,
+    enableEdit: true,
+
+    enableCreate: true,
+    required: false,
+    hidden: false,
+    showSearch: false,
+    inputType: "link",
+    dropdownData: null,
+  },
+  {
+    key: "note",
+    label: "Ghi chú",
+    width: 1000,
+    sortable: false,
+    enableEdit: true,
+
+    enableCreate: true,
+    required: false,
+    hidden: false,
+    showSearch: false,
+    inputType: "text",
+    dropdownData: null,
+  },
 ];
 const CustomActions: CustomAction[] = [
 //   {
