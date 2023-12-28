@@ -98,8 +98,11 @@ const handleEdit = (index: number, row: SearchDTOItem) => {
     emit("onEdit", row)
 }
 const handleDelete = (index: number, row: SearchDTOItem) => {
-
-    emit("onDelete", row["id"])
+    var result = confirm("Bạn có chắc chắn muốn xóa không?");
+    if(result)
+    {
+        emit("onDelete", row["id"])
+    }
 }
 
 const handleCustomAction = async (index: number, row: SearchDTOItem, action: CustomAction) => {
