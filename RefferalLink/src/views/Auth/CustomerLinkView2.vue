@@ -370,6 +370,11 @@ const tableColumns: TableColumn[] = [
                     status: "2",
                     statusText: "Rejected"
                 },
+                {
+
+                    status: "3",
+                    statusText: "Cancel"
+                },
             ]
 
         },
