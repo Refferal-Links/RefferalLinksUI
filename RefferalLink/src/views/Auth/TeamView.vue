@@ -56,6 +56,33 @@ const tableColumns: TableColumn[] = [
         inputType: "text",
         dropdownData: null
     },
+    {
+        key: "type",
+        label: "Loại team",
+        enableEdit: true,
+        enableCreate: true,
+        hidden: false,
+        width: 300,
+        required: true,
+        sortable: false,
+        showSearch: false,
+        inputType: "dropdown",
+        dropdownData: {
+            displayMember: "typeName",
+            keyMember: "type",
+            data: [
+                {
+                    type: "CSKH",
+                    typeName: "CSKH"
+                },
+                {
+                    type: "Sale",
+                    typeName: "Sale"
+                }
+            ]
+        },
+
+    },
 ]
 const CustomActions: CustomAction[]=([]);
 </script>

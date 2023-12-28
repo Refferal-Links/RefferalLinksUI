@@ -62,7 +62,7 @@
           <el-form-item>
             <el-select v-model="state.source" placeholder="Nguồn">
               <el-option
-                v-for="item in (hasSaleRole ? sourceSale: source)"
+                v-for="item in ( (hasSaleRole || decodedToken.typeTeam == 'Sale' )? sourceSale: source)"
                 :key="item"
                 :label="item"
                 :value="item"
@@ -121,6 +121,7 @@ const decodedToken = ref<LoginResult>({
     token: "",
     teamId: "",
     tpBank: "",
+    typeTeam: "",
 });
 const message = ref<string>("");
 const userRoles = ref<string[]>();
@@ -154,7 +155,13 @@ async function register() {
   } else {
     // const responseData =  result.data;
     // localStorage.setItem('Customer', JSON.stringify(responseData));
-    router.push("/CustomerLink/" + result.data?.id);
+    if(state.source == "Khác") {
+      router.push("/CustomerLink2");
+    }
+    else{
+      router.push("/CustomerLink/" + result.data?.id);
+    }
+    
   }
 }
 
@@ -175,7 +182,8 @@ const sourceSale = ref<string[]>([
   // "AutoCall",
   // "SMS",
   // "Tư vấn viên",
-  "Đi thị trường"
+  "Đi thị trường",
+  "Khác"
 ]);
 async function fetchProvinceData() {
   try {
@@ -209,6 +217,7 @@ function getCode(){
     console.log(decodedToken.value);
     userRoles.value = decodedToken.value?.roles ?? [];
     hasSaleRole.value = hasPermission(userRoles.value as string[], ["Sale"]);
+    decodedToken.value.typeTeam = Cookies.get('TypeTeam')?.toString() ?? '';
 }
 getCode();
 </script>

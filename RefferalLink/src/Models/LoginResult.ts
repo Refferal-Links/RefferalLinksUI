@@ -5,4 +5,5 @@ export class LoginResult {
   roles: string[] | undefined;
   token: string | undefined;
   teamId: string | undefined;
+  typeTeam: string | undefined;
 }
