@@ -8,20 +8,20 @@
             <!-- <el-table-column v-for="column in shownCol" :key="column.key" :prop="column.key" :label="column.label"
                 :sortable="column.sortable ? 'custom' : 'false'" :visible="column.hidden == false" /> -->
             <el-table-column v-for="column in shownCol" :key="column.key" :label="column.label" :visible="column.hidden == false" :width="scroll ? column.width : undefined"
-            :sortable="column.sortable == true ? 'custom' : false" :prop="column.key">
+            :sortable="column.sortable == true ? 'custom' : false" :prop="column.key" :span="1">
                 <template #default="scope">
                     <el-link v-if="column.inputType == 'link' && column.key && scope.row[column.key]"  :href="scope.row[column.key]" target="_blank" type="primary">Xem</el-link>
                     <el-link v-else-if="column.inputType == 'phoneNumber' && column.key && scope.row[column.key]" :href="'tel:' + scope.row[column.key]" target="_blank" type="primary">{{hideMiddleNumbers(scope.row[column.key]) }}</el-link>
                     <span v-else-if="column.key">{{ scope.row[column.key] }}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="Operations" v-if="enableDelete || enableEdit || CustomActions" fixed="right">
+            <el-table-column label="Operations" v-if="enableDelete || enableEdit || CustomActions" fixed="right" :span="2">
                 <template #default="scope">
                     <el-button v-if="enableEdit" :icon="Edit" size="small"
                         @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
                     <el-button v-if="enableDelete" :icon="Delete" size="small" type="danger"
                         @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
-                    <el-button v-for="action in CustomActions" :icon="action.Icon" size="small"
+                    <el-button v-for="action in CustomActions" :icon="action.Icon" size="small" 
                         @click="handleCustomAction(scope.$index, scope.row, action)">{{ action.ActionLabel }}</el-button>
                 </template>
             </el-table-column>
@@ -138,5 +138,6 @@ function hideMiddleNumbers(phoneNumber : string) {
 .scroll{
     overflow-x: scroll;
 }
+
 </style>
   
