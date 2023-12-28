@@ -124,6 +124,7 @@ const decodedToken = ref<LoginResult>({
     token: "",
     teamId: "",
     tpBank: "",
+    typeTeam: "",
 });
 const userRoles = ref<string[]>();
 const hasTeamleaderRole = ref<boolean>(false);
