@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :model-value="openDialog" :title="(isEdit ? 'Edit ' : 'Create ') + title" class="form-dialog" width="30%"
+    <el-dialog :model-value="openDialog" :title="(isEdit ? 'Edit ' : 'Create ') + title" class="form-dialog" :width="dialogWidth"
         @close="emit('onCloseClicked')">
 
         <div class="editform" v-if="model != undefined">
@@ -57,6 +57,11 @@ const props = defineProps<{
     openDialog: boolean;
     title: string;
 }>();
+
+const dialogWidth=ref('35%');
+if (window.innerWidth < 600) {
+    dialogWidth.value = '100%';
+      }
 // Use computed to create a filtered model
 const model = ref<SearchDTOItem>(props.editItem);
 const Validate = (): boolean => {

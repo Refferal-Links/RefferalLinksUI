@@ -241,4 +241,17 @@ getCode();
   font-size: 24px;
   margin-bottom: 20px;
 }
+@media (max-width: 800px) {
+  .grid-content {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    margin-left: 5%;
+    margin-top: 5%;
+  }
+  .el-form-item {
+    width: 100%!important;
+  }
+  }
 </style>
