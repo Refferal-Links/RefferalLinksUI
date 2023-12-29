@@ -107,7 +107,7 @@ a{
 }
 </style>  
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onBeforeUnmount, ref } from 'vue'
 import { Menu as IconMenu, Message,SwitchButton, Setting } from '@element-plus/icons-vue'
 import router from '@/router';
 import Cookies from 'js-cookie';
@@ -193,4 +193,26 @@ function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {
   }
   return false;
 }
+function checkAndDeleteCookie() {
+  const currentTime = new Date();
+
+  if (currentTime.getHours() === 0 && currentTime.getMinutes() === 0) {
+    // var cookies = document.cookie.split(";");
+
+    // for (var i = 0; i < cookies.length; i++) {
+    // var cookie = cookies[i];
+    // var eqPos = cookie.indexOf("=");
+    // var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    // document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
+    // }
+
+    // console.log('Đã xóa tất cả cookie.');
+    logout()
+  }
+}
+// checkAndDeleteCookie();
+const interval = setInterval(checkAndDeleteCookie, 60000);
+onBeforeUnmount(() => {
+  clearInterval(interval);
+});
 </script>

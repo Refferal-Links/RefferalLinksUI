@@ -5,7 +5,7 @@
       :tableColumns="tableColumns"
       :apiName="'CustomerLink'"
       :allowAdd="false"
-      :allowEdit="false"
+      :allowEdit="hasAdminRole || hasSUPRole"
       :allowDelete="hasAdminRole == true ? true : false"
       title="CustomerLink"
       :CustomActions="CustomActions"
@@ -49,6 +49,7 @@ import { LoginResult } from "@/Models/LoginResult";
 const hasTeamleaderRole = ref<boolean>(false);
 const hasSaleRole = ref<boolean>(false);
 const hasAdminRole = ref<boolean>(false);
+const hasSUPRole = ref<boolean>(false);
 const CustomActions: CustomAction[] = [
   {
     ActionName: "Deatail",
@@ -75,6 +76,7 @@ function checkRole() {
     hasTeamleaderRole.value = hasPermission(Roles, ["Teamleader"]);
     hasSaleRole.value = hasPermission(Roles, ["Sale", "CSKH"]);
     hasAdminRole.value = hasPermission(Roles, ["Admin", "superadmin"]);
+    hasSUPRole.value = hasPermission(Roles, ["SUP"]);
     if(!hasSaleRole.value){
       CustomActions.push({
         ActionName: "Export",
@@ -476,6 +478,24 @@ const tableColumns: TableColumn[] = [
     showSearch: false,
     inputType: 'link',
     dropdownData: null
+  },
+  {
+    key: "idUser",
+    label: "Sale",
+    width: 70,
+    sortable: false,
+    enableEdit: hasSUPRole.value || hasAdminRole.value ? true : false,
+
+    enableCreate: false,
+    required: false,
+    hidden: true,
+    showSearch: false,
+    inputType: 'dropdown',
+    dropdownData: {
+      displayMember: "userName",
+      keyMember: "id",
+      apiUrl: "UserManagemet/sale",
+    },
   },
 ];
 
