@@ -124,7 +124,7 @@ let searchRequest: SearchRequest = {
 const CustomButtons = ref<CustomAction[]>([{}]);
 const CustomRowActions = ref<CustomAction[]>([{}]);
 
-await Search();
+Search();
 //#endregion
 //#region variable
 const SelectedRowId = ref<string | null>(null);
