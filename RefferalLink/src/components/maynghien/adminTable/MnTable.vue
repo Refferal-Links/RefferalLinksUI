@@ -7,6 +7,12 @@
             @row-click="handleRowClick" v-loading="loadding == true">
             <!-- <el-table-column v-for="column in shownCol" :key="column.key" :prop="column.key" :label="column.label"
                 :sortable="column.sortable ? 'custom' : 'false'" :visible="column.hidden == false" /> -->
+                <el-table-column label="STT" width="60">
+                    <template #default="scope">
+                    <span>{{ scope.$index + 1 }}</span>
+                    </template>
+                </el-table-column>
+
             <el-table-column v-for="column in shownCol" :key="column.key" :label="column.label" :visible="column.hidden == false" :width="scroll ? column.width : undefined"
             :sortable="column.sortable == true ? 'custom' : false" :prop="column.key" :span="1">
                 <template #default="scope">
