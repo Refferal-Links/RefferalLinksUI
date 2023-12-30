@@ -1,7 +1,7 @@
 import axios from "axios";
 // const baseAPIUrl = "localhost:333/api/";
 export const axiosInstance = axios.create({
-    baseURL: "http://api.msfn.com.vn/api",
+    baseURL: "http://api.msfn.com.vn:5001/api",
    // timeout: 10000,
     headers: {'X-Custom-Header': 'foobar'}
   });
