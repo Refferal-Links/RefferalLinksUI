@@ -45,18 +45,20 @@
           </el-form-item>
           
           <el-form-item>
-            <el-select v-model="state.provinceId" placeholder="Tên Tỉnh">
+            <el-select
+              v-model="state.provinceId"
+              clearable
+              filterable
+              :reserve-keyword="false"
+              placeholder="Tỉnh thành"
+              :remote-method="remoteMethodProvince"
+            >
               <el-option
-                v-for="item in provinceData"
+                v-for="item in provinceDataRef"
                 :key="item.id"
                 :label="item.name"
                 :value="item.id"
-              >
-                {{ item.name }}
-              </el-option>
-              <el-option v-if="!provinceData.length">
-                Đang tải dữ liệu tỉnh thành phố...
-              </el-option>
+              />
             </el-select>
           </el-form-item>
           <el-form-item>
@@ -170,7 +172,7 @@ interface Province {
   name: string;
 }
 
-const provinceData = ref<Province[]>([]);
+const provinceDataRef = ref<Province[]>([]);
 const source = ref<string[]>([
   // "Tự khai thác",
   "AutoCall",
@@ -185,12 +187,14 @@ const sourceSale = ref<string[]>([
   "Đi thị trường",
   "Khác"
 ]);
+const provinceData = ref<Province[]>([]);
 async function fetchProvinceData() {
   try {
     const response = await axiosInstance.get("Province");
     if (response.status === 200) {
       console.log(response.data.data);
       provinceData.value = response.data.data;
+      provinceDataRef.value = response.data.data;
     } else {
       console.error("Không thể lấy dữ liệu tỉnh thành phố");
     }
@@ -220,6 +224,22 @@ function getCode(){
     decodedToken.value.typeTeam = Cookies.get('TypeTeam')?.toString() ?? '';
 }
 getCode();
+const loading = ref(false);
+const remoteMethodProvince = (query: string) => {
+  if (query) {
+    loading.value = true;
+    setTimeout(() => {
+      loading.value = false;
+      provinceDataRef.value =
+        provinceData.value.filter((item) =>
+          item.name?.toLowerCase().includes(query.toLowerCase())
+        ) ?? [];
+    }, 200);
+  } else {
+    provinceDataRef.value = provinceData.value ?? [];
+  }
+};
+
 </script>
 <style>
 .login-container {
