@@ -539,6 +539,11 @@ function DownloadExcel(filters: Filter[] | undefined) {
     PageIndex: 1,
     PageSize: 10,
   });
+  searchRequest.filters?.forEach(f => {
+        if (f.Type === "date") {
+            f.Value = f.Value?.toString();
+        }
+    });
   axiosInstance
     .post("CustomerLink/Download", searchRequest, {
       responseType: "blob",
