@@ -4,19 +4,28 @@
     @onBtnSearchClicked="handleBtnSearchClicked" @onBtnAddClicked="handleOpenCreate" :CustomActions="CustomButtons"
     :openDialog="openDialogCreate" @onCustomAction="handleCustomAction">
   </MnActionPane>
+    <el-select v-model="pageSize" class="m-2" placeholder="Select" size="small" v-if="changePageSize == true" >
+      <el-option
+        v-for="item in pageSizeSelect"
+        :key="item"
+        :label="item"
+        :value="item"
+      />
+    </el-select>
   <MnTable :columns="tableColumns" :datas="datas" :onSaved="handleSaved" :enableEdit="allowEdit"
     :enableDelete="allowDelete" :onCloseClicked="handleOnEditCloseClicked" @onEdit="handleEdit" @onDelete="handleDelete"
     :CustomActions="CustomRowActions" @on-custom-action="handleCustomAction" @onSortChange="handleSortChange" :scroll="scroll"
     :loadding="loadding"
     />
 
-    <el-input-number v-if="changePageSize"
-    v-model="pageSize"
-    :min="10"
-    :max="500"
-    size="small"
-    @keyup.enter="Search"
-  />
+    <el-select v-model="pageSize" class="m-2" placeholder="Select" size="small" v-if="changePageSize == true">
+      <el-option
+        v-for="item in pageSizeSelect"
+        :key="item"
+        :label="item"
+        :value="item"
+      />
+    </el-select>
 
   <el-pagination small background layout="prev, pager, next" :total="totalItem" :page-size="10"
     @current-change="handlePageChange" :current-page="searchRequest.PageIndex" class="mt-4" />
@@ -59,10 +68,13 @@ import type { CustomAction, CustomActionResponse } from './Models/CustomAction';
 import { SortByInfo } from '../BaseModels/SortByInfo';
 //#region Method
 
+
+
+const pageSizeSelect = ref<number[]>([10, 50, 100, 200, 500, 1000]);
 const pageSize = ref<number>(10);
 const loadding =ref<boolean>(false);
 const Search = async () => {
-  searchRequest.PageSize = pageSize.value;
+  // searchRequest.PageSize = pageSize.value;
   loadding.value = true;
   var searchApiResponse = await handleAPISearch(searchRequest, props.apiName);
   if (searchApiResponse.isSuccess && searchApiResponse.data != undefined) {
@@ -238,4 +250,8 @@ watch(() => props.isEditedOutSide, () => {
     Search();
   }
 }, { immediate: true })
+
+watch(() => pageSize.value,() => {
+  Search();
+})
 </script>

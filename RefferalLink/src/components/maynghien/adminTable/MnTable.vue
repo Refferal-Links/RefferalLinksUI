@@ -4,9 +4,15 @@
 <template>
     <div>
         <el-table :class="scroll == false ? 'admin-table' :'scroll'" :data="datas" @sort-change="handleSortChange" border row-key="id" table-layout="auto" 
-            @row-click="handleRowClick" v-loading="loadding == true">
+            @row-click="handleRowClick" v-loading="loadding == true" :row-class-name="rowClassName">
             <!-- <el-table-column v-for="column in shownCol" :key="column.key" :prop="column.key" :label="column.label"
                 :sortable="column.sortable ? 'custom' : 'false'" :visible="column.hidden == false" /> -->
+                <el-table-column label="STT" width="60">
+                    <template #default="scope">
+                    <span>{{ scope.$index + 1 }}</span>
+                    </template>
+                </el-table-column>
+
             <el-table-column v-for="column in shownCol" :key="column.key" :label="column.label" :visible="column.hidden == false" :width="scroll ? column.width : undefined"
             :sortable="column.sortable == true ? 'custom' : false" :prop="column.key" :span="1">
                 <template #default="scope">
@@ -129,6 +135,9 @@ function hideMiddleNumbers(phoneNumber : string) {
         return phoneNumber
     }
 }
+const rowClassName = ({ row }: { row: SearchDTOItem }) => {
+  return row.watched === false ? 'row-not-watched' : '';
+};
 
 </script>
   
@@ -141,6 +150,8 @@ function hideMiddleNumbers(phoneNumber : string) {
 .scroll{
     overflow-x: scroll;
 }
-
+.row-not-watched {
+  background-color: lightgreen !important; /* Chọn màu xanh tùy ý */
+}
 </style>
   
