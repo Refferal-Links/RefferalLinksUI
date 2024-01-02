@@ -40,7 +40,7 @@ import { TableColumn } from "@/components/maynghien/adminTable/Models/TableColum
 import router from "@/router";
 import { axiosInstance } from "@/Services/axiosConfig";
 import Cookies from "js-cookie";
-import { ref, reactive } from "vue";
+import { ref, reactive, type Ref } from "vue";
 import StatusChange from "@/components/CustomerLink/StatusChange.vue";
 import type { SearchRequest } from "@/components/maynghien/BaseModels/SearchRequest";
 import type { Filter } from "@/components/maynghien/BaseModels/Filter";
@@ -531,14 +531,24 @@ const handleOnEditCloseClicked = async () => {
   console.log("Close");
 };
 
-function DownloadExcel(filters: Filter[] | undefined) {
+function DownloadExcel(filters: Ref<Filter[]> | undefined) {
   var data;
+  var filter = filters?.value
   let searchRequest = reactive<SearchRequest>({
-    filters: filters,
+    filters: filter?.slice(),
     SortBy: undefined,
     PageIndex: 1,
     PageSize: 10,
   });
+  if(searchRequest.filters != undefined)
+  for(let i = 0; i < searchRequest.filters.length; i++){
+        if(searchRequest.filters[i].Type == "date"){
+            var value = searchRequest.filters[i].Value?.toString();
+            var filename = searchRequest.filters[i].FieldName?.toString()
+            searchRequest.filters.splice(i,1);
+            searchRequest.filters.push({FieldName: filename, DisplayName: filename, Value: value, Operation: "", Type: "text", dropdownData: undefined});
+        }
+    }
   axiosInstance
     .post("CustomerLink/Download", searchRequest, {
       responseType: "blob",
