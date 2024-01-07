@@ -116,7 +116,7 @@ const tableColumns: TableColumn[] = [
     label: "Khách hàng",
     width: 100,
     sortable: true,
-    enableEdit: true,
+    enableEdit: false,
 
     enableCreate: false,
     required: false,
@@ -130,7 +130,7 @@ const tableColumns: TableColumn[] = [
     label: "Căn cước công dân",
     width: 100,
     sortable: true,
-    enableEdit: true,
+    enableEdit: false,
 
     enableCreate: false,
     required: false,
@@ -145,7 +145,7 @@ const tableColumns: TableColumn[] = [
     label: "Email",
     width: 100,
     sortable: true,
-    enableEdit: true,
+    enableEdit: false,
 
     enableCreate: false,
     required: false,
@@ -411,21 +411,7 @@ const tableColumns: TableColumn[] = [
   },
   {
     key: "note",
-    label: "Ghi chú Sale",
-    width: 100,
-    sortable: true,
-    enableEdit: false,
-
-    enableCreate: false,
-    required: false,
-    hidden: false,
-    showSearch: false,
-    inputType: "dropdown",
-    dropdownData: null
-  },
-  {
-    key: "noteCSKH",
-    label: "Ghi chú CSKH",
+    label: "Ghi chú",
     width: 100,
     sortable: true,
     enableEdit: false,
@@ -509,24 +495,6 @@ const tableColumns: TableColumn[] = [
       displayMember: "userName",
       keyMember: "id",
       apiUrl: "UserManagemet/sale",
-    },
-  },
-  {
-    key: "provinceId",
-    label: "Tỉnh thành",
-    width: 70,
-    sortable: false,
-    enableEdit: true,
-
-    enableCreate: false,
-    required: false,
-    hidden: true,
-    showSearch: false,
-    inputType: 'dropdown',
-    dropdownData: {
-      displayMember: "name",
-      keyMember: "id",
-      apiUrl: "Province",
     },
   },
 ];

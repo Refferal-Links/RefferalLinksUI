@@ -19,15 +19,7 @@
           v-model="customerLink.note"
           :rows="2"
           type="textarea"
-          placeholder="Ghi chú Sale"
-        />
-      </div>
-      <div>
-        <el-input
-          v-model="customerLink.noteCSKH"
-          :rows="2"
-          type="textarea"
-          placeholder="Ghi chú CSKH"
+          placeholder="Ghi chú"
         />
       </div>
       <el-card class="box-card">
@@ -94,7 +86,6 @@ const customerLink = ref({
   url: "",
   customerId: "",
   note: "",
-  noteCSKH: "",
 });
 const getCustomerLink = async () => {
   await axiosInstance
@@ -145,7 +136,6 @@ async function Save() {
   request.status = customerLink.value.status;
   request.listCustomerlinkImage = customerLink.value.listCustomerlinkImage;
   request.note = customerLink.value.note;
-  request.noteCSKH = customerLink.value.noteCSKH
   console.log("request", request);
   await axiosInstance
     .put(`/CustomerLink/StatusChange`, request)

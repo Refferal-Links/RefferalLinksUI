@@ -31,8 +31,6 @@ export class CustomerLinkDto{
     codeNVCSKH: string|undefined
 
     listCustomerlinkImage: CustomerlinkImageDto[]|undefined
-
-    noteCSKH: string|undefined
 }
 
 export class CustomerlinkImageDto{
