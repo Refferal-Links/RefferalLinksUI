@@ -5,7 +5,7 @@
       :tableColumns="tableColumns"
       :apiName="'CustomerLink'"
       :allowAdd="false"
-      :allowEdit="hasAdminRole || hasSUPRole"
+      :allowEdit="hasAdminRole || hasSUPRole || hasTeamleaderRole"
       :allowDelete="hasAdminRole == true ? true : false"
       title="CustomerLink"
       :CustomActions="CustomActions"
