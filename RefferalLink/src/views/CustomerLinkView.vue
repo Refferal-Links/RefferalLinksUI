@@ -15,6 +15,11 @@
       </el-col>
     </el-row>
     <div v-if="isLoading">Loading...</div>
+    <el-dialog v-model="showLink" title="Link" @clouse="showLink = false" class="dialog-link">
+      <el-form >
+          <el-input v-model="Link" autocomplete="off" />
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -43,7 +48,8 @@ const Customer = ref<CustomerDto>({
   banks: [] as Bank[],
 });
 const isLoading = ref(true);
-
+const showLink = ref(false);
+const Link = ref("");
 async function fetchCustomer() {
   await GetCustomer( useRoute().params.Id.toString()).then((x) => {
     if (x.isSuccess && x.data != null) {
@@ -85,12 +91,19 @@ function myFunction( text:string) {
   document.body.removeChild(textField);
   
   // Alert the copied text
-  alert("Copy: " + text);
+  // alert("Copy: " + text);
+  Link.value = text;
+  showLink.value = true;
 }
 </script>
 <style>
 .box-card {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+@media only screen and (max-width: 600px) {
+  .dialog-link{
+    width: 100% !important;
+  }
 }
 </style>
