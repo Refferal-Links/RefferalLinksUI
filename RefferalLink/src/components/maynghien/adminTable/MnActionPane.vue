@@ -116,6 +116,7 @@ const handlebtnSearchClicked = () => {
             var filename = filtersRequest[i].FieldName?.toString()
             filtersRequest.splice(i,1);
             filtersRequest.push({FieldName: filename, DisplayName: filename, Value: value, Operation: "", Type: "text", dropdownData: undefined});
+            i--;
         }
     }
     emit("onBtnSearchClicked", filtersRequest);

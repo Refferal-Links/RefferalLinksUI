@@ -565,7 +565,7 @@ const handleOnEditCloseClicked = async () => {
 
 function DownloadExcel(filters: Ref<Filter[]> | undefined) {
   var data;
-  var filter = filters?.value
+  var filter = filters?.value.filter((x) => x.Value != null && x.Value != "");
   let searchRequest = reactive<SearchRequest>({
     filters: filter?.slice(),
     SortBy: undefined,
@@ -579,8 +579,10 @@ function DownloadExcel(filters: Ref<Filter[]> | undefined) {
             var filename = searchRequest.filters[i].FieldName?.toString()
             searchRequest.filters.splice(i,1);
             searchRequest.filters.push({FieldName: filename, DisplayName: filename, Value: value, Operation: "", Type: "text", dropdownData: undefined});
+            i--
         }
     }
+    console.log(searchRequest);
   axiosInstance
     .post("CustomerLink/Download", searchRequest, {
       responseType: "blob",
