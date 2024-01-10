@@ -23,7 +23,9 @@
             <el-input v-model="state.phoneNumber" placeholder="Số Điện Thoại" maxlength="10"/>
           </el-form-item>
           <el-form-item label="" prop="email">
-            <el-input v-model="state.email" placeholder="Email" />
+            <el-input v-model="state.email" placeholder="Email">
+              <template #append>@gmail.com</template>
+            </el-input>
           </el-form-item>
           <el-form-item label="" prop="Job">
             <el-input v-model="state.job" placeholder="Công việc" />
