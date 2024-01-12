@@ -1,6 +1,6 @@
 <template>
-    <el-row class="action-pane">
-        <el-col :span="24">
+    <el-row class="action-pane fixed-action-pane" style="background-color: white;">
+        <el-col :span="24" >
             <el-row class="ep-bg-purple-dark el-col-24">
                 <el-col :span="24">
                     <el-row>
@@ -9,7 +9,7 @@
                             <el-input v-model="filter.Value" :placeholder="filter.DisplayName"
                                 v-if="filter.Type == undefined || filter.Type == 'text'" class="action-input">
                             </el-input>
-                            <el-select v-model="filter.Value" :placeholder="filter.DisplayName" class="action-input"
+                            <el-select v-model="filter.Value" :placeholder="filter.DisplayName" class="action-input" width="200px"
                                 v-if="filter.Type == 'dropdown'">
                                 <el-option label="" value="" />
 
@@ -73,7 +73,7 @@ import { TableColumn } from './Models/TableColumn.ts'
 // @ts-ignore
 import { Filter } from '../BaseModels/Filter';
 
-import { ref, watch } from 'vue';
+import { ref, watch, watchEffect  } from 'vue';
 import { CustomActionResponse, CustomAction } from './Models/CustomAction';
 import { handleAPIGetDropdownList } from './Service/BasicAdminService';
 const props = defineProps<{
@@ -159,11 +159,31 @@ watch(() => props.tableColumns, async () => {
 
 }, { immediate: true })
 
+
+const scrollPosition = ref<number>(0);
+
+window.addEventListener('scroll', () => {
+  scrollPosition.value = window.scrollY;
+  const actionPane = document.querySelector('.fixed-action-pane') as HTMLElement;
+  if (scrollPosition.value > 60) {
+    
+      actionPane.style.position = 'fixed';
+      actionPane.style.top = '0';
+      actionPane.style.zIndex = '1000';
+  }
+  else{
+    
+    actionPane.style.position = 'static';
+  }
+});
+
+
 </script>
 <style >
 .action-pane {
     width: "100%";
     padding: 10px;
+    position: relative;
 }
 
 .action-pane .buttons {
@@ -172,5 +192,8 @@ watch(() => props.tableColumns, async () => {
 
 .action-pane .action-input {
     padding-right: 5px;
+}
+.el-select{
+    width: 200px;
 }
 </style>
