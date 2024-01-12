@@ -44,7 +44,7 @@ const tableColumns: TableColumn[] = [
     required: false,
     hidden: false,
     showSearch: false,
-    inputType: "text",
+    inputType: "textarea",
     dropdownData: null,
   },
 
@@ -157,8 +157,22 @@ const tableColumns: TableColumn[] = [
     required: false,
     hidden: false,
     showSearch: false,
-    inputType: "text",
+    inputType: "textarea",
     dropdownData: null,
+  },
+  {
+    key: "exchangeLead",
+    label: "Quy đổi lead",
+    width: 110,
+    sortable: false,
+    enableEdit: true,
+
+    enableCreate: true,
+    required: false,
+    hidden: false,
+    showSearch: false,
+    inputType: 'text',
+    dropdownData: null
   },
 ];
 const CustomActions: CustomAction[] = [

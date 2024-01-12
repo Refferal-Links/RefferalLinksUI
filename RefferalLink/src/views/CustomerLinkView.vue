@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <el-row :gutter="20">
+  <div >
+    <el-row :gutter="20" class="Bank">
       <el-col v-for="bank in Customer.banks" :key="bank.id" :span="8">
         <el-card class="box-card">
           <template #header>
@@ -105,5 +105,8 @@ function myFunction( text:string) {
   .dialog-link{
     width: 100% !important;
   }
+}
+.Bank > .el-col.el-col-8.is-guttered {
+    min-width: 300px;
 }
 </style>

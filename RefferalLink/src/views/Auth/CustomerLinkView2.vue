@@ -12,6 +12,7 @@
       @onCustomAction="ChangePage"
       :scroll="true"
       :changePageSize="true"
+      
     />
   </Suspense>
   <StatusChange
@@ -24,6 +25,7 @@
         console.log('close');
       }
     "
+    @onCloseClicked="handleOnEditCloseClicked"
   />
 </template>
 
@@ -167,6 +169,7 @@ const tableColumns: TableColumn[] = [
     showSearch: false,
     inputType: "text",
     dropdownData: null,
+    fixed: true,
   },
   {
     key: "phoneNumber",
@@ -420,7 +423,7 @@ const tableColumns: TableColumn[] = [
     required: false,
     hidden: false,
     showSearch: false,
-    inputType: "dropdown",
+    inputType: "textarea",
     dropdownData: null
   },
   {
@@ -434,7 +437,35 @@ const tableColumns: TableColumn[] = [
     required: false,
     hidden: false,
     showSearch: false,
-    inputType: "dropdown",
+    inputType: "textarea",
+    dropdownData: null
+  },
+  {
+    key: "exchangeLead",
+    label: "Quy đổi lead",
+    width: 110,
+    sortable: false,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: false,
+    showSearch: false,
+    inputType: 'text',
+    dropdownData: null
+  },
+  {
+    key: "provinceName",
+    label: "Tỉnh thành",
+    width: 110,
+    sortable: false,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: false,
+    showSearch: false,
+    inputType: 'text',
     dropdownData: null
   },
   {

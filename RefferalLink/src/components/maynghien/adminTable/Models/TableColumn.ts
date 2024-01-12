@@ -12,7 +12,7 @@ export class TableColumn {
     showSearch?: boolean = false;
     inputType?: string = "text";
     dropdownData?: any | null;
-    
+    fixed?: boolean = false;
     constructor() {
 
     };

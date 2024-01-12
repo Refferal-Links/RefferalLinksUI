@@ -143,10 +143,10 @@ async function register() {
     alert("số điện thoại phải đúng 10 kí tự")
     return;
   }
-  if(!state.email?.endsWith("@gmail.com")) {
-    alert("email phải có đuôi là @gmail.com")
-    return;
-  }
+  // if(!state.email?.endsWith("@gmail.com")) {
+  //   alert("email phải có đuôi là @gmail.com")
+  //   return;
+  // }
   const code = route.params.Code;
   const tpBank = route.params.TpBank;
   state.refferalCode = code.toString();
