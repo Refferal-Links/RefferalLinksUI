@@ -186,20 +186,6 @@ const tableColumns: TableColumn[] = [
     dropdownData: null,
   },
   {
-    key: "provinceName",
-    label: "Tỉnh thành",
-    width: 110,
-    sortable: false,
-    enableEdit: false,
-
-    enableCreate: false,
-    required: false,
-    hidden: false,
-    showSearch: false,
-    inputType: 'text',
-    dropdownData: null
-  },
-  {
     key: "bankName",
     label: "Ngân Hàng",
     width: 100,
@@ -468,7 +454,20 @@ const tableColumns: TableColumn[] = [
     inputType: 'text',
     dropdownData: null
   },
- 
+  {
+    key: "provinceName",
+    label: "Tỉnh thành",
+    width: 110,
+    sortable: false,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: false,
+    showSearch: false,
+    inputType: 'text',
+    dropdownData: null
+  },
   {
     key: "image1",
     label: "ảnh 1",
