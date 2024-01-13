@@ -2,7 +2,7 @@
 
 
 <template>
-    <div>
+    <div  >
         <el-table :class="scroll == false ? 'admin-table' :'scroll'" :data="datas" @sort-change="handleSortChange" border row-key="id" table-layout="auto" 
             @row-click="handleRowClick" v-loading="loadding == true" :row-class-name="rowClassName">
             <!-- <el-table-column v-for="column in shownCol" :key="column.key" :prop="column.key" :label="column.label"
@@ -157,7 +157,7 @@ const rowClassName = ({ row }: { row: SearchDTOItem }) => {
 
 .scroll{
     overflow-x: scroll;
-    height: 100vh !important;
+    height: 80vh !important;
 }
 .row-not-watched {
   background-color: blue !important; /* Chọn màu xanh tùy ý */
