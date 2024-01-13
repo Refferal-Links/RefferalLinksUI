@@ -18,7 +18,9 @@
                 <template #default="scope">
                     <el-link v-if="column.inputType == 'link' && column.key && scope.row[column.key]"  :href="scope.row[column.key]" target="_blank" type="primary">Xem</el-link>
                     <el-link v-else-if="column.inputType == 'phoneNumber' && column.key && scope.row[column.key]" :href="'tel:' + scope.row[column.key]" target="_blank" type="primary">{{hideMiddleNumbers(scope.row[column.key]) }}</el-link>
-                    <span v-else-if="column.key">{{ scope.row[column.key] }}</span>
+                    <!-- <span v-else-if="column.key">{{ scope.row[column.key] }}</span> -->
+                    
+                    <div v-else-if="column.key" v-html="formatHTML(scope.row[column.key])"></div>
                 </template>
             </el-table-column>
             <el-table-column label="Operations" v-if="enableDelete || enableEdit || CustomActions" fixed="right" :span="2">
@@ -146,7 +148,10 @@ const rowClassName = ({ row }: { row: SearchDTOItem }) => {
     }
     return className;
 };
-
+function formatHTML(htmlContent : string) {
+        // Sử dụng v-pre để bảo vệ khỏi việc escape HTML
+        return `<div v-pre style="white-space: normal;">${htmlContent}</div>`;
+    }
 </script>
   
 <style>
