@@ -157,6 +157,7 @@ const rowClassName = ({ row }: { row: SearchDTOItem }) => {
 
 .scroll{
     overflow-x: scroll;
+    height: 100vh !important;
 }
 .row-not-watched {
   background-color: blue !important; /* Chọn màu xanh tùy ý */
