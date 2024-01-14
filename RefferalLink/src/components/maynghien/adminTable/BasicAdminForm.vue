@@ -4,28 +4,17 @@
     @onBtnSearchClicked="handleBtnSearchClicked" @onBtnAddClicked="handleOpenCreate" :CustomActions="CustomButtons"
     :openDialog="openDialogCreate" @onCustomAction="handleCustomAction">
   </MnActionPane>
-    <el-select v-model="pageSize" class="m-2" placeholder="Select" size="small" v-if="changePageSize == true" >
-      <el-option
-        v-for="item in pageSizeSelect"
-        :key="item"
-        :label="item"
-        :value="item"
-      />
-    </el-select>
+  <el-select v-model="pageSize" class="m-2" placeholder="Select" size="small" v-if="changePageSize == true">
+    <el-option v-for="item in pageSizeSelect" :key="item" :label="item" :value="item" />
+  </el-select>
   <MnTable :columns="tableColumns" :datas="datas" :onSaved="handleSaved" :enableEdit="allowEdit"
     :enableDelete="allowDelete" :onCloseClicked="handleOnEditCloseClicked" @onEdit="handleEdit" @onDelete="handleDelete"
-    :CustomActions="CustomRowActions" @on-custom-action="handleCustomAction" @onSortChange="handleSortChange" :scroll="scroll"
-    :loadding="loadding"
-    />
+    :CustomActions="CustomRowActions" @on-custom-action="handleCustomAction" @onSortChange="handleSortChange"
+    :scroll="scroll" :loadding="loadding" />
 
-    <el-select v-model="pageSize" class="m-2" placeholder="Select" size="small" v-if="changePageSize == true">
-      <el-option
-        v-for="item in pageSizeSelect"
-        :key="item"
-        :label="item"
-        :value="item"
-      />
-    </el-select>
+  <el-select v-model="pageSize" class="m-2" placeholder="Select" size="small" v-if="changePageSize == true">
+    <el-option v-for="item in pageSizeSelect" :key="item" :label="item" :value="item" />
+  </el-select>
 
   <el-pagination small background layout="prev, pager, next" :total="totalItem" :page-size="pageSize"
     @current-change="handlePageChange" :current-page="searchRequest.PageIndex" class="mt-4" />
@@ -66,13 +55,27 @@ import type { AppResponse } from '@/Models/AppResponse';
 import { ElMessage } from 'element-plus';
 import type { CustomAction, CustomActionResponse } from './Models/CustomAction';
 import { SortByInfo } from '../BaseModels/SortByInfo';
+import Cookies from 'js-cookie';
 //#region Method
 
 
+// Get the token from the cookies
+const getCookie = (name: string): string | null => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+  return null;
+};
 
 const pageSizeSelect = ref<number[]>([10, 50, 100, 200, 500, 1000]);
+const pagesizeCookie = getCookie('pageSize');
 const pageSize = ref<number>(10);
-const loadding =ref<boolean>(false);
+if (pagesizeCookie) {
+  pageSize.value = parseInt(pagesizeCookie);
+}
+
+
+const loadding = ref<boolean>(false);
 const Search = async () => {
   searchRequest.PageSize = pageSize.value;
   loadding.value = true;
@@ -116,7 +119,7 @@ const props = defineProps<{
   isEditedOutSide?: boolean;
 
   scroll?: boolean;
-  changePageSize?: boolean; 
+  changePageSize?: boolean;
 }>();
 const emit = defineEmits<{
 
@@ -246,12 +249,13 @@ watch(() => props.CustomActions, () => {
 }, { immediate: true })
 
 watch(() => props.isEditedOutSide, () => {
-  if(props.isEditedOutSide!=undefined && props.isEditedOutSide==true){
+  if (props.isEditedOutSide != undefined && props.isEditedOutSide == true) {
     Search();
   }
 }, { immediate: true })
 
-watch(() => pageSize.value,() => {
+watch(() => pageSize.value, () => {
+  Cookies.set('pageSize', pageSize.value.toString(), { expires: undefined });
   Search();
 })
 </script>
