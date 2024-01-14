@@ -9,9 +9,8 @@
                     <label>{{ column.label }}</label>
 
                     <el-input v-model="model[column.key]" :placeholder="column.label"
-                        v-if="column.key != undefined && (column.inputType == undefined || column.inputType == 'text' || column.inputType == 'number' || column.inputType == 'link')"
+                        v-if="column.key != undefined && (column.inputType == undefined || column.inputType == 'text' || column.inputType == 'number' || column.inputType == 'link' || column.inputType == 'textarea')"
                         :type="column.inputType" />
-
 
                     <MnDropdown v-if="column.key != undefined && (column.inputType == 'dropdown')" :column="column"
                         @changed="handleUpdateValue" v-model="model[column.key]">

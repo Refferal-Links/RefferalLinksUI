@@ -23,7 +23,9 @@
             <el-input v-model="state.phoneNumber" placeholder="Số Điện Thoại" maxlength="10"/>
           </el-form-item>
           <el-form-item label="" prop="email">
-            <el-input v-model="state.email" placeholder="Email" />
+            <el-input v-model="state.email" placeholder="Email">
+              <template #append>@gmail.com</template>
+            </el-input>
           </el-form-item>
           <el-form-item label="" prop="Job">
             <el-input v-model="state.job" placeholder="Công việc" />
@@ -141,10 +143,10 @@ async function register() {
     alert("số điện thoại phải đúng 10 kí tự")
     return;
   }
-  if(!state.email?.endsWith("@gmail.com")) {
-    alert("email phải có đuôi là @gmail.com")
-    return;
-  }
+  // if(!state.email?.endsWith("@gmail.com")) {
+  //   alert("email phải có đuôi là @gmail.com")
+  //   return;
+  // }
   const code = route.params.Code;
   const tpBank = route.params.TpBank;
   state.refferalCode = code.toString();

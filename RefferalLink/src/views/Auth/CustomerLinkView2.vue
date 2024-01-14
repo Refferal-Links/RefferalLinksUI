@@ -5,13 +5,14 @@
       :tableColumns="tableColumns"
       :apiName="'CustomerLink'"
       :allowAdd="false"
-      :allowEdit="hasAdminRole || hasSUPRole"
+      :allowEdit="hasAdminRole || hasSUPRole || hasTeamleaderRole"
       :allowDelete="hasAdminRole == true ? true : false"
       title="CustomerLink"
       :CustomActions="CustomActions"
       @onCustomAction="ChangePage"
       :scroll="true"
       :changePageSize="true"
+      
     />
   </Suspense>
   <StatusChange
@@ -24,6 +25,7 @@
         console.log('close');
       }
     "
+    @onCloseClicked="handleOnEditCloseClicked"
   />
 </template>
 
@@ -40,7 +42,7 @@ import { TableColumn } from "@/components/maynghien/adminTable/Models/TableColum
 import router from "@/router";
 import { axiosInstance } from "@/Services/axiosConfig";
 import Cookies from "js-cookie";
-import { ref, reactive } from "vue";
+import { ref, reactive, type Ref } from "vue";
 import StatusChange from "@/components/CustomerLink/StatusChange.vue";
 import type { SearchRequest } from "@/components/maynghien/BaseModels/SearchRequest";
 import type { Filter } from "@/components/maynghien/BaseModels/Filter";
@@ -116,7 +118,7 @@ const tableColumns: TableColumn[] = [
     label: "Khách hàng",
     width: 100,
     sortable: true,
-    enableEdit: false,
+    enableEdit: true,
 
     enableCreate: false,
     required: false,
@@ -130,7 +132,7 @@ const tableColumns: TableColumn[] = [
     label: "Căn cước công dân",
     width: 100,
     sortable: true,
-    enableEdit: false,
+    enableEdit: true,
 
     enableCreate: false,
     required: false,
@@ -145,7 +147,7 @@ const tableColumns: TableColumn[] = [
     label: "Email",
     width: 100,
     sortable: true,
-    enableEdit: false,
+    enableEdit: true,
 
     enableCreate: false,
     required: false,
@@ -167,6 +169,7 @@ const tableColumns: TableColumn[] = [
     showSearch: false,
     inputType: "text",
     dropdownData: null,
+    fixed: true,
   },
   {
     key: "phoneNumber",
@@ -181,6 +184,20 @@ const tableColumns: TableColumn[] = [
     showSearch: true,
     inputType: "phoneNumber",
     dropdownData: null,
+  },
+  {
+    key: "provinceName",
+    label: "Tỉnh thành",
+    width: 110,
+    sortable: false,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: false,
+    showSearch: false,
+    inputType: 'text',
+    dropdownData: null
   },
   {
     key: "bankName",
@@ -411,7 +428,7 @@ const tableColumns: TableColumn[] = [
   },
   {
     key: "note",
-    label: "Ghi chú",
+    label: "Ghi chú Sale",
     width: 100,
     sortable: true,
     enableEdit: false,
@@ -420,9 +437,38 @@ const tableColumns: TableColumn[] = [
     required: false,
     hidden: false,
     showSearch: false,
-    inputType: "dropdown",
+    inputType: "textarea",
     dropdownData: null
   },
+  {
+    key: "noteCSKH",
+    label: "Ghi chú CSKH",
+    width: 100,
+    sortable: true,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: false,
+    showSearch: false,
+    inputType: "textarea",
+    dropdownData: null
+  },
+  {
+    key: "exchangeLead",
+    label: "Quy đổi lead",
+    width: 110,
+    sortable: false,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: false,
+    showSearch: false,
+    inputType: 'text',
+    dropdownData: null
+  },
+
   {
     key: "image1",
     label: "ảnh 1",
@@ -497,6 +543,24 @@ const tableColumns: TableColumn[] = [
       apiUrl: "UserManagemet/sale",
     },
   },
+  {
+    key: "provinceId",
+    label: "Tỉnh thành",
+    width: 70,
+    sortable: false,
+    enableEdit: true,
+
+    enableCreate: false,
+    required: false,
+    hidden: true,
+    showSearch: false,
+    inputType: 'dropdown',
+    dropdownData: {
+      displayMember: "name",
+      keyMember: "id",
+      apiUrl: "Province",
+    },
+  },
 ];
 
 function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {
@@ -531,14 +595,26 @@ const handleOnEditCloseClicked = async () => {
   console.log("Close");
 };
 
-function DownloadExcel(filters: Filter[] | undefined) {
+function DownloadExcel(filters: Ref<Filter[]> | undefined) {
   var data;
+  var filter = filters?.value.filter((x) => x.Value != null && x.Value != "");
   let searchRequest = reactive<SearchRequest>({
-    filters: filters,
+    filters: filter?.slice(),
     SortBy: undefined,
     PageIndex: 1,
     PageSize: 10,
   });
+  if(searchRequest.filters != undefined)
+  for(let i = 0; i < searchRequest.filters.length; i++){
+        if(searchRequest.filters[i].Type == "date"){
+            var value = searchRequest.filters[i].Value?.toString();
+            var filename = searchRequest.filters[i].FieldName?.toString()
+            searchRequest.filters.splice(i,1);
+            searchRequest.filters.push({FieldName: filename, DisplayName: filename, Value: value, Operation: "", Type: "text", dropdownData: undefined});
+            i--
+        }
+    }
+    console.log(searchRequest);
   axiosInstance
     .post("CustomerLink/Download", searchRequest, {
       responseType: "blob",

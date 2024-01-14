@@ -18,19 +18,19 @@
                                     :label="item[filter.dropdownData.displayMember]"
                                     :value="item[filter.dropdownData.keyMember]" />
                             </el-select>
-                            <el-date-picker v-if="filter.Type == 'date'" class="action-input"
-                                v-model="filter.Value"
-                                type="date"
-                                :placeholder= filter.DisplayName 
-                                format="DD/MM/YYYY"
-                                value-format="DD/MM/YYYY"
-                            >
-                                <template #default="cell">
-                                    <div class="cell" :class="{ current: cell.isCurrent }">
-                                    <span class="text">{{ cell.text }}</span>
-                                    </div>
-                                </template>
-                            </el-date-picker>
+                            <div class="block"  v-if="filter.Type == 'date'">
+                                <span class="demonstration">{{filter.DisplayName}}</span>
+                                <el-date-picker
+                                    v-model="filter.Value"
+                                    type="daterange"
+                                    range-separator="To"
+                                    start-placeholder="Start date"
+                                    end-placeholder="End date"
+                                    format="DD/MM/YYYY"        
+                                    value-format="DD/MM/YYYY"  
+                                    style="width: 290px;"
+                                />
+                              </div>
                         </div>
                         <el-button v-if="filters != undefined && filters.length > 0" :icon="Search"
                             @click="handlebtnSearchClicked"> search</el-button>
@@ -109,8 +109,16 @@ const handlebtnAddClicked = () => {
     //console.log("not err");
 }
 const handlebtnSearchClicked = () => {
-    const filtersRequest = filters.value.filter(filter => filter.Value !== null && filter.Value !== undefined && filter.Value != "");
-
+    const filtersRequest = filters.value.slice().filter(filter => filter.Value !== null && filter.Value !== undefined && filter.Value != "");
+    for(let i = 0; i < filtersRequest.length; i++){
+        if(filtersRequest[i].Type == "date"){
+            var value = filtersRequest[i].Value?.toString();
+            var filename = filtersRequest[i].FieldName?.toString()
+            filtersRequest.splice(i,1);
+            filtersRequest.push({FieldName: filename, DisplayName: filename, Value: value, Operation: "", Type: "text", dropdownData: undefined});
+            i--;
+        }
+    }
     emit("onBtnSearchClicked", filtersRequest);
 }
 

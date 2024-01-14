@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <el-row :gutter="20">
+  <div >
+    <el-row :gutter="20" class="Bank">
       <el-col v-for="bank in Customer.banks" :key="bank.id" :span="8">
         <el-card class="box-card">
           <template #header>
@@ -15,6 +15,11 @@
       </el-col>
     </el-row>
     <div v-if="isLoading">Loading...</div>
+    <el-dialog v-model="showLink" title="Link" @clouse="showLink = false" class="dialog-link">
+      <el-form >
+          <el-input v-model="Link" autocomplete="off" />
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -43,7 +48,8 @@ const Customer = ref<CustomerDto>({
   banks: [] as Bank[],
 });
 const isLoading = ref(true);
-
+const showLink = ref(false);
+const Link = ref("");
 async function fetchCustomer() {
   await GetCustomer( useRoute().params.Id.toString()).then((x) => {
     if (x.isSuccess && x.data != null) {
@@ -77,15 +83,30 @@ async function CreateCustomerLink(idCustomerLink: string) {
   }
 };
 function myFunction( text:string) {
-  Clipboard.copy(text);
+  var textField = document.createElement('textarea');
+  textField.innerText = text;
+  document.body.appendChild(textField);
+  textField.select();
+  document.execCommand('copy');
+  document.body.removeChild(textField);
   
   // Alert the copied text
-  alert("Copy: " + text);
+  // alert("Copy: " + text);
+  Link.value = text;
+  showLink.value = true;
 }
 </script>
 <style>
 .box-card {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+@media only screen and (max-width: 600px) {
+  .dialog-link{
+    width: 100% !important;
+  }
+}
+.Bank > .el-col.el-col-8.is-guttered {
+    min-width: 300px;
 }
 </style>

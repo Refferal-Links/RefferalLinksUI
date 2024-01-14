@@ -2,23 +2,25 @@
 
 
 <template>
-    <div>
+    <div  >
         <el-table :class="scroll == false ? 'admin-table' :'scroll'" :data="datas" @sort-change="handleSortChange" border row-key="id" table-layout="auto" 
             @row-click="handleRowClick" v-loading="loadding == true" :row-class-name="rowClassName">
             <!-- <el-table-column v-for="column in shownCol" :key="column.key" :prop="column.key" :label="column.label"
                 :sortable="column.sortable ? 'custom' : 'false'" :visible="column.hidden == false" /> -->
-                <el-table-column label="STT" width="60">
+                <el-table-column label="STT" width="60" fixed>
                     <template #default="scope">
                     <span>{{ scope.$index + 1 }}</span>
                     </template>
                 </el-table-column>
 
             <el-table-column v-for="column in shownCol" :key="column.key" :label="column.label" :visible="column.hidden == false" :width="scroll ? column.width : undefined"
-            :sortable="column.sortable == true ? 'custom' : false" :prop="column.key" :span="1">
+            :sortable="column.sortable == true ? 'custom' : false" :prop="column.key" :span="1" :fixed="column.fixed">
                 <template #default="scope">
                     <el-link v-if="column.inputType == 'link' && column.key && scope.row[column.key]"  :href="scope.row[column.key]" target="_blank" type="primary">Xem</el-link>
                     <el-link v-else-if="column.inputType == 'phoneNumber' && column.key && scope.row[column.key]" :href="'tel:' + scope.row[column.key]" target="_blank" type="primary">{{hideMiddleNumbers(scope.row[column.key]) }}</el-link>
-                    <span v-else-if="column.key">{{ scope.row[column.key] }}</span>
+                    <!-- <span v-else-if="column.key">{{ scope.row[column.key] }}</span> -->
+                    
+                    <div v-else-if="column.key" v-html="formatHTML(scope.row[column.key])"></div>
                 </template>
             </el-table-column>
             <el-table-column label="Operations" v-if="enableDelete || enableEdit || CustomActions" fixed="right" :span="2">
@@ -136,9 +138,20 @@ function hideMiddleNumbers(phoneNumber : string) {
     }
 }
 const rowClassName = ({ row }: { row: SearchDTOItem }) => {
-  return row.watched === false ? 'row-not-watched' : '';
+    var className = "";
+//   return row.watched === false ? 'row-not-watched' : '';
+    if(row.watched === false){
+        className = "row-not-watched"
+    }
+    else{
+        className = row.statusText;
+    }
+    return className;
 };
-
+function formatHTML(htmlContent : string) {
+        // Sử dụng v-pre để bảo vệ khỏi việc escape HTML
+        return `<div v-pre style="white-space: normal;">${htmlContent}</div>`;
+    }
 </script>
   
 <style>
@@ -149,9 +162,22 @@ const rowClassName = ({ row }: { row: SearchDTOItem }) => {
 
 .scroll{
     overflow-x: scroll;
+    height: 80vh !important;
 }
 .row-not-watched {
-  background-color: lightgreen !important; /* Chọn màu xanh tùy ý */
+  background-color: blue !important; /* Chọn màu xanh tùy ý */
+}
+.Pending{
+    background-color: #e2e73f !important;
+}
+.Approved{
+    background-color: lightgreen !important;
+}
+.Rejected{
+    background-color: #e56363e8 !important;
+}
+.Cancel{
+    background-color: #b166c4 !important;
 }
 </style>
   

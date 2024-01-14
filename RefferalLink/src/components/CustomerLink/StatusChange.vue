@@ -15,11 +15,21 @@
         </el-radio-group>
       </div>
       <div>
+        Ghi chú sale
         <el-input
           v-model="customerLink.note"
           :rows="2"
           type="textarea"
-          placeholder="Ghi chú"
+          placeholder="Ghi chú Sale"
+        />
+      </div>
+      <div>
+        Chi chú CSKH
+        <el-input
+          v-model="customerLink.noteCSKH"
+          :rows="2"
+          type="textarea"
+          placeholder="Ghi chú CSKH"
         />
       </div>
       <el-card class="box-card">
@@ -86,6 +96,7 @@ const customerLink = ref({
   url: "",
   customerId: "",
   note: "",
+  noteCSKH: "",
 });
 const getCustomerLink = async () => {
   await axiosInstance
@@ -117,6 +128,10 @@ onMounted(getCustomerLink);
 watch(() => props.openDialog, getCustomerLink);
 const linkText = ref("");
 async function Save() {
+  var Check = confirm("Bạn có chắc chắn với những thay đổi này");
+  if(Check == false){
+    return; 
+  }
   switch (customerLink.value.statusText) {
     case "Pending":
       customerLink.value.status = 0;
@@ -136,15 +151,18 @@ async function Save() {
   request.status = customerLink.value.status;
   request.listCustomerlinkImage = customerLink.value.listCustomerlinkImage;
   request.note = customerLink.value.note;
+  request.noteCSKH = customerLink.value.noteCSKH
   console.log("request", request);
   await axiosInstance
     .put(`/CustomerLink/StatusChange`, request)
     .then((response) => {
       if (!response.data.isSuccess) {
         console.error(response.data.message);
+        alert(response.data.message);
       } else {
         console.log(response.data);
-        alert("cập nhật trạng thái thành công");
+        // alert("cập nhật trạng thái thành công");
+        emit('onCloseClicked');
       }
     });
 }

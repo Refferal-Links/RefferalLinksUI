@@ -74,7 +74,7 @@ const pageSizeSelect = ref<number[]>([10, 50, 100, 200, 500, 1000]);
 const pageSize = ref<number>(10);
 const loadding =ref<boolean>(false);
 const Search = async () => {
-  // searchRequest.PageSize = pageSize.value;
+  searchRequest.PageSize = pageSize.value;
   loadding.value = true;
   var searchApiResponse = await handleAPISearch(searchRequest, props.apiName);
   if (searchApiResponse.isSuccess && searchApiResponse.data != undefined) {
