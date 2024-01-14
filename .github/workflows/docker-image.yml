@@ -57,5 +57,5 @@ jobs:
             docker pull maynghien/referallink;
             docker run --name referal_crm --expose=80 -d maynghien/referallink;
             docker network connect nginx-proxy referal_crm;
-             docker restart nginx-proxy;
+             docker restart nginx-proxy; 
           "
