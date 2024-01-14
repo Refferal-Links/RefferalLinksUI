@@ -27,7 +27,7 @@
       />
     </el-select>
 
-  <el-pagination small background layout="prev, pager, next" :total="totalItem" :page-size="10"
+  <el-pagination small background layout="prev, pager, next" :total="totalItem" :page-size="pageSize"
     @current-change="handlePageChange" :current-page="searchRequest.PageIndex" class="mt-4" />
   Found {{ totalItem }} results. Page {{ searchRequest.PageIndex }} of total {{ totalPages }} pages
 
