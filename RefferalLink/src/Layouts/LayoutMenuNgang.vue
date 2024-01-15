@@ -168,7 +168,12 @@ function getCode(){
 getCode();
 const onMenuItemClick = (item: string) => {
     if(item =='Register'){
-        router.push(`/${item}/Code=${decodedToken.value.refferalCode}/TpBank=${decodedToken.value.tpBank}`);
+        if(decodedToken.value.tpBank){
+            router.push(`/${item}/Code=${decodedToken.value.refferalCode}/TpBank=${decodedToken.value.tpBank}`);
+        }
+        else{
+            router.push(`/${item}/Code=${decodedToken.value.refferalCode}`);
+        }
     }
    else{
     router.push(`/${item}`);
