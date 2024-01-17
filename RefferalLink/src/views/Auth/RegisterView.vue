@@ -150,7 +150,7 @@ async function register() {
   const code = route.params.Code;
   const tpBank = route.params.TpBank;
   state.refferalCode = code.toString();
-  state.tpBank = tpBank.toString();
+  state.tpBank = tpBank ?  tpBank.toString() : "";
   const result = await handleRegister(state);
   console.log("logresult:" + result);
   if (!result.isSuccess) {

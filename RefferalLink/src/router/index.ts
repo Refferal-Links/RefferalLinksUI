@@ -103,6 +103,11 @@ const router = createRouter({
           component: RegisterView,
           meta: { requiresAuth: true, roles: ["Sale","CSKH", "Teamleader", "SUP"]},
         },
+        {
+          path: "Register/Code=:Code",
+          component: RegisterView,
+          meta: { requiresAuth: true, roles: ["Sale","CSKH", "Teamleader", "SUP"]},
+        },
       ]
     }
   ],
