@@ -77,9 +77,10 @@ if (pagesizeCookie) {
 
 const loadding = ref<boolean>(false);
 const Search = async () => {
+  console.log(props.searchUrl);
   searchRequest.PageSize = pageSize.value;
   loadding.value = true;
-  var searchApiResponse = await handleAPISearch(searchRequest, props.apiName);
+  var searchApiResponse = await handleAPISearch(searchRequest, props.apiName, props.searchUrl ? props.searchUrl : undefined);
   if (searchApiResponse.isSuccess && searchApiResponse.data != undefined) {
     let dataresponse: SearchResponse<SearchDTOItem[] | undefined> = searchApiResponse.data;
 
@@ -120,6 +121,8 @@ const props = defineProps<{
 
   scroll?: boolean;
   changePageSize?: boolean;
+
+  searchUrl?: string;
 }>();
 const emit = defineEmits<{
 

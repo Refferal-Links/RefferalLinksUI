@@ -23,7 +23,7 @@
                     <div v-else-if="column.key" v-html="formatHTML(scope.row[column.key])"></div>
                 </template>
             </el-table-column>
-            <el-table-column label="Operations" v-if="enableDelete || enableEdit || CustomActions" fixed="right" :span="2">
+            <el-table-column label="Operations" v-if="enableDelete || enableEdit || CustomActions.length > 0" fixed="right" :span="2">
                 <template #default="scope">
                     <el-button v-if="enableEdit" :icon="Edit" size="small"
                         @click="handleEdit(scope.$index, scope.row)">Edit</el-button>

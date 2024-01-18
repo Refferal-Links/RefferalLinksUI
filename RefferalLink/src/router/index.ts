@@ -16,6 +16,7 @@ import CustomerLinkView2 from "../views/Auth/CustomerLinkView2.vue"
 import Cookies from "js-cookie";
 import { LoginResult } from "@/Models/LoginResult";
 import BranchView from "../views/Auth/Branch.vue";
+import ReportView from "@/views/Report.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -74,6 +75,11 @@ const router = createRouter({
           path: "Branch",
           component: BranchView,
           meta: { requiresAuth: true, roles: ["Admin", "superadmin"] },
+        },
+        {
+          path: "Report",
+          component: ReportView,
+          meta: { requiresAuth: true, roles: ["Admin", "superadmin", "Teamleader", "SUP"] },
         },
         // Other routes using default layout...
       ],

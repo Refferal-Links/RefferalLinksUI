@@ -33,7 +33,11 @@
                         Đăng kí
                         
                     </el-menu-item>
-                    <el-menu-item index="4">
+                    <el-menu-item index="4" @click="onMenuItemClick(`Report`)" v-if=" hasAdminRole || hasTeamleaderRole || hasSUPRole">
+                        Báo cáo
+                        
+                    </el-menu-item>
+                    <el-menu-item index="5">
                         <el-dropdown>
                             <el-icon style="margin-right: 8px; margin-top: 1px">
                                 <setting />

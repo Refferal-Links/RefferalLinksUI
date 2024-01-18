@@ -107,6 +107,8 @@ const getCustomerLink = async () => {
         console.error(response.data.message);
       } else {
         customerLink.value = response.data.data;
+        customerLink.value.note = "";
+        customerLink.value.noteCSKH = "";
         switch (customerLink.value.status) {
           case 0:
             customerLink.value.statusText = "Pending";
