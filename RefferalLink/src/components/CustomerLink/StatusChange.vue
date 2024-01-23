@@ -76,6 +76,7 @@ import {
   CustomerlinkImageDto,
 } from "@/Models/Dtos/CustomerLinkDto";
 import { axiosInstance } from "@/Services/axiosConfig";
+import Cookies from "js-cookie";
 import { defineProps, ref, onMounted, onUnmounted, watch } from "vue";
 
 const props = defineProps<{
@@ -85,6 +86,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: "onCloseClicked"): void;
 }>();
+const userRoles = ref<string[]>();
+const hasAdminRole = ref<boolean>(false);
 const message = ref<string>("");
 
 const customerLink = ref({
@@ -97,7 +100,24 @@ const customerLink = ref({
   note: "",
   noteCSKH: "",
 });
+
+function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {
+  for (const requiredRole of requiredRoles) {
+    if (userRoles.includes(requiredRole)) {
+      return true;
+    }
+  }
+  return false;
+}
 const getCustomerLink = async () => {
+  var jsonString = Cookies.get("Roles")?.toString() ?? "";
+  var jsonObject = JSON.parse(jsonString);
+  var Roles = Object.values(jsonObject) as string[];
+  hasAdminRole.value = hasPermission(Roles as string[], [
+    "Admin",
+    "superadmin",
+  ]);
+  
   await axiosInstance
     .get(`/CustomerLink/${props.CustomerLinkId}`)
     .then((response) => {
@@ -106,6 +126,8 @@ const getCustomerLink = async () => {
         console.error(response.data.message);
       } else {
         customerLink.value = response.data.data;
+        customerLink.value.note = hasAdminRole.value == true ? customerLink.value.note : "";
+        customerLink.value.noteCSKH = hasAdminRole.value == true ? customerLink.value.noteCSKH : "";
         switch (customerLink.value.status) {
           case 0:
             customerLink.value.statusText = "Pending";
