@@ -79,7 +79,7 @@ const router = createRouter({
         {
           path: "Report",
           component: ReportView,
-          meta: { requiresAuth: true, roles: ["Admin", "superadmin", "Teamleader", "SUP"] },
+          // meta: { requiresAuth: true, roles: ["Admin", "superadmin", "Teamleader", "SUP"] },
         },
         // Other routes using default layout...
       ],

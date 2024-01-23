@@ -33,7 +33,7 @@
                         Đăng kí
                         
                     </el-menu-item>
-                    <el-menu-item index="4" @click="onMenuItemClick(`Report`)" v-if=" hasAdminRole || hasTeamleaderRole || hasSUPRole">
+                    <el-menu-item index="4" @click="onMenuItemClick(`Report`)">
                         Báo cáo
                         
                     </el-menu-item>

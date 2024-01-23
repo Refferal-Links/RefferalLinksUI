@@ -1,7 +1,7 @@
 <template>
     <Suspense>
         <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'CustomerLink'" :allowAdd="false" :allowEdit="false"
-            :allowDelete="false" title="Báo cáo" :CustomActions="CustomActions" searchUrl="/search2"></BasicAdminFormVue>
+            :allowDelete="false" title="Báo cáo" :CustomActions="CustomActions" searchUrl="/search2" :changePageSize="true"></BasicAdminFormVue>
     </Suspense>
 </template>
 <script lang="ts" setup>
@@ -27,7 +27,7 @@ const tableColumns: TableColumn[] = [
         key: "branchId",
         label: "Chi nhánh",
         width: 1000,
-        sortable: true,
+        sortable: false,
         enableEdit:  true,
 
         enableCreate:  true,
