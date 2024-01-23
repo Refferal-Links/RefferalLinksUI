@@ -1,7 +1,7 @@
 <template>
     <Suspense>
         <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'Branch'" :allowAdd="true" :allowEdit="true"
-            :allowDelete="true" title="Chi nhánh" :CustomActions="CustomActions" ></BasicAdminFormVue>
+            :allowDelete="true" title="Chi nhánh" :CustomActions="CustomActions" :changePageSize="true"></BasicAdminFormVue>
     </Suspense>
 </template>
 <script lang="ts" setup>

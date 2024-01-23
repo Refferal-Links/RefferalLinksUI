@@ -1,7 +1,7 @@
 <template>
     <Suspense>
         <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'Campaign'" :allowAdd="true" :allowEdit="true"
-            :allowDelete="true" title="Campaign" :CustomActions="CustomActions" ></BasicAdminFormVue>
+            :allowDelete="true" title="Campaign" :CustomActions="CustomActions" :changePageSize="true"></BasicAdminFormVue>
     </Suspense>
 </template>
 <script lang="ts" setup>

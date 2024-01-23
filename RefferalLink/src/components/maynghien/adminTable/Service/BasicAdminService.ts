@@ -23,7 +23,7 @@ import { ApiActionType, CustomAction, CustomActionResponse } from '../Models/Cus
 import type { AxiosResponse } from 'axios'
 
 
-export const handleAPISearch = async (model: SearchRequest, apiurl: string): Promise<AppResponse<SearchResponse<SearchDTOItem[] | undefined>>> => {
+export const handleAPISearch = async (model: SearchRequest, apiurl: string, searchUrl?: string): Promise<AppResponse<SearchResponse<SearchDTOItem[] | undefined>>> => {
 
     let resust: AppResponse<SearchResponse<SearchDTOItem[] | undefined>> = ({
         isSuccess: false,
@@ -32,7 +32,8 @@ export const handleAPISearch = async (model: SearchRequest, apiurl: string): Pro
     });
 
     try {
-        const postResult = await axiosInstance.post(apiurl + "/search", model);
+        var url = searchUrl ? searchUrl : "/search";
+        const postResult = await axiosInstance.post(apiurl + url, model);
         console.log(postResult.data);
         const responseObject = postResult.data
         resust = responseObject;
