@@ -1,8 +1,7 @@
 <template>
   <el-dialog
     :model-value="openDialog"
-    class="form-dialog"
-    width="30%"
+    class="form-dialog dialog-status"
     @close="emit('onCloseClicked')"
   >
     <div>
@@ -181,4 +180,14 @@ function addImage() {
   }
 }
 </script>
-<style scoped></style>
+<style>
+.dialog-status{
+  width: 30% !important;
+}
+@media screen and (max-width: 900px) {
+  .dialog-status{
+    width: 100% !important;
+  }
+  
+}
+</style>
