@@ -8,6 +8,7 @@
       :allowDelete="true"
       title="UserManagemet"
       :CustomActions="CustomActions"
+      :changePageSize="true"
     ></BasicAdminFormVue>
   </Suspense>
 </template>

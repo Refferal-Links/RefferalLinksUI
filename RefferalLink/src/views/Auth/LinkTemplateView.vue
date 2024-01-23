@@ -8,6 +8,7 @@
       :allowDelete="hasAdminRole"
       title="LinkTemplate"
       :CustomActions="CustomActions"
+      :changePageSize="true"
     ></BasicAdminFormVue>
   </Suspense>
 </template>

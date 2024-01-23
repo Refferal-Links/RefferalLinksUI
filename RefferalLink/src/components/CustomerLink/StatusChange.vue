@@ -120,8 +120,10 @@ const getCustomerLink = async () => {
             break;
           case 3:
             customerLink.value.statusText = "Cancel";
-            break;
+            break;;
         }
+        customerLink.value.note = "";
+        customerLink.value.noteCSKH = ""
       }
     });
 };

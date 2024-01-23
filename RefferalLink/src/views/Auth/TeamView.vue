@@ -1,7 +1,7 @@
 <template>
     <Suspense>
         <BasicAdminFormVue :tableColumns="tableColumns" :apiName="'Team'" :allowAdd="true" :allowEdit="true"
-            :allowDelete="true" title="Team" :CustomActions="CustomActions" ></BasicAdminFormVue>
+            :allowDelete="true" title="Team" :CustomActions="CustomActions" :changePageSize="true"></BasicAdminFormVue>
     </Suspense>
 </template>
 <script lang="ts" setup>

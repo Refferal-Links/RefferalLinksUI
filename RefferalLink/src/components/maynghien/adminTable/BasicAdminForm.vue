@@ -161,7 +161,7 @@ const handleBtnSearchClicked = (filters: Filter[]) => {
 }
 const handleSaved = async () => {
   openDialogCreate.value = false;
-  searchRequest.PageIndex = 1;
+  searchRequest.PageIndex = searchRequest.PageIndex;
   EdittingItem.value = new SearchDTOItem(props.tableColumns);
   Search();
 }
