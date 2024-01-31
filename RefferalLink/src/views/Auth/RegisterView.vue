@@ -143,6 +143,14 @@ async function register() {
     alert("số điện thoại phải đúng 10 kí tự")
     return;
   }
+  if(state.email?.slice(state.email?.indexOf('@') + 1) == "gmail.com" || state.email?.slice(state.email?.indexOf('@') + 1).toUpperCase() == "GMAIL.COM") {
+  alert("email đã có đuôi là @gmail.com khách hàng không cần nhập lại ")
+    return;
+  }
+  if(state.email?.slice(state.email?.indexOf('.') + 1) == "com" || state.email?.slice(state.email?.indexOf('.') + 1).toUpperCase() == "COM") {
+  alert("email đã có đuôi là @gmail.com khách hàng không cần nhập lại ")
+    return;
+  }
   // if(!state.email?.endsWith("@gmail.com")) {
   //   alert("email phải có đuôi là @gmail.com")
   //   return;
