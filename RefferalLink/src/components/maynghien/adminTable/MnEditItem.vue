@@ -1,6 +1,6 @@
 <template>
-    <el-dialog :model-value="openDialog" :title="(isEdit ? 'Edit ' : 'Create ') + title" class="form-dialog" :width="dialogWidth"
-        @close="emit('onCloseClicked')">
+    <el-dialog :model-value="openDialog" :title="(isEdit ? 'Edit ' : 'Create ') + title" class="form-dialog"
+        :width="dialogWidth" @close="emit('onCloseClicked')">
 
         <div class="editform" v-if="model != undefined">
             <div v-for="column in columns" :key="column.key">
@@ -12,9 +12,12 @@
                         v-if="column.key != undefined && (column.inputType == undefined || column.inputType == 'text' || column.inputType == 'number' || column.inputType == 'link' || column.inputType == 'textarea')"
                         :type="column.inputType" />
 
-                    <MnDropdown v-if="column.key != undefined && (column.inputType == 'dropdown')" :column="column"
-                        @changed="handleUpdateValue" v-model="model[column.key]">
-                    </MnDropdown>
+                    <el-select v-if="column.key != undefined && (column.inputType == 'dropdown')"
+                        v-model="model[column.key]" :placeholder="column.label" class="action-input" filterable>
+                        <el-option label="" value="" />
+                        <el-option v-for="item in column.dropdownData.data" :key="item[column.dropdownData.keyMember]"
+                            :label="item[column.dropdownData.displayMember]" :value="item[column.dropdownData.keyMember]" />
+                    </el-select>
                 </div>
 
             </div>
@@ -57,16 +60,16 @@ const props = defineProps<{
     title: string;
 }>();
 
-const dialogWidth=ref('35%');
+const dialogWidth = ref('35%');
 if (window.innerWidth < 600) {
     dialogWidth.value = '100%';
-      }
+}
 // Use computed to create a filtered model
 const model = ref<SearchDTOItem>(props.editItem);
 const Validate = (): boolean => {
     if (model != undefined)
         props.columns.forEach(column => {
-            if (column.enableEdit &&column.key!=undefined) {
+            if (column.enableEdit && column.key != undefined) {
                 const value = model.value[column.key];
                 if (column.key == "id" && props.isEdit) {
                     if (value == undefined)

@@ -10,7 +10,7 @@
                                 v-if="filter.Type == undefined || filter.Type == 'text'" class="action-input">
                             </el-input>
                             <el-select v-model="filter.Value" :placeholder="filter.DisplayName" class="action-input"
-                                v-if="filter.Type == 'dropdown'">
+                                v-if="filter.Type == 'dropdown'"  filterable>
                                 <el-option label="" value="" />
 
                                 <el-option v-for="item in filter.dropdownData.data"
