@@ -151,17 +151,6 @@ async function register() {
   alert("email đã có đuôi là @gmail.com khách hàng không cần nhập lại ")
     return;
   }
-  
-  // if(!state.email?.endsWith("@gmail.com")) {
-  //   alert("email phải có đuôi là @gmail.com")
-  //   return;
-  // }
-
-;
- 
-  
-
-
   const code = route.params.Code;
   const tpBank = route.params.TpBank;
   state.refferalCode = code.toString();
@@ -173,7 +162,7 @@ async function register() {
     var bien = response.data;
     console.log('Data fetched successfully:', bien);
     var count2 = 0;
-    bien.data.forEach(element => {
+    bien.data.forEach((element: { phoneNumber: string | undefined; passport: string | undefined; }) => {
   if (element.phoneNumber == state.phoneNumber || element.passport == state.passport) {
     count2++;
   }

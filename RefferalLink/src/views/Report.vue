@@ -13,7 +13,7 @@ const tableColumns: TableColumn[] = [
         key: "branchName",
         label: "Chi nhánh",
         width: 1000,
-        sortable: false,
+        sortable: true,
         enableEdit:  false,
 
         enableCreate:  false,
@@ -63,7 +63,7 @@ const tableColumns: TableColumn[] = [
     key: "teamName",
     label: "Team",
     width: 100,
-    sortable: false,
+    sortable: true,
     enableEdit: false,
 
     enableCreate: false,
@@ -77,7 +77,7 @@ const tableColumns: TableColumn[] = [
     key: "sale",
     label: "Sale",
     width: 100,
-    sortable: false,
+    sortable: true,
     enableEdit: false,
 
     enableCreate: false,
@@ -91,6 +91,20 @@ const tableColumns: TableColumn[] = [
       apiUrl: "UserManagemet/sale",
     },
   },
+  // {
+  //       key: "totalLead",
+  //       label: "Lead",
+  //       width: 1000,
+  //       sortable: false,
+  //       enableEdit:  false,
+
+  //       enableCreate:  false,
+  //       required:false,
+  //       hidden: false,
+  //       showSearch: false,
+  //       inputType:  "text",
+  //       dropdownData:null,
+  //   },
   {
         key: "approved",
         label: "Approved",
@@ -148,7 +162,7 @@ const tableColumns: TableColumn[] = [
         dropdownData:null,
     },
     {
-        key: "total",
+        key: "totalString",
         label: "Total",
         width: 1000,
         sortable: false,
@@ -224,6 +238,34 @@ const tableColumns: TableColumn[] = [
     showSearch: true,
     inputType: "date",
     dropdownData: null
+  },
+  {
+    key: "nvActive",
+    label: "Trạng thái nhân viên",
+    width: 100,
+    sortable: true,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: true,
+    showSearch: true,
+    inputType: "dropdown",
+    dropdownData: 
+    {
+      displayMember: "nvActiveText",
+      keyMember: "nvActive",
+      data: [
+        {
+          nvActive: "False",
+          nvActiveText: "Cấm",
+        },
+        {
+          nvActive: "True",
+          nvActiveText: "Đang hoạt động",
+        },
+      ],
+    }
   },
 ]
 const CustomActions: CustomAction[]=([]);

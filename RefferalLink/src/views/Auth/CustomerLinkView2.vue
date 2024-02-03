@@ -169,7 +169,7 @@ const tableColumns: TableColumn[] = [
     showSearch: false,
     inputType: "text",
     dropdownData: null,
-    // fixed: true,
+    fixed: true,
   },
   {
     key: "phoneNumber",
