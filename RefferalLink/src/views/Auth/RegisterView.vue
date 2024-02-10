@@ -155,20 +155,16 @@ async function register() {
   const tpBank = route.params.TpBank;
   state.refferalCode = code.toString();
   state.tpBank = tpBank ?  tpBank.toString() : "";
+  const findPhoneNumberDto = {
+  PhoneNumber: state.phoneNumber,
+  Passport: state.passport
+};
 
-  axiosInstance.get('/Customer')
-  .then(async response => {
-    // Lưu dữ liệu vào biến bien
-    var bien = response.data;
-    console.log('Data fetched successfully:', bien);
-    var count2 = 0;
-    bien.data.forEach((element: { phoneNumber: string | undefined; passport: string | undefined; }) => {
-  if (element.phoneNumber == state.phoneNumber || element.passport == state.passport) {
-    count2++;
-  }
-});
-    if(count2 > 0){
-      var results = confirm("SĐT or CMND của bạn đã bị trùng Bạn có chắc chắn muốn tiếp tục không?");
+  var FindphoneorPassport = await axiosInstance.post("/Customer/findPhoneNumber" , findPhoneNumberDto).then((x) => x.data);
+  console.log(FindphoneorPassport.data);
+  if( FindphoneorPassport.data === 1){
+
+ var results = confirm("SĐT or CMND của bạn đã bị trùng Bạn có chắc chắn muốn tiếp tục không?");
       if (results) {
         // Người dùng chọn 'Yes'
         alert("Bạn đã chọn 'Yes'");
@@ -212,9 +208,66 @@ async function register() {
         }
       }
     }
-  }).catch(error => {
-    console.error('Error fetching data:', error);
-  });
+
+//   axiosInstance.get('/Customer')
+//   .then(async response => {
+//     // Lưu dữ liệu vào biến bien
+//     var bien = response.data;
+//     console.log('Data fetched successfully:', bien);
+//     var count2 = 0;
+//     bien.data.forEach((element: { phoneNumber: string | undefined; passport: string | undefined; }) => {
+//   if (element.phoneNumber == state.phoneNumber || element.passport == state.passport) {
+//     count2++;
+//   }
+// });
+//     if(count2 > 0){
+//       var results = confirm("SĐT or CMND của bạn đã bị trùng Bạn có chắc chắn muốn tiếp tục không?");
+//       if (results) {
+//         // Người dùng chọn 'Yes'
+//         alert("Bạn đã chọn 'Yes'");
+//         const result = await handleRegister(state);
+
+//         console.log("logresult:" + result);
+//         if (!result.isSuccess) {
+//           message.value = result.message;
+//           dialogVisible.value = true;
+//         } else {
+//           // const responseData =  result.data;
+//           // localStorage.setItem('Customer', JSON.stringify(responseData));
+//           if(state.source == "Khác") {
+//             router.push("/CustomerLink2");
+//           }
+//           else{
+//             router.push("/CustomerLink/" + result.data?.id);
+//           }
+//         }
+//       } else {
+//         // Người dùng chọn 'No'
+//         alert("Bạn đã chọn 'No'");
+//                return
+//       }
+//     } else {
+//       // Không có số điện thoại hoặc passport trùng
+//       const result = await handleRegister(state);
+
+//       console.log("logresult:" + result);
+//       if (!result.isSuccess) {
+//         message.value = result.message;
+//         dialogVisible.value = true;
+//       } else {
+//         // const responseData =  result.data;
+//         // localStorage.setItem('Customer', JSON.stringify(responseData));
+//         if(state.source == "Khác") {
+//           router.push("/CustomerLink2");
+//         }
+//         else{
+//           router.push("/CustomerLink/" + result.data?.id);
+//         }
+//       }
+//     }
+//   }).catch(error => {
+//     console.error('Error fetching data:', error);
+//   });
 
 
 
