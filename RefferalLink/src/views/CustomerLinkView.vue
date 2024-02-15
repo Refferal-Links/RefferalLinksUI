@@ -66,6 +66,11 @@ async function fetchCustomer() {
 fetchCustomer();
 
 async function CreateCustomerLink(idCustomerLink: string) {
+
+  var results = confirm("Bạn có muốn thao tác tiếp hay không ?");
+if(results){
+ 
+
   const newCustomerLink = new CustomerLinkDto();
   newCustomerLink.customerId = route.params.Id.toString();
   var customerlink = Customer.value.banks?.find(x => x.customerLinks?.find(y => y.id == idCustomerLink))?.customerLinks?.find(x => x.id == idCustomerLink);
@@ -81,6 +86,14 @@ async function CreateCustomerLink(idCustomerLink: string) {
   else{
     alert(result.message);
   }
+
+
+}else{
+ 
+  showLink.value = false;
+ 
+}
+
 };
 function myFunction( text:string) {
   var textField = document.createElement('textarea');
