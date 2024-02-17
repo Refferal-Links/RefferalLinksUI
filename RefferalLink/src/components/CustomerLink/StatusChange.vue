@@ -176,11 +176,7 @@ async function Save() {
     //     break;
       
   }
-  if(customerLink.value.status == 3){
-     if(!hasAdminRole.value){
-      alert("Thay đổi không được cập nhật vui này chọn ADMIN xác nhận ");
-     }
-  }
+  
   const request = new CustomerLinkDto();
   request.id = props.CustomerLinkId;
   request.status = customerLink.value.status;
@@ -195,6 +191,11 @@ async function Save() {
         console.error(response.data.message);
         alert(response.data.message);
       } else {
+        if(customerLink.value.status == 3){
+          if(!hasAdminRole.value){
+            alert("Thay đổi không được cập nhật vui này chọn ADMIN xác nhận ");
+          }
+        }
         console.log(response.data);
         // alert("cập nhật trạng thái thành công");
         emit('onCloseClicked');

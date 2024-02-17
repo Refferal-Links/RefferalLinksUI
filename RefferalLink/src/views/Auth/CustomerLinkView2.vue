@@ -12,7 +12,6 @@
       @onCustomAction="ChangePage"
       :scroll="true"
       :changePageSize="true"
-      
     />
   </Suspense>
   <StatusChange
@@ -67,8 +66,6 @@ const CustomActions: CustomAction[] = [
     IsRowAction: true,
     DataType: CustomActionDataType.RowId,
   },
-  
-
 ];
 function checkRole() {
   try {
@@ -80,27 +77,25 @@ function checkRole() {
     hasSaleRole.value = hasPermission(Roles, ["Sale", "CSKH"]);
     hasAdminRole.value = hasPermission(Roles, ["Admin", "superadmin"]);
     hasSUPRole.value = hasPermission(Roles, ["SUP"]);
-    if(!hasSaleRole.value){
-      CustomActions.push({
-        ActionName: "Export",
-        ActionLabel: "Export",
-        ApiActiontype: ApiActionType.PUT,
-        IsRowAction: false,
-        DataType: CustomActionDataType.Filters,
-      },
+    if (!hasSaleRole.value) {
+      CustomActions.push(
+        {
+          ActionName: "Export",
+          ActionLabel: "Export",
+          ApiActiontype: ApiActionType.PUT,
+          IsRowAction: false,
+          DataType: CustomActionDataType.Filters,
+        }
 
-    //   {
-    // ActionName: "acceptCancel",
-    // ActionLabel: "Xác nhận Cancel",
-    // ApiActiontype: ApiActionType.PUT,
-    // IsRowAction: true,
-    // DataType: CustomActionDataType.RowId,
-    //    },
-      )
-       
-
+        //   {
+        // ActionName: "acceptCancel",
+        // ActionLabel: "Xác nhận Cancel",
+        // ApiActiontype: ApiActionType.PUT,
+        // IsRowAction: true,
+        // DataType: CustomActionDataType.RowId,
+        //    },
+      );
     }
-
   } catch (error) {
     console.error(error);
   }
@@ -154,7 +149,7 @@ const tableColumns: TableColumn[] = [
     inputType: "text",
     dropdownData: null,
   },
-  
+
   {
     key: "email",
     label: "Email",
@@ -209,8 +204,8 @@ const tableColumns: TableColumn[] = [
     required: false,
     hidden: false,
     showSearch: false,
-    inputType: 'text',
-    dropdownData: null
+    inputType: "text",
+    dropdownData: null,
   },
   {
     key: "bankName",
@@ -336,9 +331,9 @@ const tableColumns: TableColumn[] = [
     enableCreate: false,
     required: false,
     hidden: false,
-    showSearch: true ,
+    showSearch: true,
     inputType: "text",
-    dropdownData:null
+    dropdownData: null,
   },
   {
     key: "nvCSKH",
@@ -350,9 +345,9 @@ const tableColumns: TableColumn[] = [
     enableCreate: false,
     required: false,
     hidden: false,
-    showSearch:  true,
+    showSearch: true,
     inputType: "dropdown",
-    dropdownData:{
+    dropdownData: {
       displayMember: "userName",
       keyMember: "id",
       apiUrl: "UserManagemet/cskh",
@@ -368,9 +363,9 @@ const tableColumns: TableColumn[] = [
     enableCreate: false,
     required: false,
     hidden: false,
-    showSearch: false ,
+    showSearch: false,
     inputType: "text",
-    dropdownData:null
+    dropdownData: null,
   },
   {
     key: "statusText",
@@ -385,35 +380,31 @@ const tableColumns: TableColumn[] = [
     showSearch: true,
     inputType: "dropdown",
     dropdownData: {
-            displayMember: "statusText",
-            keyMember: "status",
-            data: [
-                {
-                    status: "0",
-                    statusText: "Pending"
-                },
-                {
-
-                    status: "1",
-                    statusText: "Approved"
-                },
-                {
-
-                    status: "2",
-                    statusText: "Rejected"
-                },
-                {
-
-                    status: "3",
-                    statusText: "Cancel"
-                },
-                {
-                    status: "4",
-                    statusText: "CustomerCancel"
-                }
-            ]
-
+      displayMember: "statusText",
+      keyMember: "status",
+      data: [
+        {
+          status: "0",
+          statusText: "Pending",
         },
+        {
+          status: "1",
+          statusText: "Approved",
+        },
+        {
+          status: "2",
+          statusText: "Rejected",
+        },
+        {
+          status: "3",
+          statusText: "Cancel",
+        },
+        {
+          status: "4",
+          statusText: "CustomerCancel",
+        },
+      ],
+    },
   },
   {
     key: "createOn",
@@ -427,7 +418,7 @@ const tableColumns: TableColumn[] = [
     hidden: false,
     showSearch: true,
     inputType: "date",
-    dropdownData: null
+    dropdownData: null,
   },
   {
     key: "modifiedOn",
@@ -441,7 +432,7 @@ const tableColumns: TableColumn[] = [
     hidden: false,
     showSearch: true,
     inputType: "date",
-    dropdownData: null
+    dropdownData: null,
   },
   {
     key: "note",
@@ -455,7 +446,7 @@ const tableColumns: TableColumn[] = [
     hidden: false,
     showSearch: false,
     inputType: "textarea",
-    dropdownData: null
+    dropdownData: null,
   },
   {
     key: "noteCSKH",
@@ -469,7 +460,7 @@ const tableColumns: TableColumn[] = [
     hidden: false,
     showSearch: false,
     inputType: "textarea",
-    dropdownData: null
+    dropdownData: null,
   },
   {
     key: "exchangeLead",
@@ -482,8 +473,8 @@ const tableColumns: TableColumn[] = [
     required: false,
     hidden: false,
     showSearch: false,
-    inputType: 'text',
-    dropdownData: null
+    inputType: "text",
+    dropdownData: null,
   },
 
   {
@@ -497,8 +488,8 @@ const tableColumns: TableColumn[] = [
     required: false,
     hidden: false,
     showSearch: false,
-    inputType: 'link',
-    dropdownData: null
+    inputType: "link",
+    dropdownData: null,
   },
   {
     key: "image2",
@@ -511,8 +502,8 @@ const tableColumns: TableColumn[] = [
     required: false,
     hidden: false,
     showSearch: false,
-    inputType: 'link',
-    dropdownData: null
+    inputType: "link",
+    dropdownData: null,
   },
   {
     key: "image3",
@@ -525,8 +516,8 @@ const tableColumns: TableColumn[] = [
     required: false,
     hidden: false,
     showSearch: false,
-    inputType: 'link',
-    dropdownData: null
+    inputType: "link",
+    dropdownData: null,
   },
   {
     key: "image4",
@@ -539,8 +530,8 @@ const tableColumns: TableColumn[] = [
     required: false,
     hidden: false,
     showSearch: false,
-    inputType: 'link',
-    dropdownData: null
+    inputType: "link",
+    dropdownData: null,
   },
   {
     key: "idUser",
@@ -553,7 +544,7 @@ const tableColumns: TableColumn[] = [
     required: false,
     hidden: true,
     showSearch: false,
-    inputType: 'dropdown',
+    inputType: "dropdown",
     dropdownData: {
       displayMember: "userName",
       keyMember: "id",
@@ -571,7 +562,7 @@ const tableColumns: TableColumn[] = [
     required: false,
     hidden: true,
     showSearch: false,
-    inputType: 'dropdown',
+    inputType: "dropdown",
     dropdownData: {
       displayMember: "name",
       keyMember: "id",
@@ -595,7 +586,7 @@ function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {
 //     var Roles = Object.values(jsonObject) as string[];
 //     hasAdminRole.value = hasPermission(Roles, ["Admin", "superadmin"]);
 //     if(hasAdminRole.value){
-     
+
 //       CustomActions.push(
 //         {
 //     ActionName: "acceptCancel",
@@ -613,11 +604,10 @@ const Customers = ref<boolean>(false);
 const idCustomerLink = ref("");
 const openDialog = ref<boolean>(false);
 function ChangePage(item: CustomActionResponse) {
-
-  if (item.Action.ActionName == "Deatail"){
+  if (item.Action.ActionName == "Deatail") {
     router.push("/CustomerLink/" + item.Data.customerId);
   }
-    
+
   if (item.Action.ActionName == "statusChange") {
     idCustomerLink.value = item.Data.id;
     openDialog.value = true;
@@ -627,29 +617,20 @@ function ChangePage(item: CustomActionResponse) {
     var jsonObject = JSON.parse(jsonString);
     var Roles = Object.values(jsonObject) as string[];
     hasAdminRole.value = hasPermission(Roles, ["Admin", "superadmin"]);
-    if(hasAdminRole.value){
-      if(item.Data.customerCancel == false){
-  var checks = confirm("Bạn có muốn xác nhận Cancel");
-  if(checks){
-    axiosInstance
-      .put(`/CustomerLink/AcceptCancel?id=${item.Data.id}`)
-      .then((response) => {
-       return response.data
-      });
-      alert("Đã xác nhận");
+    if (hasAdminRole.value) {
+      if (item.Data.customerCancel == false) {
+        var checks = confirm("Bạn có muốn xác nhận Cancel");
+          axiosInstance
+            .put(`/CustomerLink/AcceptCancel/${item.Data.id}/${checks}`)
+            .then((response) => {
+              return response.data;
+            });
+          alert("Đã xác nhận");
 
-      return;
-  }else{
-    return;
-  }
-      
-}
-
+      }
     }
-
-
   }
- 
+
   if (item.Action.ActionName == "Export") {
     DownloadExcel(item.Data);
   }
@@ -668,17 +649,24 @@ function DownloadExcel(filters: Ref<Filter[]> | undefined) {
     PageIndex: 1,
     PageSize: 10,
   });
-  if(searchRequest.filters != undefined)
-  for(let i = 0; i < searchRequest.filters.length; i++){
-        if(searchRequest.filters[i].Type == "date"){
-            var value = searchRequest.filters[i].Value?.toString();
-            var filename = searchRequest.filters[i].FieldName?.toString()
-            searchRequest.filters.splice(i,1);
-            searchRequest.filters.push({FieldName: filename, DisplayName: filename, Value: value, Operation: "", Type: "text", dropdownData: undefined});
-            i--
-        }
+  if (searchRequest.filters != undefined)
+    for (let i = 0; i < searchRequest.filters.length; i++) {
+      if (searchRequest.filters[i].Type == "date") {
+        var value = searchRequest.filters[i].Value?.toString();
+        var filename = searchRequest.filters[i].FieldName?.toString();
+        searchRequest.filters.splice(i, 1);
+        searchRequest.filters.push({
+          FieldName: filename,
+          DisplayName: filename,
+          Value: value,
+          Operation: "",
+          Type: "text",
+          dropdownData: undefined,
+        });
+        i--;
+      }
     }
-    console.log(searchRequest);
+  console.log(searchRequest);
   axiosInstance
     .post("CustomerLink/Download", searchRequest, {
       responseType: "blob",

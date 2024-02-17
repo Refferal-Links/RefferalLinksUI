@@ -143,7 +143,7 @@ const rowClassName = ({ row }: { row: SearchDTOItem }) => {
     if(row.watched === false){
         className = "row-not-watched"
     }
-    else if(row.customerCancel){
+    else if(row.customerCancel == false){
         className = "row-sale-cancel"
     }
     else{
