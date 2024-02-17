@@ -99,6 +99,7 @@ const customerLink = ref({
   customerId: "",
   note: "",
   noteCSKH: "",
+  customerCancel: null,
 });
 
 function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {
@@ -165,7 +166,13 @@ async function Save() {
       break;
     case "Cancel":
       customerLink.value.status = 3;
-      break;
+      break; 
+      
+  }
+  if(customerLink.value.status == 3){
+     if(!hasAdminRole.value){
+      alert("Thay đổi không được cập nhật vui này chọn ADMIN xác nhận ");
+     }
   }
   const request = new CustomerLinkDto();
   request.id = props.CustomerLinkId;

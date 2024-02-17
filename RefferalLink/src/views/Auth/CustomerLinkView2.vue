@@ -67,6 +67,7 @@ const CustomActions: CustomAction[] = [
     IsRowAction: true,
     DataType: CustomActionDataType.RowId,
   },
+  
 
 ];
 function checkRole() {
@@ -86,8 +87,20 @@ function checkRole() {
         ApiActiontype: ApiActionType.PUT,
         IsRowAction: false,
         DataType: CustomActionDataType.Filters,
-      })
+      },
+
+    //   {
+    // ActionName: "acceptCancel",
+    // ActionLabel: "Xác nhận Cancel",
+    // ApiActiontype: ApiActionType.PUT,
+    // IsRowAction: true,
+    // DataType: CustomActionDataType.RowId,
+    //    },
+      )
+       
+
     }
+
   } catch (error) {
     console.error(error);
   }
@@ -571,12 +584,32 @@ function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {
   }
   return false;
 }
+// const AccseptCancel = ref("");
+// function checkAcessCancle(){
+//   var jsonString = Cookies.get("Roles")?.toString() ?? "";
+//     var jsonObject = JSON.parse(jsonString);
+//     var Roles = Object.values(jsonObject) as string[];
+//     hasAdminRole.value = hasPermission(Roles, ["Admin", "superadmin"]);
+//     if(hasAdminRole.value){
+     
+//       CustomActions.push(
+//         {
+//     ActionName: "acceptCancel",
+//     ActionLabel: "Xác nhận Cancel",
+//     ApiActiontype: ApiActionType.PUT,
+//     IsRowAction: true,
+//     DataType: CustomActionDataType.RowId,
+//        },
+//       )
+//     }
+// }
+// checkAcessCancle();
 
-
-
+const Customers = ref<boolean>(false);
 const idCustomerLink = ref("");
 const openDialog = ref<boolean>(false);
 function ChangePage(item: CustomActionResponse) {
+
   if (item.Action.ActionName == "Deatail"){
     router.push("/CustomerLink/" + item.Data.customerId);
   }
@@ -585,7 +618,34 @@ function ChangePage(item: CustomActionResponse) {
     idCustomerLink.value = item.Data.id;
     openDialog.value = true;
     console.log("open");
+    console.log(item.Data.customerCancel);
+    var jsonString = Cookies.get("Roles")?.toString() ?? "";
+    var jsonObject = JSON.parse(jsonString);
+    var Roles = Object.values(jsonObject) as string[];
+    hasAdminRole.value = hasPermission(Roles, ["Admin", "superadmin"]);
+    if(hasAdminRole.value){
+      if(item.Data.customerCancel == false){
+  var checks = confirm("Bạn có muốn xác nhận Cancel");
+  if(checks){
+    axiosInstance
+      .put(`/CustomerLink/AcceptCancel?id=${item.Data.id}`)
+      .then((response) => {
+       return response.data
+      });
+      alert("Đã xác nhận");
+
+      return;
+  }else{
+    return;
   }
+      
+}
+
+    }
+
+
+  }
+ 
   if (item.Action.ActionName == "Export") {
     DownloadExcel(item.Data);
   }

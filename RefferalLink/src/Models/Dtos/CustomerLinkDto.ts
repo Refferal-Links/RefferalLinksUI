@@ -20,7 +20,7 @@ export class CustomerLinkDto{
     createOn: string|undefined
     modifiedOn: string|undefined
     note: string|undefined
-
+    customerCancel: boolean|undefined
 
     image1: string|undefined
     image2: string|undefined
