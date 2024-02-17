@@ -407,6 +407,10 @@ const tableColumns: TableColumn[] = [
                     status: "3",
                     statusText: "Cancel"
                 },
+                {
+                    status: "4",
+                    statusText: "CustomerCancel"
+                }
             ]
 
         },

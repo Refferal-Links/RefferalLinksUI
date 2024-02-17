@@ -11,6 +11,7 @@
           <el-radio-button label="Approved" />
           <el-radio-button label="Rejected" />
           <el-radio-button label="Cancel" />
+     
         </el-radio-group>
       </div>
       <div>
@@ -142,6 +143,9 @@ const getCustomerLink = async () => {
           case 3:
             customerLink.value.statusText = "Cancel";
             break;
+          // case 4:
+          //    customerLink.value.statusText = "CustomerCancel";
+          //    break;
         }
       }
     });
@@ -167,6 +171,9 @@ async function Save() {
     case "Cancel":
       customerLink.value.status = 3;
       break; 
+    // case"CustomerCancel":
+    //   customerLink.value.status = 4;
+    //     break;
       
   }
   if(customerLink.value.status == 3){
