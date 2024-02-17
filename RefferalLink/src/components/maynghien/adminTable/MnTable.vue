@@ -143,6 +143,9 @@ const rowClassName = ({ row }: { row: SearchDTOItem }) => {
     if(row.watched === false){
         className = "row-not-watched"
     }
+    else if(row.customerCancel){
+        className = "row-sale-cancel"
+    }
     else{
         className = row.statusText;
     }
@@ -178,6 +181,9 @@ function formatHTML(htmlContent : string) {
 }
 .Cancel{
     background-color: #b166c4 !important;
+}
+.row-sale-cancel{
+    background-color: orange !important;
 }
 </style>
   
