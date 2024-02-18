@@ -616,7 +616,7 @@ function ChangePage(item: CustomActionResponse) {
     var jsonString = Cookies.get("Roles")?.toString() ?? "";
     var jsonObject = JSON.parse(jsonString);
     var Roles = Object.values(jsonObject) as string[];
-    hasAdminRole.value = hasPermission(Roles, ["Admin", "superadmin"]);
+    hasAdminRole.value = hasPermission(Roles, ["Admin", "superadmin","Teamleader","SUP"]);
     if (hasAdminRole.value) {
       if (item.Data.customerCancel == false) {
         var checks = confirm("Bạn có muốn xác nhận Cancel");

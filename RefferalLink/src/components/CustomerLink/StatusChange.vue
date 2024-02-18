@@ -89,6 +89,7 @@ const emit = defineEmits<{
 }>();
 const userRoles = ref<string[]>();
 const hasAdminRole = ref<boolean>(false);
+const hasSupAndLeaderRole = ref<boolean>(false);
 const message = ref<string>("");
 
 const customerLink = ref({
@@ -119,7 +120,9 @@ const getCustomerLink = async () => {
     "Admin",
     "superadmin",
   ]);
-  
+  hasSupAndLeaderRole.value = hasPermission(Roles as string[], [
+    "SUP","Teamleader"
+  ])
   await axiosInstance
     .get(`/CustomerLink/${props.CustomerLinkId}`)
     .then((response) => {
@@ -192,8 +195,8 @@ async function Save() {
         alert(response.data.message);
       } else {
         if(customerLink.value.status == 3){
-          if(!hasAdminRole.value){
-            alert("Thay đổi không được cập nhật vui này chọn ADMIN xác nhận ");
+          if(!(hasAdminRole.value || hasSupAndLeaderRole.value)){
+            alert("Thay đổi đã được cập nhật trên hệ thống, vui lòng chờ xác nhận");
           }
         }
         console.log(response.data);

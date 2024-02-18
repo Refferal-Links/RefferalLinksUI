@@ -1,7 +1,25 @@
 <template>
+  <div>
+    <el-select
+      v-model="bank"
+      class="m-2"
+      placeholder="Select bank"
+      size="large"
+      style="width: 240px"
+      filterable
+    >
+      <el-option
+        v-for="item in Customer.banks"
+        :key="item.id"
+        :label="item.name"
+        :value="item.id"
+      />
+    </el-select>
+    <el-button :icon="Search"  @click="handlebtnSearchClicked"> search</el-button>
+  </div>
   <div >
     <el-row :gutter="20" class="Bank">
-      <el-col v-for="bank in Customer.banks" :key="bank.id" :span="8">
+      <el-col v-for="bank in banks" :key="bank.id" :span="8">
         <el-card class="box-card">
           <template #header>
             <div class="card-header">
@@ -33,9 +51,12 @@ import router from '@/router';
 import type { Bank } from '@/Models/Dtos/BankViewModel';
 import {handelCreateCustomerLink} from '../Services/CustomerLink/Create';
 import Clipboard from 'clipboard';
+import {
+    Search,
+} from '@element-plus/icons-vue';
 const route = useRoute();
-
-
+const bank = ref();
+const banks = ref<Bank[]>([])
 const Customer = ref<CustomerDto>({
   id: undefined,
   name: undefined,
@@ -54,6 +75,7 @@ async function fetchCustomer() {
   await GetCustomer( useRoute().params.Id.toString()).then((x) => {
     if (x.isSuccess && x.data != null) {
       Customer.value = x.data;
+      banks.value = Customer.value.banks ?? [];
       console.log(Customer.value);
     }
   });
@@ -107,6 +129,17 @@ function myFunction( text:string) {
   // alert("Copy: " + text);
   Link.value = text;
   showLink.value = true;
+}
+const loading = ref(false);
+function handlebtnSearchClicked(){
+  loading.value = true;
+    setTimeout(() => {
+      loading.value = false;
+      banks.value =
+        Customer.value.banks?.filter((item) =>
+          item.id?.toLowerCase().includes(bank.value.toLowerCase())
+        ) ?? [];
+    }, 200);
 }
 </script>
 <style>
