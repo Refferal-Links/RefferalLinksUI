@@ -194,6 +194,20 @@ const tableColumns: TableColumn[] = [
     dropdownData: null,
   },
   {
+    key: "phoneNumber",
+    label: "Số điện thoại",
+    width: 130,
+    sortable: true,
+    enableEdit: false,
+
+    enableCreate: false,
+    required: false,
+    hidden: true,
+    showSearch: true,
+    inputType: "text",
+    dropdownData: null,
+  },
+  {
     key: "provinceName",
     label: "Tỉnh thành",
     width: 110,
