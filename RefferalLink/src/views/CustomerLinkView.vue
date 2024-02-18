@@ -75,6 +75,12 @@ async function fetchCustomer() {
   await GetCustomer( useRoute().params.Id.toString()).then((x) => {
     if (x.isSuccess && x.data != null) {
       Customer.value = x.data;
+      Customer.value.banks = Customer.value.banks?.sort((a, b) => {
+        if (a.name && b.name) {
+          return a.name.localeCompare(b.name); // Sắp xếp theo thứ tự alphabet
+        }
+        return 0; // hoặc trả về một giá trị phù hợp nếu không thể so sánh tên
+      })
       banks.value = Customer.value.banks ?? [];
       console.log(Customer.value);
     }
