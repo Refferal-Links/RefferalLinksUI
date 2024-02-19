@@ -12,6 +12,7 @@
     :CustomActions="CustomRowActions" @on-custom-action="handleCustomAction" @onSortChange="handleSortChange"
     :scroll="scroll" :loadding="loadding" />
 
+
   <el-select v-model="pageSize" class="m-2" placeholder="Select" size="small" v-if="changePageSize == true">
     <el-option v-for="item in pageSizeSelect" :key="item" :label="item" :value="item" />
   </el-select>
@@ -57,7 +58,6 @@ import type { CustomAction, CustomActionResponse } from './Models/CustomAction';
 import { SortByInfo } from '../BaseModels/SortByInfo';
 import Cookies from 'js-cookie';
 //#region Method
-
 
 // Get the token from the cookies
 const getCookie = (name: string): string | null => {
@@ -261,4 +261,5 @@ watch(() => pageSize.value, () => {
   Cookies.set('pageSize', pageSize.value.toString(), { expires: undefined });
   Search();
 })
+
 </script>

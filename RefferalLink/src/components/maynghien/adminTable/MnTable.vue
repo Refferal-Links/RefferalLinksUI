@@ -7,14 +7,28 @@
             @row-click="handleRowClick" v-loading="loadding == true" :row-class-name="rowClassName">
             <!-- <el-table-column v-for="column in shownCol" :key="column.key" :prop="column.key" :label="column.label"
                 :sortable="column.sortable ? 'custom' : 'false'" :visible="column.hidden == false" /> -->
-                <el-table-column label="STT" width="60" fixed>
+                <el-table-column label="STT" width="50" fixed>
                     <template #default="scope">
                     <span>{{ scope.$index + 1 }}</span>
                     </template>
                 </el-table-column>
 
-            <el-table-column v-for="column in shownCol" :key="column.key" :label="column.label" :visible="column.hidden == false" :width="scroll ? column.width : undefined"
-            :sortable="column.sortable == true ? 'custom' : false" :prop="column.key" :span="1" :fixed="column.fixed">
+                <el-table-column type="expand" fixed v-if="isMobile">
+                    <template #default="props" class="a">
+                        <div class = "element-lv2">
+                            <div v-for="element in shownCol.filter(x=>x.hiddenElement == true)" :key="element.key" >
+                               <!-- <span> {{ element.label }}: {{ element.key? props.row[element.key]:"" }}</span> -->
+                               <el-link v-if="element.inputType == 'link' && element.key && props.row[element.key]"  :href="props.row[element.key]" target="_blank" type="primary">{{ element.label}}</el-link>
+                               <div v-else-if="element.key">{{ element.label}}:     {{ props.row[element.key] }}</div>
+                            </div>
+                        </div>
+                        <!-- Thêm các thông tin khác ở đây -->
+                    </template>
+                </el-table-column>
+
+            <el-table-column v-for="column in isMobile ? shownCol.filter(x=>x.hiddenElement != true) : shownCol" :key="column.key" :label="column.label" :visible="column.hidden == false" :width="scroll ? column.width : undefined"
+            :sortable="column.sortable == true ? 'custom' : false" :prop="column.key" :span="1" :fixed="column.fixed && isMobile == false"
+            >
                 <template #default="scope">
                     <el-link v-if="column.inputType == 'link' && column.key && scope.row[column.key]"  :href="scope.row[column.key]" target="_blank" type="primary">Xem</el-link>
                     <el-link v-else-if="column.inputType == 'phoneNumber' && column.key && scope.row[column.key]" :href="'tel:' + scope.row[column.key]" target="_blank" type="primary">{{hideMiddleNumbers(scope.row[column.key]) }}</el-link>
@@ -52,6 +66,8 @@ import {
 } from '@element-plus/icons-vue';
 import { CustomActionResponse, type CustomAction } from './Models/CustomAction';
 import { handleAPICustom } from './Service/BasicAdminService';
+
+const isMobile = ref(false);
 
 const props = defineProps<{
     columns: TableColumn[];
@@ -155,6 +171,14 @@ function formatHTML(htmlContent : string) {
         // Sử dụng v-pre để bảo vệ khỏi việc escape HTML
         return `<div v-pre style="white-space: normal;">${htmlContent}</div>`;
     }
+
+const checkMobile = () => {
+  var chieuRongManHinh = window.innerWidth;
+  if(chieuRongManHinh <= 600){
+    isMobile.value = true;
+  }
+}
+checkMobile();
 </script>
   
 <style>
@@ -184,6 +208,13 @@ function formatHTML(htmlContent : string) {
 }
 .row-sale-cancel{
     background-color: orange !important;
+}
+.element-lv2 {
+    padding-left: 15px;
+    background-color: #f1f0f785;
+}
+.element-lv2 > div {
+    border-bottom: 1px solid rgb(183, 179, 179);
 }
 </style>
   

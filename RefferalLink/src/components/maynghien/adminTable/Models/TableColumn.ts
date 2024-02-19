@@ -13,6 +13,7 @@ export class TableColumn {
     inputType?: string = "text";
     dropdownData?: any | null;
     fixed?: boolean = false;
+    hiddenElement?: boolean = false;
     constructor() {
 
     };

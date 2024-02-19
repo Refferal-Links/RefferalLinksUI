@@ -29,11 +29,11 @@
                     <el-menu-item index="2" @click="onMenuItemClick('CustomerLink2')">
                         Khách hàng
                     </el-menu-item>
-                    <el-menu-item index="3" @click="onMenuItemClick(`Register`)" v-if="hasSaleRole || hasCSKHRole || hasTeamleaderRole || hasSUPRole">
+                    <el-menu-item index="3" @click="onMenuItemClick(`Register`)" v-if="hasSaleRole || hasCSKHRole || hasTeamleaderRole || hasSUPRole" class="cl-black-min480">
                         Đăng kí
                         
                     </el-menu-item>
-                    <el-menu-item index="4" @click="onMenuItemClick(`Report`)">
+                    <el-menu-item index="4" @click="onMenuItemClick(`Report`)" class="cl-black-min480">
                         Báo cáo
                         
                     </el-menu-item>
@@ -108,6 +108,12 @@ header.el-header {
 }
 a{
     text-decoration: none;
+}
+@media screen and (max-width: 480px) {
+    .cl-black-min480{
+        color: black !important;
+    }
+    
 }
 </style>  
 <script lang="ts" setup>

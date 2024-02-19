@@ -348,6 +348,7 @@ const tableColumns: TableColumn[] = [
     showSearch: true,
     inputType: "text",
     dropdownData: null,
+    hiddenElement: true,
   },
   {
     key: "nvCSKH",
@@ -380,6 +381,7 @@ const tableColumns: TableColumn[] = [
     showSearch: false,
     inputType: "text",
     dropdownData: null,
+    hiddenElement: true,
   },
   {
     key: "statusText",
@@ -461,6 +463,7 @@ const tableColumns: TableColumn[] = [
     showSearch: false,
     inputType: "textarea",
     dropdownData: null,
+    hiddenElement: true,
   },
   {
     key: "noteCSKH",
@@ -475,6 +478,7 @@ const tableColumns: TableColumn[] = [
     showSearch: false,
     inputType: "textarea",
     dropdownData: null,
+    hiddenElement: true,
   },
   {
     key: "exchangeLead",
@@ -489,6 +493,7 @@ const tableColumns: TableColumn[] = [
     showSearch: false,
     inputType: "text",
     dropdownData: null,
+    hiddenElement: true,
   },
 
   {
@@ -504,6 +509,7 @@ const tableColumns: TableColumn[] = [
     showSearch: false,
     inputType: "link",
     dropdownData: null,
+    hiddenElement: true,
   },
   {
     key: "image2",
@@ -518,6 +524,7 @@ const tableColumns: TableColumn[] = [
     showSearch: false,
     inputType: "link",
     dropdownData: null,
+    hiddenElement: true,
   },
   {
     key: "image3",
@@ -532,6 +539,7 @@ const tableColumns: TableColumn[] = [
     showSearch: false,
     inputType: "link",
     dropdownData: null,
+    hiddenElement: true,
   },
   {
     key: "image4",
@@ -546,6 +554,7 @@ const tableColumns: TableColumn[] = [
     showSearch: false,
     inputType: "link",
     dropdownData: null,
+    hiddenElement: true,
   },
   {
     key: "idUser",
