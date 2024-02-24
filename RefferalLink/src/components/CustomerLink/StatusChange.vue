@@ -63,7 +63,7 @@
         </div> -->
         <div style="display: flex; flex-direction: column;">
           <div class="dl-f-w">
-            <el-input placeholder="Please input" v-model="customerLink.listCustomerlinkImage[0].linkImage" />
+            <el-input placeholder="Hình 1" v-model="customerLink.listCustomerlinkImage[0].linkImage" />
             <el-image v-if="customerLink.listCustomerlinkImage[0].linkImage !== ''"
               style="width: 100px; height: 100px"
               :src="customerLink.listCustomerlinkImage[0].linkImage"
@@ -71,7 +71,7 @@
             />
           </div>
           <div class="dl-f-w">
-            <el-input placeholder="Please input" v-model="customerLink.listCustomerlinkImage[1].linkImage" />
+            <el-input placeholder="Hình 2" v-model="customerLink.listCustomerlinkImage[1].linkImage" />
             <el-image v-if="customerLink.listCustomerlinkImage[1].linkImage !== ''"
               style="width: 100px; height: 100px"
               :src="customerLink.listCustomerlinkImage[1].linkImage"
@@ -79,7 +79,7 @@
             />
           </div>
           <div class="dl-f-w">
-            <el-input placeholder="Please input" v-model="customerLink.listCustomerlinkImage[2].linkImage" />
+            <el-input placeholder="Hình 3" v-model="customerLink.listCustomerlinkImage[2].linkImage" />
             <el-image v-if="customerLink.listCustomerlinkImage[2].linkImage !== ''"
               style="width: 100px; height: 100px"
               :src="customerLink.listCustomerlinkImage[2].linkImage"
@@ -87,7 +87,7 @@
             />
           </div>
           <div class="dl-f-w">
-            <el-input placeholder="Please input" v-model="customerLink.listCustomerlinkImage[3].linkImage" />
+            <el-input placeholder="Hình 4" v-model="customerLink.listCustomerlinkImage[3].linkImage" />
             <el-image v-if="customerLink.listCustomerlinkImage[3].linkImage !== ''"
               style="width: 100px; height: 100px"
               :src="customerLink.listCustomerlinkImage[3].linkImage"
