@@ -33,7 +33,7 @@
         />
       </div>
       <el-card class="box-card">
-        <template #header>
+        <!-- <template #header>
           <div class="card-header">
             <span>List image</span>
           </div>
@@ -60,10 +60,44 @@
             "
             >Xóa</el-button
           >
-        </div>
-        <div style="display: flex">
-          <el-input placeholder="Please input" v-model="linkText" />
-          <el-button class="button" @click="addImage()"> thêm </el-button>
+        </div> -->
+        <div style="display: flex; flex-direction: column;">
+          <div class="dl-f-w">
+            <el-input placeholder="Please input" v-model="customerLink.listCustomerlinkImage[0].linkImage" />
+            <el-image v-if="customerLink.listCustomerlinkImage[0].linkImage !== ''"
+              style="width: 100px; height: 100px"
+              :src="customerLink.listCustomerlinkImage[0].linkImage"
+              fit="contain"
+            />
+          </div>
+          <div class="dl-f-w">
+            <el-input placeholder="Please input" v-model="customerLink.listCustomerlinkImage[1].linkImage" />
+            <el-image v-if="customerLink.listCustomerlinkImage[1].linkImage !== ''"
+              style="width: 100px; height: 100px"
+              :src="customerLink.listCustomerlinkImage[1].linkImage"
+              fit="contain"
+            />
+          </div>
+          <div class="dl-f-w">
+            <el-input placeholder="Please input" v-model="customerLink.listCustomerlinkImage[2].linkImage" />
+            <el-image v-if="customerLink.listCustomerlinkImage[2].linkImage !== ''"
+              style="width: 100px; height: 100px"
+              :src="customerLink.listCustomerlinkImage[2].linkImage"
+              fit="contain"
+            />
+          </div>
+          <div class="dl-f-w">
+            <el-input placeholder="Please input" v-model="customerLink.listCustomerlinkImage[3].linkImage" />
+            <el-image v-if="customerLink.listCustomerlinkImage[3].linkImage !== ''"
+              style="width: 100px; height: 100px"
+              :src="customerLink.listCustomerlinkImage[3].linkImage"
+              fit="contain"
+            />
+          </div>
+          <!-- <el-input placeholder="Please input" v-model="customerLink.listCustomerlinkImage[1].linkImage" />
+          <el-input placeholder="Please input" v-model="customerLink.listCustomerlinkImage[2].linkImage" />
+          <el-input placeholder="Please input" v-model="customerLink.listCustomerlinkImage[3].linkImage" /> -->
+          <!-- <el-button class="button" @click="addImage()"> thêm </el-button> -->
         </div>
       </el-card>
       <p style="color: red">{{ message }}</p>
@@ -96,14 +130,45 @@ const customerLink = ref({
   id: undefined,
   status: 0,
   statusText: "",
-  listCustomerlinkImage: [] as CustomerlinkImageDto[],
+  listCustomerlinkImage: [
+    {
+      linkImage: "",
+      customerLinkId: undefined,
+      id: undefined,
+    },
+    {
+      linkImage: "",
+      customerLinkId: undefined,
+      id: undefined,
+    },
+    {
+      linkImage: "",
+      customerLinkId: undefined,
+      id: undefined,
+    },
+    {
+      linkImage: "",
+      customerLinkId: undefined,
+      id: undefined,
+    },
+] as CustomerlinkImageDto[],
   url: "",
   customerId: "",
   note: "",
   noteCSKH: "",
   customerCancel: null,
 });
-
+// for (let i = 0; i < 4; i++) {
+//     if (!customerLink.value.listCustomerlinkImage) {
+//       customerLink.value.listCustomerlinkImage = []; // hoặc khởi tạo giá trị mảng khác
+//     }
+//     if (customerLink.value.listCustomerlinkImage.length) {
+//       message.value = "";
+//       const customerlinkImage = new CustomerlinkImageDto();
+//       customerlinkImage.linkImage = "";
+//       customerLink.value.listCustomerlinkImage.push(customerlinkImage);
+//     }
+// }
 function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {
   for (const requiredRole of requiredRoles) {
     if (userRoles.includes(requiredRole)) {
@@ -150,10 +215,26 @@ const getCustomerLink = async () => {
           //    customerLink.value.statusText = "CustomerCancel";
           //    break;
         }
+        if(customerLink.value.listCustomerlinkImage.length < 4){
+          var n = 4 - customerLink.value.listCustomerlinkImage.length
+          for (let i = 0; i < n; i++) {
+            if (!customerLink.value.listCustomerlinkImage) {
+              customerLink.value.listCustomerlinkImage = []; // hoặc khởi tạo giá trị mảng khác
+            }
+            if (customerLink.value.listCustomerlinkImage.length < 4) {
+              var dto = new CustomerlinkImageDto();
+              dto.linkImage = "";
+              customerLink.value.listCustomerlinkImage.push(dto);
+            }
+          }
+        }
       }
     });
 };
-onMounted(getCustomerLink);
+onMounted(() => {
+  getCustomerLink
+});
+
 watch(() => props.openDialog, getCustomerLink);
 const linkText = ref("");
 async function Save() {
@@ -183,7 +264,7 @@ async function Save() {
   const request = new CustomerLinkDto();
   request.id = props.CustomerLinkId;
   request.status = customerLink.value.status;
-  request.listCustomerlinkImage = customerLink.value.listCustomerlinkImage;
+  request.listCustomerlinkImage = customerLink.value.listCustomerlinkImage.filter(x=>x.linkImage != '');
   request.note = customerLink.value.note;
   request.noteCSKH = customerLink.value.noteCSKH
   console.log("request", request);
@@ -205,20 +286,20 @@ async function Save() {
       }
     });
 }
-function addImage() {
-  console.log(customerLink.value.listCustomerlinkImage);
-  if (!customerLink.value.listCustomerlinkImage) {
-    customerLink.value.listCustomerlinkImage = []; // hoặc khởi tạo giá trị mảng khác
-  }
-  if (customerLink.value.listCustomerlinkImage.length < 4) {
-    message.value = "";
-    const customerlinkImage = new CustomerlinkImageDto();
-    customerlinkImage.linkImage = linkText.value;
-    customerLink.value.listCustomerlinkImage.push(customerlinkImage);
-  } else {
-    message.value = "không được vượt qua 4 ảnh";
-  }
-}
+// function addImage() {
+//   console.log(customerLink.value.listCustomerlinkImage);
+//   if (!customerLink.value.listCustomerlinkImage) {
+//     customerLink.value.listCustomerlinkImage = []; // hoặc khởi tạo giá trị mảng khác
+//   }
+//   if (customerLink.value.listCustomerlinkImage.length < 4) {
+//     message.value = "";
+//     const customerlinkImage = new CustomerlinkImageDto();
+//     customerlinkImage.linkImage = linkText.value;
+//     customerLink.value.listCustomerlinkImage.push(customerlinkImage);
+//   } else {
+//     message.value = "không được vượt qua 4 ảnh";
+//   }
+// }
 </script>
 <style>
 .dialog-status{

@@ -30,13 +30,21 @@ export class CustomerLinkDto{
     nvCSKH: string|undefined
     codeNVCSKH: string|undefined
 
-    listCustomerlinkImage: CustomerlinkImageDto[]|undefined
+    listCustomerlinkImage: CustomerlinkImageDto[]
 
     noteCSKH: string|undefined
+
+    constructor() {
+        this.listCustomerlinkImage = [];
+    }
 }
 
 export class CustomerlinkImageDto{
     id: string|undefined
-    linkImage:string|undefined
+    linkImage:string
     customerLinkId:string|undefined
+
+    constructor() {
+        this.linkImage = "";
+    }
 }
