@@ -216,5 +216,11 @@ checkMobile();
 .element-lv2 > div {
     border-bottom: 1px solid rgb(183, 179, 179);
 }
+.el-scrollbar__bar.is-horizontal {
+    height: 8px !important;
+}
+.el-scrollbar__thumb {
+    background-color: blue !important;
+}
 </style>
   
