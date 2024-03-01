@@ -164,6 +164,10 @@ const tableColumns: TableColumn[] = [
           role: "SUP",
           roleName: "SUP",
         },
+        {
+          role: "superadmin",
+          roleName: "superadmin",
+        },
       ],
     },
   },
