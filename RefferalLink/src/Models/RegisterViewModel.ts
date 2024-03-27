@@ -11,4 +11,5 @@ export class RegisterViewModel{
     job: string | undefined;
     source: string | undefined;
     tpBank: string | undefined;
+    saleId: string | undefined;
 }

@@ -29,7 +29,7 @@
                     <el-menu-item index="2" @click="onMenuItemClick('CustomerLink2')">
                         Khách hàng
                     </el-menu-item>
-                    <el-menu-item index="3" @click="onMenuItemClick(`Register`)" v-if="hasSaleRole || hasCSKHRole || hasTeamleaderRole || hasSUPRole" class="cl-black-min480">
+                    <el-menu-item index="3" @click="onMenuItemClick(`Register`)" v-if="hasSaleRole || hasCSKHRole || hasTeamleaderRole || hasSUPRole || hasAdminRole" class="cl-black-min480">
                         Đăng kí
                         
                     </el-menu-item>
@@ -181,8 +181,11 @@ const onMenuItemClick = (item: string) => {
         if(decodedToken.value.tpBank){
             router.push(`/${item}/Code=${decodedToken.value.refferalCode}/TpBank=${decodedToken.value.tpBank}`);
         }
-        else{
+        else if(decodedToken.value.refferalCode){
             router.push(`/${item}/Code=${decodedToken.value.refferalCode}`);
+        }
+        else {
+            router.push(`/${item}`);
         }
     }
    else{

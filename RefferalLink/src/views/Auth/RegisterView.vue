@@ -66,13 +66,29 @@
           <el-form-item>
             <el-select v-model="state.source" placeholder="Nguồn">
               <el-option
-                v-for="item in ( (hasSaleRole || decodedToken.typeTeam == 'Sale' )? sourceSale: source)"
+                v-for="item in ( (hasSaleRole || decodedToken.typeTeam == 'Sale' )? sourceSale: hasAdminRole ? sourceAdmin : source)"
                 :key="item"
                 :label="item"
                 :value="item"
               >
                 {{ item }}
               </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item v-if="hasAdminRole">
+            <el-select 
+              v-model="state.saleId"
+              clearable
+              filterable
+              :reserve-keyword="false"
+              placeholder="sale"
+            >
+              <el-option
+                v-for="item in listSale"
+                :key="item.id"
+                :label="item.userName"
+                :value="item.id"
+              />
             </el-select>
           </el-form-item>
           <el-form-item>
@@ -102,8 +118,10 @@ import { useRoute } from "vue-router";
 import router from "@/router";
 import Cookies from 'js-cookie';
 import type { LoginResult } from "@/Models/LoginResult";
+import {UserModel} from "../../Models/Dtos/UserModel"
 const dialogVisible = ref(false);
 const hasSaleRole = ref<boolean>(false);
+const hasAdminRole = ref<boolean>(false);
 const state = reactive<RegisterViewModel>({
   name: "",
   phoneNumber: "",
@@ -116,6 +134,7 @@ const state = reactive<RegisterViewModel>({
   source: "",
   job: "",
   tpBank: "",
+  saleId: undefined,
 });
 const route = useRoute();
 const decodedToken = ref<LoginResult>({
@@ -153,8 +172,11 @@ async function register() {
   }
   const code = route.params.Code;
   const tpBank = route.params.TpBank;
-  state.refferalCode = code.toString();
-  state.tpBank = tpBank ?  tpBank.toString() : "";
+  if(!hasAdminRole.value){
+    state.refferalCode = code.toString();
+    state.tpBank = tpBank ?  tpBank.toString() : "";
+  }
+  
   const findPhoneNumberDto = {
   PhoneNumber: state.phoneNumber,
   Passport: state.passport
@@ -295,6 +317,7 @@ interface Province {
 }
 
 const provinceDataRef = ref<Province[]>([]);
+const listSale = ref<UserModel[]>([]);
 const source = ref<string[]>([
   // "Tự khai thác",
   "AutoCall",
@@ -306,6 +329,14 @@ const sourceSale = ref<string[]>([
   // "AutoCall",
   // "SMS",
   // "Tư vấn viên",
+  "Đi thị trường",
+  "Khác"
+]);
+const sourceAdmin = ref<string[]>([
+  "Tự khai thác",
+  "AutoCall",
+  "SMS",
+  "Tư vấn viên",
   "Đi thị trường",
   "Khác"
 ]);
@@ -324,6 +355,21 @@ async function fetchProvinceData() {
     console.error(error);
   }
 }
+async function fetchSaleData() {
+  try {
+    const response = await axiosInstance.get("UserManagemet/sale");
+    if (response.status === 200) {
+      console.log(response.data.data);
+      listSale.value = response.data.data;
+      // listSale.value = response.data.data;
+    } else {
+      console.error("Không thể lấy dữ liệu sale");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+fetchSaleData()
 function hasPermission(userRoles: string[], requiredRoles: string[]): boolean {
   for (const requiredRole of requiredRoles) {
     if (userRoles.includes(requiredRole)) {
@@ -343,6 +389,7 @@ function getCode(){
     console.log(decodedToken.value);
     userRoles.value = decodedToken.value?.roles ?? [];
     hasSaleRole.value = hasPermission(userRoles.value as string[], ["Sale"]);
+    hasAdminRole.value = hasPermission(userRoles.value as string[], ["Admin", "superadmin"]);
     decodedToken.value.typeTeam = Cookies.get('TypeTeam')?.toString() ?? '';
 }
 getCode();

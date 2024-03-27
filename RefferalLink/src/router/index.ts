@@ -107,12 +107,17 @@ const router = createRouter({
         {
           path: "Register/Code=:Code/TpBank=:TpBank",
           component: RegisterView,
-          meta: { requiresAuth: true, roles: ["Sale","CSKH", "Teamleader", "SUP"]},
+          meta: { requiresAuth: true, roles: ["Sale","CSKH", "Teamleader", "SUP","Admin", "superadmin"]},
         },
         {
           path: "Register/Code=:Code",
           component: RegisterView,
-          meta: { requiresAuth: true, roles: ["Sale","CSKH", "Teamleader", "SUP"]},
+          meta: { requiresAuth: true, roles: ["Sale","CSKH", "Teamleader", "SUP","Admin", "superadmin"]},
+        },
+        {
+          path: "Register",
+          component: RegisterView,
+          meta: { requiresAuth: true, roles: ["Admin", "superadmin"]},
         },
       ]
     }
